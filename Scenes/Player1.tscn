@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://2uyjvd3a4yy2"]
+
+[ext_resource type="Texture2D" uid="uid://cpeicrld8d4k5" path="res://Assets/Sprites/Medieval Warrior Pack 3/Idle.png" id="1_nlwqd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5fpy"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(0, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvont"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(135, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yta1"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(270, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ale3"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(405, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i047d"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(540, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjvw7"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(675, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tchc4"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(810, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0l6a"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(945, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv6sk"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(1080, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgfcu"]
+atlas = ExtResource("1_nlwqd")
+region = Rect2(1215, 0, 135, 135)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3qf5g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5fpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvont")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yta1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ale3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i047d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjvw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tchc4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0l6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv6sk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgfcu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3odvt"]
+radius = 6.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -17)
+sprite_frames = SubResource("SpriteFrames_3qf5g")
+autoplay = "default"
+frame_progress = 0.996262
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -14)
+shape = SubResource("CapsuleShape2D_3odvt")
