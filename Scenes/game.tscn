@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=5 format=3 uid="uid://8qawkdq3u8c0"]
 
 [ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Player1.tscn" id="2_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://ddcvqed4q1s8s" path="res://Assets/Sprites/TestAssets/world_tileset.png" id="2_wrm1d"]
-[ext_resource type="Texture2D" uid="uid://hqwh35aibfob" path="res://Assets/Sprites/Backgrounds/2.jpg" id="3_wrm1d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dryh"]
 texture = ExtResource("2_wrm1d")
@@ -166,22 +165,12 @@ sources/0 = SubResource("TileSetAtlasSource_3dryh")
 
 [node name="Game" type="Node2D"]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-z_index = -4000
-position = Vector2(-26.00003, -187.00002)
-scale = Vector2(0.2127907, 0.2127907)
-texture = ExtResource("3_wrm1d")
-
 [node name="Player1" parent="." instance=ExtResource("2_qxrlw")]
 position = Vector2(-2, -39)
 
 [node name="Camera2D" type="Camera2D" parent="Player1"]
 position = Vector2(1, -26)
-zoom = Vector2(2, 2)
+zoom = Vector2(4, 4)
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-2, -39)
