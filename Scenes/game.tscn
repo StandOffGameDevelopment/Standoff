@@ -169,6 +169,8 @@ sources/0 = SubResource("TileSetAtlasSource_3dryh")
 [node name="Player1" parent="." instance=ExtResource("2_qxrlw")]
 position = Vector2(-2, -39)
 
+[node name="Timer" type="Timer" parent="Player1"]
+
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-2, -39)
 tile_set = SubResource("TileSet_wowpa")
