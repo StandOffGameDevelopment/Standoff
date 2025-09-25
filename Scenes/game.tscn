@@ -168,6 +168,9 @@ sources/0 = SubResource("TileSetAtlasSource_3dryh")
 
 [node name="Game" type="Node2D"]
 
+[node name="Player2" parent="." instance=ExtResource("5_wowpa")]
+position = Vector2(308, -51)
+
 [node name="Player1" parent="." instance=ExtResource("2_qxrlw")]
 position = Vector2(-262, -28)
 
@@ -193,6 +196,3 @@ zoom = Vector2(1.5, 1.5)
 stream = ExtResource("4_wowpa")
 volume_db = -10.928
 autoplay = true
-
-[node name="Player2" parent="." instance=ExtResource("5_wowpa")]
-position = Vector2(308, -51)
