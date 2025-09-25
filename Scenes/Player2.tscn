@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://cub3lwbt8kllt"]
+[gd_scene load_steps=44 format=3 uid="uid://cub3lwbt8kllt"]
 
 [ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scenes/player_2.gd" id="1_dn4j3"]
 [ext_resource type="Texture2D" uid="uid://do2ywuxq2co6" path="res://Assets/Sprites/Fantasy Warrior/Idle.png" id="1_u8k5t"]
 [ext_resource type="Texture2D" uid="uid://c5mmubcuxxgpg" path="res://Assets/Sprites/Fantasy Warrior/Attack1.png" id="2_3tsci"]
+[ext_resource type="Texture2D" uid="uid://du5ufqu2eiycs" path="res://Assets/Sprites/Fantasy Warrior/Attack2.png" id="3_0bobp"]
 [ext_resource type="Texture2D" uid="uid://be8f5qbjy0no7" path="res://Assets/Sprites/Fantasy Warrior/Jump.png" id="4_0bobp"]
 [ext_resource type="Texture2D" uid="uid://cg8qxfkwvpay6" path="res://Assets/Sprites/Fantasy Warrior/Run.png" id="5_01ocy"]
 
@@ -32,6 +33,34 @@ region = Rect2(810, 0, 162, 162)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o5bsy"]
 atlas = ExtResource("2_3tsci")
+region = Rect2(972, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqa35"]
+atlas = ExtResource("3_0bobp")
+region = Rect2(0, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh5gn"]
+atlas = ExtResource("3_0bobp")
+region = Rect2(162, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vms18"]
+atlas = ExtResource("3_0bobp")
+region = Rect2(324, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ohpx"]
+atlas = ExtResource("3_0bobp")
+region = Rect2(486, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30pwa"]
+atlas = ExtResource("3_0bobp")
+region = Rect2(648, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugkmy"]
+atlas = ExtResource("3_0bobp")
+region = Rect2(810, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5n4f"]
+atlas = ExtResource("3_0bobp")
 region = Rect2(972, 0, 162, 162)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dn4j3"]
@@ -148,6 +177,32 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_eqa35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh5gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vms18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ohpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30pwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugkmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5n4f")
+}],
+"loop": true,
+"name": &"P2_Attack2",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dn4j3")
 }, {
 "duration": 1.0,
@@ -237,6 +292,8 @@ scale = Vector2(1.17901, 1.16667)
 sprite_frames = SubResource("SpriteFrames_oixfn")
 animation = &"P2_Attack1"
 autoplay = "P2_Idle"
+frame = 3
+frame_progress = 0.476666
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, -26)
