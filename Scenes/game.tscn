@@ -194,4 +194,4 @@ stream = ExtResource("4_3dryh")
 autoplay = true
 
 [node name="Player2" parent="." instance=ExtResource("5_wowpa")]
-position = Vector2(240, -50)
+position = Vector2(308, -51)
