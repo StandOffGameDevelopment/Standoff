@@ -23,6 +23,7 @@ var current_attack := ""     # stores which attack is currently playing
 @onready var p_2_animated_sprite_2d: AnimatedSprite2D = $P2AnimatedSprite2D
 
 func _ready() -> void:
+	p_2_animated_sprite_2d.flip_h = true
 	# Make sure all attack animations are not looping so signals fire
 	for attack_anim in ATTACKS.values():
 		if p_2_animated_sprite_2d.sprite_frames.has_animation(attack_anim):
