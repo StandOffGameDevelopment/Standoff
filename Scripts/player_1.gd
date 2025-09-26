@@ -4,23 +4,28 @@ extends CharacterBody2D
 const SPEED := 130.0
 const JUMP_VELOCITY := -300.0
 
-# Animation names 
+# Animation names
 const ANIM_IDLE := "Idle"
 const ANIM_RUN := "Run"
 const ANIM_JUMP := "Jump"
-const ANIM_ATTACK1 := "Attack1"
-const ANIM_ATTACK2 := "Attack2"
+
+# Input→Animation mapping for attacks (add more here)
+const ATTACKS := {
+	"P1_Attack1": "Attack1",
+	"P1_Attack2": "Attack2",
+}
 
 var is_attacking := false
-var locked_flip_h := false  # remembers flip state during attack
+var locked_flip_h := false      # remembers facing during attack
+var current_attack := ""        # which attack animation is currently playing
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
-	# Make sure Attack1 is not looping so signal will fire !!!! KEY STEP !!!!
-	if animated_sprite.sprite_frames.has_animation(ANIM_ATTACK1):
-		animated_sprite.sprite_frames.set_animation_loop(ANIM_ATTACK1, false)
-	if animated_sprite.sprite_frames.has_animation(ANIM_ATTACK2):
-		animated_sprite.sprite_frames.set_animation_loop(ANIM_ATTACK2, false)
+	# Ensure all attack animations are one-shot so animation_finished will fire
+	for anim_name in ATTACKS.values():
+		if animated_sprite.sprite_frames.has_animation(anim_name):
+			animated_sprite.sprite_frames.set_animation_loop(anim_name, false)
 
 func _physics_process(delta: float) -> void:
 	# Gravity
@@ -45,20 +50,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		animated_sprite.flip_h = locked_flip_h
 
-	# Attack
-	if Input.is_action_just_pressed("P1_Attack1") and not is_attacking:
-		is_attacking = true
-		locked_flip_h = animated_sprite.flip_h  # store facing direction at attack start
-		animated_sprite.play(ANIM_ATTACK1)
-		velocity.x = 0  # stop horizontal movement during attack
-		return
-
-	if Input.is_action_just_pressed("P1_Attack2") and not is_attacking:
-		is_attacking = true
-		locked_flip_h = animated_sprite.flip_h  # store facing direction at attack start
-		animated_sprite.play(ANIM_ATTACK2)
-		velocity.x = 0  # stop horizontal movement during attack
-		return
+	# Handle attacks (data-driven)
+	if not is_attacking and is_on_floor():
+		for action in ATTACKS.keys():
+			if Input.is_action_just_pressed(action):
+				_trigger_attack(action)
+				return
 
 	# Play animations only if not attacking
 	if not is_attacking:
@@ -79,9 +76,15 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func _trigger_attack(action: String) -> void:
+	is_attacking = true
+	current_attack = ATTACKS[action]
+	locked_flip_h = animated_sprite.flip_h  # store facing at attack start
+	animated_sprite.play(current_attack)
+	velocity.x = 0  # stop horizontal movement during attack
+
 func _on_animated_sprite_2d_animation_finished() -> void:
-	# Reset attack state when attack animation finishes
-	if animated_sprite.animation == ANIM_ATTACK1:
+	# Reset attack state when the current attack finishes
+	if is_attacking and animated_sprite.animation == current_attack:
 		is_attacking = false
-	if animated_sprite.animation == ANIM_ATTACK2:
-		is_attacking = false
+		current_attack = ""
