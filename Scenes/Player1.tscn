@@ -217,23 +217,21 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qf5g"]
-height = 50.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i047d"]
+size = Vector2(22, 36.875)
 
 [node name="Player1" type="CharacterBody2D"]
 script = ExtResource("1_n5fpy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5.72205e-06, -27)
-scale = Vector2(1.44815, 1.44815)
+scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_hgfcu")
 animation = &"Attack2"
 autoplay = "Idle"
-frame = 1
-frame_progress = 0.46889
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5, -29)
-shape = SubResource("CapsuleShape2D_3qf5g")
+position = Vector2(2, -24)
+shape = SubResource("RectangleShape2D_i047d")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
