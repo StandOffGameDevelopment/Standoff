@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7x0i1gotdgmn"
-path="res://.godot/imported/Death.png-99f35eb1adefd6fc5cabea5457041dd5.ctex"
+uid="uid://cpeicrld8d4k5"
+path="res://.godot/imported/Idle.png-1fc592b9d3b102f8cb1cb38425ebe09d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Fantasy Warrior/Death.png"
-dest_files=["res://.godot/imported/Death.png-99f35eb1adefd6fc5cabea5457041dd5.ctex"]
+source_file="res://Assets/Sprites/Human Blue/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-1fc592b9d3b102f8cb1cb38425ebe09d.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctv7jgavfitb1"
-path="res://.godot/imported/Fall.png-7d1dd4a172519f158e5e3a0a6004bddf.ctex"
+uid="uid://c0inr6lbnbq4d"
+path="res://.godot/imported/Run.png-a6ed25da4aebfb6c1b83edee3d188cd3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Medieval Warrior Pack 3/Fall.png"
-dest_files=["res://.godot/imported/Fall.png-7d1dd4a172519f158e5e3a0a6004bddf.ctex"]
+source_file="res://Assets/Sprites/Human Blue/Run.png"
+dest_files=["res://.godot/imported/Run.png-a6ed25da4aebfb6c1b83edee3d188cd3.ctex"]
 
 [params]
 

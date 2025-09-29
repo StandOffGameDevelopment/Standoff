@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://deve18d365r64"
-path="res://.godot/imported/Fall.png-10fdd2697bc08506716451fbc69b62e7.ctex"
+uid="uid://cr3hqkgcp7pcu"
+path="res://.godot/imported/HitRed.png-eb655c3f53c242c902ccda3f5831bc46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Fantasy Warrior/Fall.png"
-dest_files=["res://.godot/imported/Fall.png-10fdd2697bc08506716451fbc69b62e7.ctex"]
+source_file="res://Assets/Sprites/Human Red/HitRed.png"
+dest_files=["res://.godot/imported/HitRed.png-eb655c3f53c242c902ccda3f5831bc46.ctex"]
 
 [params]
 

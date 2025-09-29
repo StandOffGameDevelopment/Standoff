@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpeicrld8d4k5"
-path="res://.godot/imported/Idle.png-34f3460ea229f572686a4a7df4c58529.ctex"
+uid="uid://cyhcr0gllmoij"
+path="res://.godot/imported/Attack3Red.png-b48c4c4c637ea5de0d45d96b30b6a695.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Medieval Warrior Pack 3/Idle.png"
-dest_files=["res://.godot/imported/Idle.png-34f3460ea229f572686a4a7df4c58529.ctex"]
+source_file="res://Assets/Sprites/Human Red/Attack3Red.png"
+dest_files=["res://.godot/imported/Attack3Red.png-b48c4c4c637ea5de0d45d96b30b6a695.ctex"]
 
 [params]
 

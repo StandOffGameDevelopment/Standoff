@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drok1lqdm6r7c"
-path="res://.godot/imported/Jump.png-a61b5d8c3c7519e99a365242cd63fa32.ctex"
+uid="uid://do2ywuxq2co6"
+path="res://.godot/imported/Idle.png-0e61cbfd27877affbd06ef93ac4de8fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Medieval Warrior Pack 3/Jump.png"
-dest_files=["res://.godot/imported/Jump.png-a61b5d8c3c7519e99a365242cd63fa32.ctex"]
+source_file="res://Assets/Sprites/Elf Green/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-0e61cbfd27877affbd06ef93ac4de8fd.ctex"]
 
 [params]
 

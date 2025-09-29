@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5figu8gnnwej"
-path="res://.godot/imported/Attack2Red.png-f4c8cb7d9ddd89fdf6ed4c7abd8e1f07.ctex"
+uid="uid://ctv7jgavfitb1"
+path="res://.godot/imported/Fall.png-cd3f4fd1551462db453ef457a620346c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/WarriorRed/Attack2Red.png"
-dest_files=["res://.godot/imported/Attack2Red.png-f4c8cb7d9ddd89fdf6ed4c7abd8e1f07.ctex"]
+source_file="res://Assets/Sprites/Human Blue/Fall.png"
+dest_files=["res://.godot/imported/Fall.png-cd3f4fd1551462db453ef457a620346c.ctex"]
 
 [params]
 

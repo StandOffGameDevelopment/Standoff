@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dco4x8ny5x7o4"
-path="res://.godot/imported/Take hit.png-5a32445fc7edbe26e7f5b230d5f93a84.ctex"
+uid="uid://cqf8qq5ovgkq6"
+path="res://.godot/imported/DeathRed.png-6c562669ee6475af99811dea0a98cdc3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Fantasy Warrior/Take hit.png"
-dest_files=["res://.godot/imported/Take hit.png-5a32445fc7edbe26e7f5b230d5f93a84.ctex"]
+source_file="res://Assets/Sprites/Human Red/DeathRed.png"
+dest_files=["res://.godot/imported/DeathRed.png-6c562669ee6475af99811dea0a98cdc3.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyhcr0gllmoij"
-path="res://.godot/imported/Attack3Red.png-5005b95dabfc01a8ecd2d8b533a78700.ctex"
+uid="uid://b7x0i1gotdgmn"
+path="res://.godot/imported/Death.png-738847dc1446077eef00462f1ad9d775.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/WarriorRed/Attack3Red.png"
-dest_files=["res://.godot/imported/Attack3Red.png-5005b95dabfc01a8ecd2d8b533a78700.ctex"]
+source_file="res://Assets/Sprites/Elf Green/Death.png"
+dest_files=["res://.godot/imported/Death.png-738847dc1446077eef00462f1ad9d775.ctex"]
 
 [params]
 

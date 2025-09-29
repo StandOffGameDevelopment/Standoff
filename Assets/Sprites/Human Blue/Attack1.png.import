@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5mmubcuxxgpg"
-path="res://.godot/imported/Attack1.png-ca18cce0660bbb7d9f960459f6f8a139.ctex"
+uid="uid://cxm7hq3c4u8gq"
+path="res://.godot/imported/Attack1.png-847831168bf1f6083fe04bc9aac50e40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Fantasy Warrior/Attack1.png"
-dest_files=["res://.godot/imported/Attack1.png-ca18cce0660bbb7d9f960459f6f8a139.ctex"]
+source_file="res://Assets/Sprites/Human Blue/Attack1.png"
+dest_files=["res://.godot/imported/Attack1.png-847831168bf1f6083fe04bc9aac50e40.ctex"]
 
 [params]
 

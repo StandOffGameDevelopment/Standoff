@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr3hqkgcp7pcu"
-path="res://.godot/imported/HitRed.png-a6806df4fb589e7209b7b13876bf1f7e.ctex"
+uid="uid://b6cmsl5mmp2et"
+path="res://.godot/imported/Attack3.png-5caf8abd934dd66265d3436acc6d94f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/WarriorRed/HitRed.png"
-dest_files=["res://.godot/imported/HitRed.png-a6806df4fb589e7209b7b13876bf1f7e.ctex"]
+source_file="res://Assets/Sprites/Elf Green/Attack3.png"
+dest_files=["res://.godot/imported/Attack3.png-5caf8abd934dd66265d3436acc6d94f4.ctex"]
 
 [params]
 

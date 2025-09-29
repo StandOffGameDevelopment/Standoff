@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi56v70wxtvvd"
-path="res://.godot/imported/RunRed.png-8a60384267be5275c6ab00278564a523.ctex"
+uid="uid://ch6v8sjw0q47"
+path="res://.godot/imported/IdleRed.png-ab3a7a0fe3c69097266939b8c01c4023.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/WarriorRed/RunRed.png"
-dest_files=["res://.godot/imported/RunRed.png-8a60384267be5275c6ab00278564a523.ctex"]
+source_file="res://Assets/Sprites/Human Red/IdleRed.png"
+dest_files=["res://.godot/imported/IdleRed.png-ab3a7a0fe3c69097266939b8c01c4023.ctex"]
 
 [params]
 

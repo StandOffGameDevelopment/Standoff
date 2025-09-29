@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be8f5qbjy0no7"
-path="res://.godot/imported/Jump.png-ea593718524f020c07abc2fbdcd08349.ctex"
+uid="uid://bg7fpmqobf77i"
+path="res://.godot/imported/Attack3.png-fcc68a36ece5aad3f9b33a5054b3765a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Fantasy Warrior/Jump.png"
-dest_files=["res://.godot/imported/Jump.png-ea593718524f020c07abc2fbdcd08349.ctex"]
+source_file="res://Assets/Sprites/Human Blue/Attack3.png"
+dest_files=["res://.godot/imported/Attack3.png-fcc68a36ece5aad3f9b33a5054b3765a.ctex"]
 
 [params]
 

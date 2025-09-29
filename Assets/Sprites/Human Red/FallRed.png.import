@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mnccrngq06q1"
-path="res://.godot/imported/Death.png-4f9d832c980ae1667e503f98f99a7984.ctex"
+uid="uid://cy0mxhws8f804"
+path="res://.godot/imported/FallRed.png-80d921420aaea125c6d195b0696f1e5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Medieval Warrior Pack 3/Death.png"
-dest_files=["res://.godot/imported/Death.png-4f9d832c980ae1667e503f98f99a7984.ctex"]
+source_file="res://Assets/Sprites/Human Red/FallRed.png"
+dest_files=["res://.godot/imported/FallRed.png-80d921420aaea125c6d195b0696f1e5b.ctex"]
 
 [params]
 

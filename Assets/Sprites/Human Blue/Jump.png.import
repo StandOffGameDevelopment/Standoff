@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqf8qq5ovgkq6"
-path="res://.godot/imported/DeathRed.png-0271520b6cd7e2d2283f95ca81ebf90d.ctex"
+uid="uid://drok1lqdm6r7c"
+path="res://.godot/imported/Jump.png-f63d49f75747785d4f0da4d5e9fe1eeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/WarriorRed/DeathRed.png"
-dest_files=["res://.godot/imported/DeathRed.png-0271520b6cd7e2d2283f95ca81ebf90d.ctex"]
+source_file="res://Assets/Sprites/Human Blue/Jump.png"
+dest_files=["res://.godot/imported/Jump.png-f63d49f75747785d4f0da4d5e9fe1eeb.ctex"]
 
 [params]
 

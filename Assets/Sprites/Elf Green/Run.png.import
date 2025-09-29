@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0inr6lbnbq4d"
-path="res://.godot/imported/Run.png-83dbb302eb2df44b9366d20d5d2cf315.ctex"
+uid="uid://cg8qxfkwvpay6"
+path="res://.godot/imported/Run.png-df561c87bd237c19919072ec6ce5cb8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Medieval Warrior Pack 3/Run.png"
-dest_files=["res://.godot/imported/Run.png-83dbb302eb2df44b9366d20d5d2cf315.ctex"]
+source_file="res://Assets/Sprites/Elf Green/Run.png"
+dest_files=["res://.godot/imported/Run.png-df561c87bd237c19919072ec6ce5cb8f.ctex"]
 
 [params]
 

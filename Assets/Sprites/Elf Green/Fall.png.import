@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy0mxhws8f804"
-path="res://.godot/imported/FallRed.png-534976d563f6d046ab777c0b82c36ddd.ctex"
+uid="uid://deve18d365r64"
+path="res://.godot/imported/Fall.png-110bdf79120d723e65d16dcc0acf0693.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/WarriorRed/FallRed.png"
-dest_files=["res://.godot/imported/FallRed.png-534976d563f6d046ab777c0b82c36ddd.ctex"]
+source_file="res://Assets/Sprites/Elf Green/Fall.png"
+dest_files=["res://.godot/imported/Fall.png-110bdf79120d723e65d16dcc0acf0693.ctex"]
 
 [params]
 
