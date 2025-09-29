@@ -5,14 +5,14 @@ const SPEED := 130.0
 const JUMP_VELOCITY := -300.0
 
 # Animation names 
-const ANIM_IDLE := "P2_Idle"
-const ANIM_RUN := "P2_Run"
-const ANIM_JUMP := "P2_Jump"
+const ANIM_IDLE := "Idle"
+const ANIM_RUN := "Run"
+const ANIM_JUMP := "Jump"
 
 # Attacks stored in a dictionary: key = input action, value = animation name
 const ATTACKS := {
-	"P2_Attack1": "P2_Attack1",
-	"P2_Attack2": "P2_Attack2",
+	"Attack1": "Attack1",
+	"Attack2": "Attack2",
 	# "P2_Attack3": "P2_Attack3"
 }
 

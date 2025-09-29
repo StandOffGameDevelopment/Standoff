@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://cub3lwbt8kllt"]
 
-[ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scenes/player_2.gd" id="1_dn4j3"]
+[ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scripts/player_2.gd" id="1_dn4j3"]
 [ext_resource type="Texture2D" uid="uid://b5figu8gnnwej" path="res://Assets/Sprites/WarriorRed/Attack2Red.png" id="2_0bobp"]
 [ext_resource type="Texture2D" uid="uid://cyhcr0gllmoij" path="res://Assets/Sprites/WarriorRed/Attack3Red.png" id="3_01ocy"]
 [ext_resource type="Texture2D" uid="uid://ch6v8sjw0q47" path="res://Assets/Sprites/WarriorRed/IdleRed.png" id="4_7m8ro"]
@@ -131,7 +131,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_phhv8")
 }],
 "loop": true,
-"name": &"P2_Attack1",
+"name": &"Attack1",
 "speed": 10.0
 }, {
 "frames": [{
@@ -151,7 +151,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_65pas")
 }],
 "loop": true,
-"name": &"P2_Attack2",
+"name": &"Attack2",
 "speed": 10.0
 }, {
 "frames": [{
@@ -186,7 +186,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_wa5ap")
 }],
 "loop": true,
-"name": &"P2_Idle",
+"name": &"Idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -197,7 +197,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_uh5gn")
 }],
 "loop": true,
-"name": &"P2_Jump",
+"name": &"Jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -220,7 +220,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_tttff")
 }],
 "loop": true,
-"name": &"P2_Run",
+"name": &"Run",
 "speed": 5.0
 }]
 
@@ -234,8 +234,8 @@ script = ExtResource("1_dn4j3")
 position = Vector2(6, -24)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
-animation = &"P2_Attack1"
-autoplay = "P2_Idle"
+animation = &"Run"
+autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(7, -21)
