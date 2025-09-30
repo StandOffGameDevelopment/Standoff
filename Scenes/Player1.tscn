@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bgkbc1eu3v66"]
+[gd_scene load_steps=39 format=3 uid="uid://bgkbc1eu3v66"]
 
 [ext_resource type="Texture2D" uid="uid://cpeicrld8d4k5" path="res://Assets/Sprites/Medieval Warrior Pack 3/Idle.png" id="1_l4aeo"]
 [ext_resource type="Script" uid="uid://38agtudbr0bp" path="res://Scripts/player_1.gd" id="1_n5fpy"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://drok1lqdm6r7c" path="res://Assets/Sprites/Medieval Warrior Pack 3/Jump.png" id="3_1yta1"]
 [ext_resource type="Texture2D" uid="uid://b866f21eevnwh" path="res://Assets/Sprites/Medieval Warrior Pack 3/Attack2.png" id="3_i047d"]
 [ext_resource type="Texture2D" uid="uid://c0inr6lbnbq4d" path="res://Assets/Sprites/Medieval Warrior Pack 3/Run.png" id="4_2ale3"]
+[ext_resource type="Script" uid="uid://bacq701oe7yui" path="res://Scripts/HurtboxIdleToggle.gd" id="7_hjvw7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rhj1v"]
 atlas = ExtResource("2_2ale3")
@@ -180,7 +181,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle",
-"speed": 10.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -218,22 +219,369 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qf5g"]
-height = 50.0
+radius = 14.0
+height = 56.0
+
+[sub_resource type="Animation" id="Animation_hjvw7"]
+resource_name = "Idle"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.111, 0.222, 0.333, 0.444, 0.556, 0.667, 0.778, 0.889, 0.998),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/Idle0:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-12, -24, -16, -25, -13, -31, -5, -44, 1, -44, 1, -54, 10, -54, 10, -44, 15, -35, 18, -30, 19, -26, 14, -25, 13, -28, 9, -27, 12, -21, 14, -16, 14, -3, 15, -1, 15, 0, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -10, -20)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox/Idle1:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.111),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -23, -16, -25, -13, -31, -5, -43, 1, -43, 1, -53, 10, -53, 10, -44, 13, -38, 17, -31, 19, -26, 14, -25, 13, -29, 10, -27, 13, -21, 14, -16, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -10, -20)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hurtbox/Idle2:polygon")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.222),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-16, -24, -13, -30, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 14, -35, 16, -31, 18, -28, 18, -24, 16, -24, 14, -24, 9, -24, 13, -16, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -21)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hurtbox/Idle3:polygon")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-15, -22, -12, -29, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 13, -35, 16, -29, 18, -26, 18, -23, 16, -23, 14, -23, 8, -25, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -21)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hurtbox/Idle4:polygon")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.444),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-15, -22, -12, -28, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -22, 16, -22, 14, -22, 9, -23, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -20)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hurtbox/Idle5:polygon")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.556),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-15, -23, -12, -31, -5, -43, 0, -43, 1, -53, 10, -53, 10, -40, 13, -35, 15, -31, 18, -28, 19, -24, 16, -24, 14, -24, 9, -23, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -20)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hurtbox/Idle6:polygon")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.667),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -27, -10, -36, -6, -44, 0, -45, 1, -54, 10, -54, 10, -43, 13, -37, 15, -32, 18, -29, 19, -26, 16, -26, 14, -26, 10, -24, 13, -18, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -8, -23, -10, -25)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hurtbox/Idle7:polygon")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.778),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -29, -11, -36, -6, -45, 0, -46, 1, -54, 10, -54, 10, -44, 13, -39, 15, -34, 17, -32, 18, -26, 16, -27, 13, -28, 10, -25, 13, -19, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -10, -13, -9, -23, -10, -28)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Hurtbox/Idle8:polygon")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.889),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -24, -12, -30, -6, -42, 0, -42, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -22, 16, -22, 14, -22, 9, -23, 13, -14, 14, -3, 14, 3, 16, 5, 10, 5, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -8, 5, -12, 5, -12, -4, -11, -9, -11, -12, -10, -15, -11, -23)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Hurtbox/Idle9:polygon")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.998),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -24, -12, -30, -6, -42, 0, -42, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -21, 16, -21, 14, -22, 9, -23, 13, -14, 14, -3, 14, 3, 16, 5, 10, 5, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -8, 5, -12, 5, -12, -4, -11, -9, -11, -12, -10, -15, -11, -23)]
+}
+
+[sub_resource type="Animation" id="Animation_tchc4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/Idle0:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-12, -24, -16, -25, -13, -31, -5, -44, 1, -44, 1, -54, 10, -54, 10, -44, 15, -35, 18, -30, 19, -26, 14, -25, 13, -28, 9, -27, 12, -21, 14, -16, 14, -3, 15, -1, 15, 0, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -10, -20)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox/Idle1:polygon")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -23, -16, -25, -13, -31, -5, -43, 1, -43, 1, -53, 10, -53, 10, -44, 13, -38, 17, -31, 19, -26, 14, -25, 13, -29, 10, -27, 13, -21, 14, -16, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -10, -20)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hurtbox/Idle2:polygon")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-16, -24, -13, -30, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 14, -35, 16, -31, 18, -28, 18, -24, 16, -24, 14, -24, 9, -24, 13, -16, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -21)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hurtbox/Idle3:polygon")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-15, -22, -12, -29, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 13, -35, 16, -29, 18, -26, 18, -23, 16, -23, 14, -23, 8, -25, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -21)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hurtbox/Idle4:polygon")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-15, -22, -12, -28, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -22, 16, -22, 14, -22, 9, -23, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -20)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hurtbox/Idle5:polygon")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-15, -23, -12, -31, -5, -43, 0, -43, 1, -53, 10, -53, 10, -40, 13, -35, 15, -31, 18, -28, 19, -24, 16, -24, 14, -24, 9, -23, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -20)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hurtbox/Idle6:polygon")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -27, -10, -36, -6, -44, 0, -45, 1, -54, 10, -54, 10, -43, 13, -37, 15, -32, 18, -29, 19, -26, 16, -26, 14, -26, 10, -24, 13, -18, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -8, -23, -10, -25)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hurtbox/Idle7:polygon")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -29, -11, -36, -6, -45, 0, -46, 1, -54, 10, -54, 10, -44, 13, -39, 15, -34, 17, -32, 18, -26, 16, -27, 13, -28, 10, -25, 13, -19, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -10, -13, -9, -23, -10, -28)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Hurtbox/Idle8:polygon")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -24, -12, -30, -6, -42, 0, -42, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -22, 16, -22, 14, -22, 9, -23, 13, -14, 14, -3, 14, 3, 16, 5, 10, 5, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -8, 5, -12, 5, -12, -4, -11, -9, -11, -12, -10, -15, -11, -23)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Hurtbox/Idle9:polygon")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-14, -24, -12, -30, -6, -42, 0, -42, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -21, 16, -21, 14, -22, 9, -23, 13, -14, 14, -3, 14, 3, 16, 5, 10, 5, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -8, 5, -12, 5, -12, -4, -11, -9, -11, -12, -10, -15, -11, -23)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h0l6a"]
+_data = {
+&"Idle": SubResource("Animation_hjvw7"),
+&"RESET": SubResource("Animation_tchc4")
+}
 
 [node name="Player1" type="CharacterBody2D"]
 script = ExtResource("1_n5fpy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-5.72205e-06, -27)
+position = Vector2(-2.29589e-41, -27)
 scale = Vector2(1.44815, 1.44815)
 sprite_frames = SubResource("SpriteFrames_hgfcu")
-animation = &"Attack2"
+animation = &"Idle"
 autoplay = "Idle"
-frame = 1
-frame_progress = 0.46889
+frame = 2
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource("7_hjvw7")
+
+[node name="Idle0" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-12, -24, -16, -25, -13, -31, -5, -44, 1, -44, 1, -54, 10, -54, 10, -44, 15, -35, 18, -30, 19, -26, 14, -25, 13, -28, 9, -27, 12, -21, 14, -16, 14, -3, 15, -1, 15, 0, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -10, -20)
+
+[node name="Idle1" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-14, -23, -16, -25, -13, -31, -5, -43, 1, -43, 1, -53, 10, -53, 10, -44, 13, -38, 17, -31, 19, -26, 14, -25, 13, -29, 10, -27, 13, -21, 14, -16, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -10, -20)
+
+[node name="Idle2" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-16, -24, -13, -30, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 14, -35, 16, -31, 18, -28, 18, -24, 16, -24, 14, -24, 9, -24, 13, -16, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -21)
+
+[node name="Idle3" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-15, -22, -12, -29, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 13, -35, 16, -29, 18, -26, 18, -23, 16, -23, 14, -23, 8, -25, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -21)
+
+[node name="Idle4" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-15, -22, -12, -28, -5, -40, 0, -40, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -22, 16, -22, 14, -22, 9, -23, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -20)
+
+[node name="Idle5" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-15, -23, -12, -31, -5, -43, 0, -43, 1, -53, 10, -53, 10, -40, 13, -35, 15, -31, 18, -28, 19, -24, 16, -24, 14, -24, 9, -23, 12, -17, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -11, -20)
+
+[node name="Idle6" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-14, -27, -10, -36, -6, -44, 0, -45, 1, -54, 10, -54, 10, -43, 13, -37, 15, -32, 18, -29, 19, -26, 16, -26, 14, -26, 10, -24, 13, -18, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -11, -12, -10, -15, -8, -23, -10, -25)
+
+[node name="Idle7" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-14, -29, -11, -36, -6, -45, 0, -46, 1, -54, 10, -54, 10, -44, 13, -39, 15, -34, 17, -32, 18, -26, 16, -27, 13, -28, 10, -25, 13, -19, 14, -3, 15, -1, 15, 1, 10, 1, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -7, 1, -12, 1, -12, -4, -11, -9, -10, -13, -9, -23, -10, -28)
+
+[node name="Idle8" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -5)
+polygon = PackedVector2Array(-14, -24, -12, -30, -6, -42, 0, -42, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -22, 16, -22, 14, -22, 9, -23, 13, -14, 14, -3, 14, 3, 16, 5, 10, 5, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -8, 5, -12, 5, -12, -4, -11, -9, -11, -12, -10, -15, -11, -23)
+
+[node name="Idle9" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+light_mask = 2
+position = Vector2(0, -5)
+polygon = PackedVector2Array(-14, -24, -12, -30, -6, -42, 0, -42, 1, -50, 10, -50, 10, -40, 14, -34, 15, -30, 18, -26, 19, -21, 16, -21, 14, -22, 9, -23, 13, -14, 14, -3, 14, 3, 16, 5, 10, 5, 10, -7, 6, -11, -1, -11, -5, -11, -6, -9, -7, -7, -8, 5, -12, 5, -12, -4, -11, -9, -11, -12, -10, -15, -11, -23)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5, -29)
+visible = false
+position = Vector2(2, -28)
 shape = SubResource("CapsuleShape2D_3qf5g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h0l6a")
+}
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

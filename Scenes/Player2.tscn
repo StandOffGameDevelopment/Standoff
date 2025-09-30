@@ -1,6 +1,6 @@
 [gd_scene load_steps=44 format=3 uid="uid://cub3lwbt8kllt"]
 
-[ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scenes/player_2.gd" id="1_dn4j3"]
+[ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scripts/player_2.gd" id="1_dn4j3"]
 [ext_resource type="Texture2D" uid="uid://do2ywuxq2co6" path="res://Assets/Sprites/Fantasy Warrior/Idle.png" id="1_u8k5t"]
 [ext_resource type="Texture2D" uid="uid://c5mmubcuxxgpg" path="res://Assets/Sprites/Fantasy Warrior/Attack1.png" id="2_3tsci"]
 [ext_resource type="Texture2D" uid="uid://du5ufqu2eiycs" path="res://Assets/Sprites/Fantasy Warrior/Attack2.png" id="3_0bobp"]
