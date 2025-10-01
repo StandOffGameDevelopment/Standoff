@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cub3lwbt8kllt"]
+[gd_scene load_steps=37 format=3 uid="uid://cub3lwbt8kllt"]
 
 [ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scripts/player_2.gd" id="1_dn4j3"]
 [ext_resource type="Texture2D" uid="uid://b5figu8gnnwej" path="res://Assets/Sprites/Human Red/Attack2Red.png" id="2_0bobp"]
@@ -224,21 +224,56 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0bobp"]
-size = Vector2(20, 37)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0bobp"]
+height = 43.927177
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_01ocy"]
+size = Vector2(22, 37.4375)
 
 [node name="Player2" type="CharacterBody2D"]
 script = ExtResource("1_dn4j3")
 
 [node name="P2AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(6, -24)
+position = Vector2(-9, -26)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
 animation = &"Attack1"
 autoplay = "Idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7, -21)
-shape = SubResource("RectangleShape2D_0bobp")
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+visible = false
+polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, -51, 67, -42, 67, -33, 58, -23, 38, -15, 31, -16, 22, -25)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Area2D"]
+visible = false
+polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -53, -20, -45, -30, -34, -39, -20, -54, -26, -62, -35, -62, -44, -51, -55, -29, -63, -11, -65, 17, -65, 42, -61, 58, -53, 67, -43, 67, -35, 58, -26)
+
+[node name="Collision_Idle_and_Attack_LR" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2.0000002, -25)
+rotation = 0.49567348
+scale = Vector2(1.2, 1.2)
+skew = 0.123918414
+shape = SubResource("CapsuleShape2D_0bobp")
+
+[node name="Collision_Idle_and_Attack_RL" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2.0000002, -25)
+rotation = -0.4956735
+scale = Vector2(1.2, 1.2)
+skew = -0.12391838
+shape = SubResource("CapsuleShape2D_0bobp")
+
+[node name="Collision_Run_and_Jump_LR" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2, -24.28125)
+shape = SubResource("RectangleShape2D_01ocy")
+
+[node name="Collision_Run_and_Jump_RL" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-2, -24.281)
+shape = SubResource("RectangleShape2D_01ocy")
 
 [connection signal="animation_finished" from="P2AnimatedSprite2D" to="." method="_on_p_2_animated_sprite_2d_animation_finished"]
