@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# --- Signals ---
+signal healthChange
+signal staminaChange(current: int, max: int)
+
 # --- Movement constants ---
 const SPEED := 130.0
 const JUMP_VELOCITY := -300.0
@@ -15,11 +19,24 @@ const ATTACKS := {
 	"Attack2": "Attack2",
 }
 
+const ATTACK_STAMINA_COST := {
+	"Attack1" : 15,
+	"Attack2" : 25,
+}
+
+
 var is_attacking := false
 var locked_flip_h := false      # remembers facing during attack
 var current_attack := ""        # which attack animation is currently playing
 
 @onready var animated_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
+
+@export var maxHealth := 100
+@onready var currentHealth: int = maxHealth
+
+@export var maxStamina = 100
+@onready var currentStamina: int = maxStamina 
+
 
 # --- Collider root (set to "" if they are direct children, or "Colliders" if grouped) ---
 const COLLIDER_ROOT := ""   # e.g. "Colliders"
@@ -36,6 +53,7 @@ func get_rel_node(path: String) -> Node:
 @onready var col_run_jump_rl:   CollisionShape2D = get_rel_node("Collision_Run_and_Jump_RL")
 
 func _ready() -> void:
+	regen_stamina()
 	# Ensure attack animations are one-shot so animation_finished will fire
 	for anim_name in ATTACKS.values():
 		if animated_sprite.sprite_frames.has_animation(anim_name):
@@ -114,6 +132,15 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _trigger_attack(action: String) -> void:
+	# Check stamina
+	var cost = ATTACK_STAMINA_COST.get(action, 0)
+	if currentStamina < cost:
+		return 
+		
+	# Spend stamina 
+	currentStamina -= cost
+	staminaChange.emit(currentStamina, maxStamina)
+	
 	is_attacking = true
 	current_attack = ATTACKS[action]
 	locked_flip_h = animated_sprite.flip_h   # store facing at attack start
@@ -165,3 +192,10 @@ func _on_P2AnimatedSprite2D_animation_finished() -> void:
 
 func _on_p_2_animated_sprite_2d_animation_finished() -> void:
 	_on_animated_sprite_animation_finished()
+	
+func regen_stamina() -> void:
+	while is_inside_tree():
+		await get_tree().create_timer(0.25).timeout
+		if currentStamina < maxStamina:
+			currentStamina = min(maxStamina, currentStamina + 2)
+			staminaChange.emit(currentStamina, maxStamina)

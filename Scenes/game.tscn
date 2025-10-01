@@ -1,10 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=18 format=3 uid="uid://8qawkdq3u8c0"]
 
 [ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Player1.tscn" id="2_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://ddcvqed4q1s8s" path="res://Assets/Sprites/TestAssets/world_tileset.png" id="2_wrm1d"]
 [ext_resource type="Texture2D" uid="uid://dmj4cshv87nuw" path="res://Assets/Sprites/Background/VillageBack.png" id="3_wrm1d"]
 [ext_resource type="AudioStream" uid="uid://bj5ydn21xqras" path="res://Assets/Music/D&B3B26.mp3" id="4_wowpa"]
 [ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Player2.tscn" id="5_wowpa"]
+[ext_resource type="Texture2D" uid="uid://c8n5tpe31u5bb" path="res://Assets/Bars/healthbarUnder.png" id="6_o5yvi"]
+[ext_resource type="Texture2D" uid="uid://bxkprly7531av" path="res://Assets/Bars/healthbarProgress.png" id="7_rku1e"]
+[ext_resource type="Script" uid="uid://baa2hox06571n" path="res://GUI/player_1_health_bar.gd" id="8_rfjv2"]
+[ext_resource type="Texture2D" uid="uid://vtxslrmpryor" path="res://Assets/Bars/staminabarUnder.png" id="9_1phco"]
+[ext_resource type="Texture2D" uid="uid://dxjlcugjhfwem" path="res://Assets/Bars/staminabarProgress.png" id="10_nb51f"]
+[ext_resource type="Script" uid="uid://mse0r8hak62n" path="res://GUI/player_1_stamina_bar.gd" id="11_nnt18"]
+[ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_rfjv2"]
+[ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_1phco"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dryh"]
 texture = ExtResource("2_wrm1d")
@@ -212,3 +220,73 @@ shape = SubResource("RectangleShape2D_wowpa")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(391.5, -116)
 shape = SubResource("RectangleShape2D_i6g32")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Player1HealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 280.0
+offset_bottom = 55.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("6_o5yvi")
+texture_progress = ExtResource("7_rku1e")
+script = ExtResource("8_rfjv2")
+player = NodePath("../../Player1")
+
+[node name="Player1StaminaBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+offset_left = 30.0
+offset_top = 60.0
+offset_right = 180.0
+offset_bottom = 75.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("9_1phco")
+texture_progress = ExtResource("10_nb51f")
+script = ExtResource("11_nnt18")
+player = NodePath("../../Player1")
+
+[node name="Player2HealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -277.0
+offset_top = 30.0
+offset_right = -27.0
+offset_bottom = 55.0
+grow_horizontal = 0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("6_o5yvi")
+texture_progress = ExtResource("7_rku1e")
+script = ExtResource("12_rfjv2")
+player = NodePath("../../Player2")
+
+[node name="Player2StaminaBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -177.0
+offset_top = 60.0
+offset_right = -27.0
+offset_bottom = 75.0
+grow_horizontal = 0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("9_1phco")
+texture_progress = ExtResource("10_nb51f")
+script = ExtResource("13_1phco")
+player = NodePath("../../Player2")
