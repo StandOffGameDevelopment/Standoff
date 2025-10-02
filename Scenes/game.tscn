@@ -52,6 +52,7 @@ stream = ExtResource("4_1phco")
 parameters/looping = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="Left Wall" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-417, -116)
@@ -62,6 +63,7 @@ position = Vector2(391.5, -116)
 shape = SubResource("RectangleShape2D_i6g32")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+visible = false
 position = Vector2(-155, 0)
 polygon = PackedVector2Array(-17, 6, 103, -67, 102, 6)
 

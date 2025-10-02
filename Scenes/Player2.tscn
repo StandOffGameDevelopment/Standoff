@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cub3lwbt8kllt"]
+[gd_scene load_steps=37 format=3 uid="uid://cub3lwbt8kllt"]
 
 [ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scripts/player_2.gd" id="1_dn4j3"]
 [ext_resource type="Texture2D" uid="uid://b5figu8gnnwej" path="res://Assets/Sprites/Human Red/Attack2Red.png" id="2_0bobp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ch6v8sjw0q47" path="res://Assets/Sprites/Human Red/IdleRed.png" id="4_7m8ro"]
 [ext_resource type="Texture2D" uid="uid://crljr63oscbkm" path="res://Assets/Sprites/Human Red/JumpRed.png" id="5_niw6a"]
 [ext_resource type="Texture2D" uid="uid://bi56v70wxtvvd" path="res://Assets/Sprites/Human Red/RunRed.png" id="6_sqc4o"]
+[ext_resource type="Script" uid="uid://c4ahvw6pdxyy1" path="res://Scripts/Hitbox2D.gd" id="7_01ocy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nfgwa"]
 atlas = ExtResource("2_0bobp")
@@ -228,13 +229,16 @@ animations = [{
 size = Vector2(19.166666, 38.333332)
 
 [node name="Player2" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_dn4j3")
 
 [node name="P2AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
-animation = &"Run"
+animation = &"Idle"
 autoplay = "Idle"
+frame_progress = 0.22284706
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(1.4999995, 8.34465e-07)
@@ -244,12 +248,16 @@ shape = SubResource("RectangleShape2D_0bobp")
 [node name="Hurtboxes" type="Node2D" parent="."]
 
 [node name="Idle" type="Area2D" parent="Hurtboxes"]
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtboxes/Idle"]
 visible = false
 polygon = PackedVector2Array(-15, 4, -6, -15, 0, -17, 0, -24, 8, -24, 8, -15, 15, 0, 7, -7, 7, -2, 12, 9, 13, 23, 7, 23, 6, 15, -4, 14, -7, 22, -11, 22, -9, 7)
 
 [node name="Run" type="Area2D" parent="Hurtboxes"]
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtboxes/Run"]
 visible = false
@@ -258,12 +266,18 @@ polygon = PackedVector2Array(-16, 23, -20, 19, 2, -10, -1, -12, -5, -8, -7, -10,
 [node name="Hitboxes" type="Node2D" parent="."]
 
 [node name="Hit Front Slash" type="Area2D" parent="Hitboxes"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("7_01ocy")
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/Hit Front Slash"]
 visible = false
 polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, -51, 67, -42, 67, -33, 58, -23, 38, -15, 31, -16, 22, -25)
 
 [node name="Hit Back Slash" type="Area2D" parent="Hitboxes"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("7_01ocy")
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/Hit Back Slash"]
 visible = false
