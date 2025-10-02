@@ -228,16 +228,15 @@ animations = [{
 height = 43.927177
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_01ocy"]
-size = Vector2(22, 37.4375)
+size = Vector2(22, 45.16992)
 
 [node name="Player2" type="CharacterBody2D"]
 script = ExtResource("1_dn4j3")
 
 [node name="P2AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-9, -26)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
-animation = &"Attack1"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -250,30 +249,26 @@ polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, 
 visible = false
 polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -53, -20, -45, -30, -34, -39, -20, -54, -26, -62, -35, -62, -44, -51, -55, -29, -63, -11, -65, 17, -65, 42, -61, 58, -53, 67, -43, 67, -35, 58, -26)
 
-[node name="Collision_Idle_and_Attack_LR" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(2.0000002, -25)
+[node name="Collision_Run_and_Jump_LR" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
 rotation = 0.49567348
 scale = Vector2(1.2, 1.2)
 skew = 0.123918414
 shape = SubResource("CapsuleShape2D_0bobp")
 
-[node name="Collision_Idle_and_Attack_RL" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(2.0000002, -25)
+[node name="Collision_Run_and_Jump_RL" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
 rotation = -0.4956735
 scale = Vector2(1.2, 1.2)
 skew = -0.12391838
 shape = SubResource("CapsuleShape2D_0bobp")
 
-[node name="Collision_Run_and_Jump_LR" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(2, -24.28125)
+[node name="Collision_Idle_and_Attack_LR" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_01ocy")
 
-[node name="Collision_Run_and_Jump_RL" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-2, -24.281)
+[node name="Collision_Idle_and_Attack_RL" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
 shape = SubResource("RectangleShape2D_01ocy")
 
 [connection signal="animation_finished" from="P2AnimatedSprite2D" to="." method="_on_p_2_animated_sprite_2d_animation_finished"]

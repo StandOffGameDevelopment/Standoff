@@ -5,8 +5,8 @@ signal healthChange
 signal staminaChange(current: int, max: int)
 
 # --- Movement constants ---
-const SPEED := 130.0
-const JUMP_VELOCITY := -300.0
+const SPEED := 160.0
+const JUMP_VELOCITY := -400.0
 
 # --- Animation names (must match your SpriteFrames) ---
 const ANIM_IDLE := "Idle"
