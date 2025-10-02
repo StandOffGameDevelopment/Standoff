@@ -234,7 +234,7 @@ autoplay = "Idle"
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="Hit" type="CollisionPolygon2D" parent="Area2D"]
 visible = false
 polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, -51, 67, -42, 67, -33, 58, -23, 38, -15, 31, -16, 22, -25)
 

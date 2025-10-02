@@ -5,7 +5,7 @@ extends Node2D
 @onready var timer: Timer = $Timer
 
 # Adjust as needed
-const MOVE_DISTANCE := -64      # how far the gate moves up (negative = up)
+const MOVE_DISTANCE := -50      # how far the gate moves up (negative = up)
 const MOVE_SPEED := 100.0       # pixels per second
 
 var opening := false
