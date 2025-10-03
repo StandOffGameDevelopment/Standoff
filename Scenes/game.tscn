@@ -1,5 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://8qawkdq3u8c0"]
 
+[ext_resource type="Script" uid="uid://cad3dewsoegec" path="res://Scenes/game.gd" id="1_nb51f"]
 [ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Player1.tscn" id="2_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://dmj4cshv87nuw" path="res://Assets/Sprites/Background/VillageBack.png" id="3_wrm1d"]
 [ext_resource type="AudioStream" uid="uid://cuopgl2rrmmag" path="res://Assets/Music/LatinB16.mp3" id="4_1phco"]
@@ -12,7 +13,6 @@
 [ext_resource type="Script" uid="uid://mse0r8hak62n" path="res://GUI/player_1_stamina_bar.gd" id="11_nnt18"]
 [ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_rfjv2"]
 [ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_1phco"]
-[ext_resource type="PackedScene" uid="uid://d0gbmixtmroop" path="res://Scenes/gate.tscn" id="14_1phco"]
 [ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Tower.tscn" id="15_nb51f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
@@ -21,13 +21,14 @@ size = Vector2(20, 472)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i6g32"]
 size = Vector2(23, 472)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1phco"]
+size = Vector2(4000, 20)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfjv2"]
 size = Vector2(133, 11)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1phco"]
-size = Vector2(833.5, 20)
-
 [node name="Game" type="Node2D"]
+script = ExtResource("1_nb51f")
 
 [node name="Player2" parent="." instance=ExtResource("5_wowpa")]
 position = Vector2(308, -51)
@@ -35,17 +36,41 @@ position = Vector2(308, -51)
 [node name="Player1" parent="." instance=ExtResource("2_qxrlw")]
 position = Vector2(-262, -28)
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -150)
+zoom = Vector2(1.45, 1.45)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+[node name="Backgrounds" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
-position = Vector2(-12, -155)
+position = Vector2(0, -150)
 scale = Vector2(0.516784, 0.385968)
 texture = ExtResource("3_wrm1d")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-10, -123)
-zoom = Vector2(1.5, 1.5)
+[node name="Sprite2D2" type="Sprite2D" parent="Backgrounds"]
+z_index = -4096
+position = Vector2(793, -150)
+scale = Vector2(0.516784, 0.385968)
+texture = ExtResource("3_wrm1d")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Backgrounds"]
+z_index = -4096
+position = Vector2(-793, -150)
+scale = Vector2(0.516784, 0.385968)
+texture = ExtResource("3_wrm1d")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Backgrounds"]
+z_index = -4096
+position = Vector2(-1586, -150)
+scale = Vector2(0.516784, 0.385968)
+texture = ExtResource("3_wrm1d")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Backgrounds"]
+z_index = -4096
+position = Vector2(1586, -150)
+scale = Vector2(0.516784, 0.385968)
+texture = ExtResource("3_wrm1d")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_1phco")
@@ -54,28 +79,28 @@ parameters/looping = false
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="Left Wall" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-417, -116)
+position = Vector2(-1981, -151)
 shape = SubResource("RectangleShape2D_wowpa")
 
 [node name="Right Wall" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(391.5, -116)
+position = Vector2(1984, -137)
 shape = SubResource("RectangleShape2D_i6g32")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(-155, 0)
-polygon = PackedVector2Array(-17, 6, 103, -67, 102, 6)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(42, 21)
-polygon = PackedVector2Array(-250, -120, -366, -160, -293, -158, -179, -118)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(83, -72)
-shape = SubResource("RectangleShape2D_rfjv2")
 
 [node name="Floor" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_1phco")
+
+[node name="Ramp" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-155, 0)
+polygon = PackedVector2Array(-17, 6, 103, -67, 102, 6)
+
+[node name="FloatingRamp" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(42, 21)
+polygon = PackedVector2Array(-250, -120, -366, -160, -293, -158, -179, -118)
+
+[node name="Platform" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(83, -72)
+shape = SubResource("RectangleShape2D_rfjv2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -147,15 +172,16 @@ texture_progress = ExtResource("10_nb51f")
 script = ExtResource("13_1phco")
 player = NodePath("../../Player2")
 
-[node name="Gate Left" parent="." instance=ExtResource("14_1phco")]
-position = Vector2(-376, -20)
-scale = Vector2(-1, 1)
+[node name="Towers" type="Node2D" parent="."]
 
-[node name="Gate Right" parent="." instance=ExtResource("14_1phco")]
-position = Vector2(355, -20)
+[node name="Tower Left 2" parent="Towers" instance=ExtResource("15_nb51f")]
+position = Vector2(-1186, -79)
 
-[node name="Tower Left" parent="." instance=ExtResource("15_nb51f")]
-position = Vector2(-376, -79)
+[node name="Tower Left 1" parent="Towers" instance=ExtResource("15_nb51f")]
+position = Vector2(-395, -78)
 
-[node name="Tower Right" parent="." instance=ExtResource("15_nb51f")]
-position = Vector2(355, -80)
+[node name="Tower Right 1" parent="Towers" instance=ExtResource("15_nb51f")]
+position = Vector2(396, -78)
+
+[node name="Tower Right 2" parent="Towers" instance=ExtResource("15_nb51f")]
+position = Vector2(1191, -77)
