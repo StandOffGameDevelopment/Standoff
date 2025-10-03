@@ -12,14 +12,6 @@ const SPEED := 160.0
 const JUMP_VELOCITY := -400.0
 
 
-# --- Animation names (must match your SpriteFrames) ---
-const ANIM_IDLE := "Idle"
-const ANIM_RUN  := "Run"
-const ANIM_JUMP := "Jump"
-const ANIM_LIGHT := "Light"
-const ANIM_HEAVY := "Heavy"
-
-
 # --- Cost of every move that consumes stamina ---
 const STAMINA_COST := {
 	"Light" : 1,
@@ -27,11 +19,13 @@ const STAMINA_COST := {
 }
 
 
+# --- Variables relates to x-axis movement
 var move_left := false
 var move_right := false
 var direction := 0.0
 
 
+# --- If the player is doing a move lock them
 var is_attacking := false
 var locked_flip_h := false      # remembers direction during attack
 
@@ -83,15 +77,15 @@ func update_animation() -> void:
 	if not is_attacking:
 		if is_on_floor():
 			if direction == 0:
-				if animated_sprite.animation != ANIM_IDLE:
-					animated_sprite.play(ANIM_IDLE)
+				if animated_sprite.animation != "Idle":
+					animated_sprite.play("Idle")
 			else:
-				if animated_sprite.animation != ANIM_RUN:
-					animated_sprite.play(ANIM_RUN)
+				if animated_sprite.animation != "Run":
+					animated_sprite.play("Run")
 				
 		else:
-			if animated_sprite.animation != ANIM_JUMP:
-				animated_sprite.play(ANIM_JUMP)
+			if animated_sprite.animation != "Jump":
+				animated_sprite.play("Jump")
 
 
 func update_movement() -> void:

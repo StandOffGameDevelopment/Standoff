@@ -18,5 +18,8 @@ texture = ExtResource("1_ry8d0")
 position = Vector2(0, -21.5)
 shape = SubResource("RectangleShape2D_ry8d0")
 
-[node name="Gate" parent="." instance=ExtResource("2_4yjk7")]
-position = Vector2(0, 57)
+[node name="GateLeft" parent="." instance=ExtResource("2_4yjk7")]
+position = Vector2(-20, 58)
+
+[node name="GateRight" parent="." instance=ExtResource("2_4yjk7")]
+position = Vector2(21, 58)

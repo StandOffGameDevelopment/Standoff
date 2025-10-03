@@ -233,7 +233,7 @@ script = ExtResource("1_dn4j3")
 [node name="P2AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
-animation = &"Heavy"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Collision" type="CollisionShape2D" parent="."]

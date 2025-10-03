@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bgkbc1eu3v66"]
+[gd_scene load_steps=35 format=3 uid="uid://bgkbc1eu3v66"]
 
 [ext_resource type="Texture2D" uid="uid://cpeicrld8d4k5" path="res://Assets/Sprites/Human Blue/Idle.png" id="1_l4aeo"]
 [ext_resource type="Script" uid="uid://38agtudbr0bp" path="res://Scripts/player_1.gd" id="1_n5fpy"]
@@ -21,22 +21,6 @@ region = Rect2(270, 0, 135, 135)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5a7kb"]
 atlas = ExtResource("2_2ale3")
-region = Rect2(405, 0, 135, 135)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_krxlo"]
-atlas = ExtResource("3_i047d")
-region = Rect2(0, 0, 135, 135)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_15v8s"]
-atlas = ExtResource("3_i047d")
-region = Rect2(135, 0, 135, 135)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tjslx"]
-atlas = ExtResource("3_i047d")
-region = Rect2(270, 0, 135, 135)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ogf7d"]
-atlas = ExtResource("3_i047d")
 region = Rect2(405, 0, 135, 135)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nlwqd"]
@@ -87,6 +71,22 @@ region = Rect2(0, 0, 135, 135)
 atlas = ExtResource("3_1yta1")
 region = Rect2(135, 0, 135, 135)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_krxlo"]
+atlas = ExtResource("3_i047d")
+region = Rect2(0, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15v8s"]
+atlas = ExtResource("3_i047d")
+region = Rect2(135, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjslx"]
+atlas = ExtResource("3_i047d")
+region = Rect2(270, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogf7d"]
+atlas = ExtResource("3_i047d")
+region = Rect2(405, 0, 135, 135)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_3odvt"]
 atlas = ExtResource("4_2ale3")
 region = Rect2(0, 0, 135, 135)
@@ -126,26 +126,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5a7kb")
 }],
-"loop": true,
-"name": &"Attack1",
+"loop": false,
+"name": &"Heavy",
 "speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_krxlo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_15v8s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tjslx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ogf7d")
-}],
-"loop": true,
-"name": &"Attack2",
-"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -195,6 +178,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_krxlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15v8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjslx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogf7d")
+}],
+"loop": false,
+"name": &"Light",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_3odvt")
 }, {
 "duration": 1.0,
@@ -217,11 +217,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i047d"]
-height = 43.927177
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i047d"]
-size = Vector2(22, 45.71875)
+size = Vector2(23, 46)
 
 [node name="Player1" type="CharacterBody2D"]
 script = ExtResource("1_n5fpy")
@@ -229,8 +226,12 @@ script = ExtResource("1_n5fpy")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_hgfcu")
-animation = &"Jump"
+animation = &"Idle"
 autoplay = "Idle"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_i047d")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -242,26 +243,4 @@ polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, 
 visible = false
 polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -53, -20, -45, -30, -34, -39, -20, -54, -26, -62, -35, -62, -44, -51, -55, -29, -63, -11, -65, 17, -65, 42, -61, 58, -53, 67, -43, 67, -35, 58, -26)
 
-[node name="Collision_Run_and_Jump_LR" type="CollisionShape2D" parent="."]
-position = Vector2(2, 0)
-rotation = 0.49567348
-scale = Vector2(1.2, 1.2)
-skew = 0.123918414
-shape = SubResource("CapsuleShape2D_i047d")
-
-[node name="Collision_Run_and_Jump_RL" type="CollisionShape2D" parent="."]
-position = Vector2(2, 0)
-rotation = -0.4956735
-scale = Vector2(1.2, 1.2)
-skew = -0.12391838
-shape = SubResource("CapsuleShape2D_i047d")
-
-[node name="Collision_Idle_and_Attack_LR" type="CollisionShape2D" parent="."]
-position = Vector2(2, 0)
-shape = SubResource("RectangleShape2D_i047d")
-
-[node name="Collision_Idle_and_Attack_RL" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 0)
-shape = SubResource("RectangleShape2D_i047d")
-
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animation_finished"]
