@@ -7,22 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://crljr63oscbkm" path="res://Assets/Sprites/Human Red/JumpRed.png" id="5_niw6a"]
 [ext_resource type="Texture2D" uid="uid://bi56v70wxtvvd" path="res://Assets/Sprites/Human Red/RunRed.png" id="6_sqc4o"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nfgwa"]
-atlas = ExtResource("2_0bobp")
-region = Rect2(0, 0, 135, 135)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oixfn"]
-atlas = ExtResource("2_0bobp")
-region = Rect2(135, 0, 135, 135)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yp5jh"]
-atlas = ExtResource("2_0bobp")
-region = Rect2(270, 0, 135, 135)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_phhv8"]
-atlas = ExtResource("2_0bobp")
-region = Rect2(405, 0, 135, 135)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_30ijx"]
 atlas = ExtResource("3_01ocy")
 region = Rect2(0, 0, 135, 135)
@@ -91,6 +75,22 @@ region = Rect2(0, 0, 135, 135)
 atlas = ExtResource("5_niw6a")
 region = Rect2(135, 0, 135, 135)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfgwa"]
+atlas = ExtResource("2_0bobp")
+region = Rect2(0, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oixfn"]
+atlas = ExtResource("2_0bobp")
+region = Rect2(135, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yp5jh"]
+atlas = ExtResource("2_0bobp")
+region = Rect2(270, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phhv8"]
+atlas = ExtResource("2_0bobp")
+region = Rect2(405, 0, 135, 135)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vms18"]
 atlas = ExtResource("6_sqc4o")
 region = Rect2(0, 0, 135, 135)
@@ -119,23 +119,6 @@ region = Rect2(675, 0, 135, 135)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nfgwa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oixfn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yp5jh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_phhv8")
-}],
-"loop": true,
-"name": &"Attack1",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_30ijx")
 }, {
 "duration": 1.0,
@@ -150,8 +133,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_65pas")
 }],
-"loop": true,
-"name": &"Attack2",
+"loop": false,
+"name": &"Heavy",
 "speed": 10.0
 }, {
 "frames": [{
@@ -202,6 +185,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_nfgwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oixfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yp5jh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phhv8")
+}],
+"loop": false,
+"name": &"Light",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vms18")
 }, {
 "duration": 1.0,
@@ -233,7 +233,7 @@ script = ExtResource("1_dn4j3")
 [node name="P2AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
-animation = &"Run"
+animation = &"Heavy"
 autoplay = "Idle"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -269,4 +269,4 @@ polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, 
 visible = false
 polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -53, -20, -45, -30, -34, -39, -20, -54, -26, -62, -35, -62, -44, -51, -55, -29, -63, -11, -65, 17, -65, 42, -61, 58, -53, 67, -43, 67, -35, 58, -26)
 
-[connection signal="animation_finished" from="P2AnimatedSprite2D" to="." method="_on_p_2_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="P2AnimatedSprite2D" to="." method="_on_animation_finished"]
