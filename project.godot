@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 window/size/mode=3
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+player=""
+
 [input]
 
 P1_MoveLeft={

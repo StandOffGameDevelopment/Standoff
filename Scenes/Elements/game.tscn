@@ -14,7 +14,6 @@
 [ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_vnd3f"]
 [ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_aiya3"]
 [ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Elements/Tower.tscn" id="14_k5j0i"]
-[ext_resource type="PackedScene" uid="uid://dpi78oydhbfrn" path="res://Scenes/Elements/Door.tscn" id="15_opd45"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
 size = Vector2(20, 472)
@@ -28,13 +27,16 @@ size = Vector2(4000, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfjv2"]
 size = Vector2(133, 11)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_opd45"]
+size = Vector2(20, 40)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_eoh32")
 
-[node name="Player2" parent="." instance=ExtResource("2_opd45")]
+[node name="Player2" parent="." groups=["player"] instance=ExtResource("2_opd45")]
 position = Vector2(308, -51)
 
-[node name="Player1" parent="." instance=ExtResource("3_djjig")]
+[node name="Player1" parent="." groups=["player"] instance=ExtResource("3_djjig")]
 position = Vector2(-262, -28)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -189,10 +191,10 @@ position = Vector2(396, -78)
 [node name="Tower Right 2" parent="Towers" instance=ExtResource("14_k5j0i")]
 position = Vector2(1191, -77)
 
-[node name="Doors" type="Node" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="Door_R" parent="Doors" instance=ExtResource("15_opd45")]
-position = Vector2(397, -16)
-destination_level_tag = "Game"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(397, -23)
+shape = SubResource("RectangleShape2D_opd45")
 
-[editable path="Doors/Door_R"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_player_entered_tower"]
