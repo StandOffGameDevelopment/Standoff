@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+class_name Player_1
 
 # --- Signals ---
 @warning_ignore("unused_signal")

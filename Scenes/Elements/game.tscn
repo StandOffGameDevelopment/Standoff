@@ -1,19 +1,20 @@
-[gd_scene load_steps=19 format=3 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=20 format=3 uid="uid://8qawkdq3u8c0"]
 
-[ext_resource type="Script" uid="uid://cad3dewsoegec" path="res://Scenes/game.gd" id="1_nb51f"]
-[ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Player1.tscn" id="2_qxrlw"]
-[ext_resource type="Texture2D" uid="uid://dmj4cshv87nuw" path="res://Assets/Sprites/Background/VillageBack.png" id="3_wrm1d"]
-[ext_resource type="AudioStream" uid="uid://cuopgl2rrmmag" path="res://Assets/Music/LatinB16.mp3" id="4_1phco"]
-[ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Player2.tscn" id="5_wowpa"]
-[ext_resource type="Texture2D" uid="uid://c8n5tpe31u5bb" path="res://Assets/Bars/healthbarUnder.png" id="6_o5yvi"]
-[ext_resource type="Texture2D" uid="uid://bxkprly7531av" path="res://Assets/Bars/healthbarProgress.png" id="7_rku1e"]
-[ext_resource type="Script" uid="uid://baa2hox06571n" path="res://GUI/player_1_health_bar.gd" id="8_rfjv2"]
-[ext_resource type="Texture2D" uid="uid://vtxslrmpryor" path="res://Assets/Bars/staminabarUnder.png" id="9_1phco"]
-[ext_resource type="Texture2D" uid="uid://dxjlcugjhfwem" path="res://Assets/Bars/staminabarProgress.png" id="10_nb51f"]
-[ext_resource type="Script" uid="uid://mse0r8hak62n" path="res://GUI/player_1_stamina_bar.gd" id="11_nnt18"]
-[ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_rfjv2"]
-[ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_1phco"]
-[ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Tower.tscn" id="15_nb51f"]
+[ext_resource type="Script" uid="uid://cad3dewsoegec" path="res://Scenes/Scripts/game.gd" id="1_eoh32"]
+[ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Elements/Player2.tscn" id="2_opd45"]
+[ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Elements/Player1.tscn" id="3_djjig"]
+[ext_resource type="Texture2D" uid="uid://dmj4cshv87nuw" path="res://Assets/Sprites/Background/VillageBack.png" id="4_2bw0e"]
+[ext_resource type="AudioStream" uid="uid://cuopgl2rrmmag" path="res://Assets/Music/LatinB16.mp3" id="5_w5dpc"]
+[ext_resource type="Texture2D" uid="uid://c8n5tpe31u5bb" path="res://Assets/Bars/healthbarUnder.png" id="6_e1abr"]
+[ext_resource type="Texture2D" uid="uid://bxkprly7531av" path="res://Assets/Bars/healthbarProgress.png" id="7_5h5jd"]
+[ext_resource type="Script" uid="uid://baa2hox06571n" path="res://GUI/player_1_health_bar.gd" id="8_tpg7m"]
+[ext_resource type="Texture2D" uid="uid://vtxslrmpryor" path="res://Assets/Bars/staminabarUnder.png" id="9_qrmrd"]
+[ext_resource type="Texture2D" uid="uid://dxjlcugjhfwem" path="res://Assets/Bars/staminabarProgress.png" id="10_ya50b"]
+[ext_resource type="Script" uid="uid://mse0r8hak62n" path="res://GUI/player_1_stamina_bar.gd" id="11_ys3wi"]
+[ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_vnd3f"]
+[ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_aiya3"]
+[ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Elements/Tower.tscn" id="14_k5j0i"]
+[ext_resource type="PackedScene" uid="uid://dpi78oydhbfrn" path="res://Scenes/Elements/Door.tscn" id="15_opd45"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
 size = Vector2(20, 472)
@@ -28,12 +29,12 @@ size = Vector2(4000, 20)
 size = Vector2(133, 11)
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_nb51f")
+script = ExtResource("1_eoh32")
 
-[node name="Player2" parent="." instance=ExtResource("5_wowpa")]
+[node name="Player2" parent="." instance=ExtResource("2_opd45")]
 position = Vector2(308, -51)
 
-[node name="Player1" parent="." instance=ExtResource("2_qxrlw")]
+[node name="Player1" parent="." instance=ExtResource("3_djjig")]
 position = Vector2(-262, -28)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -46,34 +47,34 @@ zoom = Vector2(1.45, 1.45)
 z_index = -4096
 position = Vector2(0, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("3_wrm1d")
+texture = ExtResource("4_2bw0e")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
 position = Vector2(793, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("3_wrm1d")
+texture = ExtResource("4_2bw0e")
 
 [node name="Sprite2D3" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
 position = Vector2(-793, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("3_wrm1d")
+texture = ExtResource("4_2bw0e")
 
 [node name="Sprite2D4" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
 position = Vector2(-1586, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("3_wrm1d")
+texture = ExtResource("4_2bw0e")
 
 [node name="Sprite2D5" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
 position = Vector2(1586, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("3_wrm1d")
+texture = ExtResource("4_2bw0e")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_1phco")
+stream = ExtResource("5_w5dpc")
 parameters/looping = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -114,9 +115,9 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
-texture_under = ExtResource("6_o5yvi")
-texture_progress = ExtResource("7_rku1e")
-script = ExtResource("8_rfjv2")
+texture_under = ExtResource("6_e1abr")
+texture_progress = ExtResource("7_5h5jd")
+script = ExtResource("8_tpg7m")
 player = NodePath("../../Player1")
 
 [node name="Player1StaminaBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
@@ -129,9 +130,9 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
-texture_under = ExtResource("9_1phco")
-texture_progress = ExtResource("10_nb51f")
-script = ExtResource("11_nnt18")
+texture_under = ExtResource("9_qrmrd")
+texture_progress = ExtResource("10_ya50b")
+script = ExtResource("11_ys3wi")
 player = NodePath("../../Player1")
 
 [node name="Player2HealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
@@ -148,9 +149,9 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
-texture_under = ExtResource("6_o5yvi")
-texture_progress = ExtResource("7_rku1e")
-script = ExtResource("12_rfjv2")
+texture_under = ExtResource("6_e1abr")
+texture_progress = ExtResource("7_5h5jd")
+script = ExtResource("12_vnd3f")
 player = NodePath("../../Player2")
 
 [node name="Player2StaminaBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
@@ -167,21 +168,29 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
-texture_under = ExtResource("9_1phco")
-texture_progress = ExtResource("10_nb51f")
-script = ExtResource("13_1phco")
+texture_under = ExtResource("9_qrmrd")
+texture_progress = ExtResource("10_ya50b")
+script = ExtResource("13_aiya3")
 player = NodePath("../../Player2")
 
 [node name="Towers" type="Node2D" parent="."]
 
-[node name="Tower Left 2" parent="Towers" instance=ExtResource("15_nb51f")]
+[node name="Tower Left 2" parent="Towers" instance=ExtResource("14_k5j0i")]
 position = Vector2(-1186, -79)
 
-[node name="Tower Left 1" parent="Towers" instance=ExtResource("15_nb51f")]
+[node name="Tower Left 1" parent="Towers" instance=ExtResource("14_k5j0i")]
 position = Vector2(-395, -78)
 
-[node name="Tower Right 1" parent="Towers" instance=ExtResource("15_nb51f")]
+[node name="Tower Right 1" parent="Towers" instance=ExtResource("14_k5j0i")]
 position = Vector2(396, -78)
 
-[node name="Tower Right 2" parent="Towers" instance=ExtResource("15_nb51f")]
+[node name="Tower Right 2" parent="Towers" instance=ExtResource("14_k5j0i")]
 position = Vector2(1191, -77)
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Door_R" parent="Doors" instance=ExtResource("15_opd45")]
+position = Vector2(397, -16)
+destination_level_tag = "Game"
+
+[editable path="Doors/Door_R"]
