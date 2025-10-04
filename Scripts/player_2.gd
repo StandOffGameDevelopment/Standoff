@@ -15,8 +15,9 @@ const JUMP_VELOCITY := -400.0
 
 # --- Cost of every move that consumes stamina ---
 const STAMINA_COST := {
-	"Light" : 1,
-	"Heavy" : 25,
+	"FrontSlash" : 10,
+	"BackSlash": 10,
+	"HeavySlash" : 25,
 }
 
 
@@ -126,11 +127,14 @@ func _input(event: InputEvent) -> void:
 		if is_on_floor() and not is_attacking:
 			velocity.y = JUMP_VELOCITY
 		
-	if event.is_action_pressed("P2_AttackLight"):
-		handle_move("Light")
+	if event.is_action_pressed("P2_AttackFront"):
+		handle_move("FrontSlash")
+		
+	if event.is_action_pressed("P2_AttackBack"):
+		handle_move("BackSlash")
 		
 	if event.is_action_pressed("P2_AttackHeavy"):
-		handle_move("Heavy")
+		handle_move("HeavySlash")
 		
 	#TODO: add sounds
 
@@ -152,7 +156,7 @@ func spend_stamina(move: String) -> void:
 
 func regen_stamina() -> void:
 	while is_inside_tree():
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.2).timeout
 		if currentStamina < maxStamina:
 			currentStamina = min(maxStamina, currentStamina + 1)
 			staminaChange.emit(currentStamina, maxStamina)

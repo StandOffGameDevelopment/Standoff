@@ -75,7 +75,9 @@ texture = ExtResource("4_2bw0e")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_w5dpc")
-parameters/looping = false
+volume_db = -10.0
+autoplay = true
+parameters/looping = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
