@@ -18,8 +18,8 @@
 [ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_vnd3f"]
 [ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_aiya3"]
 [ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Elements/Tower.tscn" id="14_k5j0i"]
-[ext_resource type="PackedScene" path="res://Scenes/Elements/Barrel.tscn" id="15_djjig"]
-[ext_resource type="PackedScene" path="res://Scenes/Elements/Platform.tscn" id="16_2bw0e"]
+[ext_resource type="PackedScene" uid="uid://c8s0ri3ocgoxw" path="res://Scenes/Elements/Barrel.tscn" id="15_djjig"]
+[ext_resource type="PackedScene" uid="uid://dsylv32sp7n4r" path="res://Scenes/Elements/Platform.tscn" id="16_2bw0e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
 size = Vector2(20, 472)
@@ -33,12 +33,14 @@ size = Vector2(4000, 20)
 [node name="Game" type="Node2D"]
 
 [node name="Player2" parent="." groups=["player"] instance=ExtResource("2_opd45")]
-position = Vector2(298, -35)
-scale = Vector2(1.5, 1.5)
+position = Vector2(309, -24)
+collision_layer = 3
+collision_mask = 3
 
 [node name="Player1" parent="." groups=["player"] instance=ExtResource("3_djjig")]
-position = Vector2(-300, -35)
-scale = Vector2(1.5, 1.5)
+position = Vector2(-339, -25)
+collision_layer = 3
+collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -203)
@@ -84,6 +86,7 @@ autoplay = true
 parameters/looping = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 2
 
 [node name="Left Wall" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-1981, -151)

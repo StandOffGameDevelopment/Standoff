@@ -153,7 +153,6 @@ func spend_stamina(move: String) -> void:
 	currentStamina -= STAMINA_COST[move]
 	staminaChange.emit(currentStamina, maxStamina)
 
-
 func regen_stamina() -> void:
 	while is_inside_tree():
 		await get_tree().create_timer(0.2).timeout
