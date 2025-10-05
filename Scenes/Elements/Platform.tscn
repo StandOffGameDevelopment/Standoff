@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://7ncegd7kis5m"]
+
+[ext_resource type="Texture2D" uid="uid://ckl87l17l4vgs" path="res://Assets/Buildings/Plank.png" id="1_uwgmx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnfti"]
+size = Vector2(256, 16)
+
+[node name="Platform" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_uwgmx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_pnfti")

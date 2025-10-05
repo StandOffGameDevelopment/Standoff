@@ -1,9 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=20 format=3 uid="uid://8qawkdq3u8c0"]
 
-[ext_resource type="Script" uid="uid://cad3dewsoegec" path="res://Scenes/Scripts/game.gd" id="1_eoh32"]
 [ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Elements/Player2.tscn" id="2_opd45"]
 [ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Elements/Player1.tscn" id="3_djjig"]
-[ext_resource type="Texture2D" uid="uid://dmj4cshv87nuw" path="res://Assets/Sprites/Background/VillageBack.png" id="4_2bw0e"]
+[ext_resource type="Script" uid="uid://ccmisscxyofpe" path="res://Scenes/Elements/camera_2d.gd" id="3_eoh32"]
+[ext_resource type="Texture2D" uid="uid://dmj4cshv87nuw" path="res://Assets/Background/VillageBack.png" id="4_opd45"]
 [ext_resource type="AudioStream" uid="uid://cuopgl2rrmmag" path="res://Assets/Music/LatinB16.mp3" id="5_w5dpc"]
 [ext_resource type="Texture2D" uid="uid://c8n5tpe31u5bb" path="res://Assets/Bars/healthbarUnder.png" id="6_e1abr"]
 [ext_resource type="Texture2D" uid="uid://bxkprly7531av" path="res://Assets/Bars/healthbarProgress.png" id="7_5h5jd"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_vnd3f"]
 [ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_aiya3"]
 [ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Elements/Tower.tscn" id="14_k5j0i"]
+[ext_resource type="PackedScene" uid="uid://djx55f4sx7fay" path="res://Scenes/Elements/Barrel.tscn" id="15_djjig"]
+[ext_resource type="PackedScene" uid="uid://7ncegd7kis5m" path="res://Scenes/Elements/Platform.tscn" id="16_2bw0e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
 size = Vector2(20, 472)
@@ -24,27 +26,18 @@ size = Vector2(23, 472)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1phco"]
 size = Vector2(4000, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfjv2"]
-size = Vector2(133, 11)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_opd45"]
-size = Vector2(20, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eoh32"]
-size = Vector2(20, 38)
-
 [node name="Game" type="Node2D"]
-script = ExtResource("1_eoh32")
 
 [node name="Player2" parent="." groups=["player"] instance=ExtResource("2_opd45")]
-position = Vector2(308, -51)
+position = Vector2(300, -30)
 
 [node name="Player1" parent="." groups=["player"] instance=ExtResource("3_djjig")]
-position = Vector2(-262, -28)
+position = Vector2(-300, -30)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -150)
 zoom = Vector2(1.45, 1.45)
+script = ExtResource("3_eoh32")
 
 [node name="Backgrounds" type="Node2D" parent="."]
 
@@ -52,31 +45,31 @@ zoom = Vector2(1.45, 1.45)
 z_index = -4096
 position = Vector2(0, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_2bw0e")
+texture = ExtResource("4_opd45")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
 position = Vector2(793, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_2bw0e")
+texture = ExtResource("4_opd45")
 
 [node name="Sprite2D3" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
 position = Vector2(-793, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_2bw0e")
+texture = ExtResource("4_opd45")
 
 [node name="Sprite2D4" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
 position = Vector2(-1586, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_2bw0e")
+texture = ExtResource("4_opd45")
 
 [node name="Sprite2D5" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
 position = Vector2(1586, -150)
 scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_2bw0e")
+texture = ExtResource("4_opd45")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_w5dpc")
@@ -97,18 +90,6 @@ shape = SubResource("RectangleShape2D_i6g32")
 [node name="Floor" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_1phco")
-
-[node name="Ramp" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(-155, 0)
-polygon = PackedVector2Array(-17, 6, 103, -67, 102, 6)
-
-[node name="FloatingRamp" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(42, 21)
-polygon = PackedVector2Array(-250, -120, -366, -160, -293, -158, -179, -118)
-
-[node name="Platform" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(83, -72)
-shape = SubResource("RectangleShape2D_rfjv2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -183,25 +164,29 @@ player = NodePath("../../Player2")
 [node name="Towers" type="Node2D" parent="."]
 
 [node name="Tower Left 2" parent="Towers" instance=ExtResource("14_k5j0i")]
-position = Vector2(-1186, -79)
+position = Vector2(-1188, -94)
 
 [node name="Tower Left 1" parent="Towers" instance=ExtResource("14_k5j0i")]
-position = Vector2(-395, -78)
+position = Vector2(-396, -94)
 
 [node name="Tower Right 1" parent="Towers" instance=ExtResource("14_k5j0i")]
-position = Vector2(396, -78)
+position = Vector2(396, -94)
 
 [node name="Tower Right 2" parent="Towers" instance=ExtResource("14_k5j0i")]
-position = Vector2(1191, -77)
+position = Vector2(1190, -93)
 
-[node name="Door" type="Area2D" parent="."]
+[node name="Objects" type="Node2D" parent="."]
 
-[node name="Door_R_1" type="CollisionShape2D" parent="Door"]
-position = Vector2(397, -23)
-shape = SubResource("RectangleShape2D_opd45")
+[node name="Barrel" parent="Objects" instance=ExtResource("15_djjig")]
+position = Vector2(-59, -15)
 
-[node name="Door_L_1" type="CollisionShape2D" parent="Door"]
-position = Vector2(-394, -21)
-shape = SubResource("RectangleShape2D_eoh32")
+[node name="Platform" parent="Objects" instance=ExtResource("16_2bw0e")]
+position = Vector2(90, -72)
 
-[connection signal="body_entered" from="Door" to="." method="_on_player_entered_tower"]
+[node name="Platform2" parent="Objects" instance=ExtResource("16_2bw0e")]
+position = Vector2(-150, -99)
+
+[connection signal="player_entered" from="Towers/Tower Left 2" to="Camera2D" method="_on_tower_entered"]
+[connection signal="player_entered" from="Towers/Tower Left 1" to="Camera2D" method="_on_tower_entered"]
+[connection signal="player_entered" from="Towers/Tower Right 1" to="Camera2D" method="_on_tower_entered"]
+[connection signal="player_entered" from="Towers/Tower Right 2" to="Camera2D" method="_on_tower_entered"]

@@ -1,25 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://ciah68p2yvkb2"]
+[gd_scene load_steps=5 format=3 uid="uid://ciah68p2yvkb2"]
 
+[ext_resource type="Script" uid="uid://cxfq2w60q23d7" path="res://Scenes/Elements/tower.gd" id="1_cvrfc"]
 [ext_resource type="Texture2D" uid="uid://cxowt12e0f4ri" path="res://Assets/Buildings/tower.png" id="1_ry8d0"]
 [ext_resource type="PackedScene" uid="uid://d0gbmixtmroop" path="res://Scenes/Elements/gate.tscn" id="2_4yjk7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ry8d0"]
-size = Vector2(42, 101)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jwwul"]
+size = Vector2(10, 300)
 
 [node name="Tower" type="Node2D"]
+script = ExtResource("1_cvrfc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_ry8d0")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Collision" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, -21.5)
-shape = SubResource("RectangleShape2D_ry8d0")
+[node name="Shape" type="CollisionPolygon2D" parent="Collision"]
+z_index = 2
+position = Vector2(0, -70)
+polygon = PackedVector2Array(-33, -16, 34, -16, 34, 2, 26, 10, 25, 115, -26, 115, -26, 10, -33, 3)
 
 [node name="GateLeft" parent="." instance=ExtResource("2_4yjk7")]
-position = Vector2(-20, 58)
+position = Vector2(-30, 72)
 
 [node name="GateRight" parent="." instance=ExtResource("2_4yjk7")]
-position = Vector2(21, 58)
+position = Vector2(30, 72)
+
+[node name="TransitionDetector" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="TransitionDetector"]
+position = Vector2(0, -80)
+shape = SubResource("RectangleShape2D_jwwul")
+
+[connection signal="body_entered" from="TransitionDetector" to="." method="_on_body_entered"]

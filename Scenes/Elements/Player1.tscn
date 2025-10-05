@@ -264,13 +264,11 @@ size = Vector2(23, 46)
 [node name="Player1" type="CharacterBody2D"]
 script = ExtResource("1_n5fpy")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_hgfcu")
-animation = &"HeavySlash"
+animation = &"Idle"
 autoplay = "Idle"
-frame = 4
-frame_progress = 1.0
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 0)

@@ -108,22 +108,22 @@ func _on_animation_finished() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("P2_MoveLeft"):
 		move_left = true
-		print("Left true")
+		# print("Left true")
 	
 	if event.is_action_released("P2_MoveLeft"):
 		move_left = false
-		print("Left false")
+		# print("Left false")
 	
 	if event.is_action_pressed("P2_MoveRight"):
 		move_right = true
-		print("Right true")
+		# print("Right true")
 	
 	if event.is_action_released("P2_MoveRight"):
 		move_right = false
-		print("Right false")
+		# print("Right false")
 		
 	if event.is_action_pressed("P2_Jump"):
-		print("Jump pressed")
+		# print("Jump pressed")
 		if is_on_floor() and not is_attacking:
 			velocity.y = JUMP_VELOCITY
 		
@@ -140,7 +140,7 @@ func _input(event: InputEvent) -> void:
 
 
 func handle_move(move: String) -> void:
-	print(move + "pressed")
+	# print(move + "pressed")
 	if (not is_attacking) and (STAMINA_COST[move] <= currentStamina):
 		spend_stamina(move)
 		is_attacking = true
