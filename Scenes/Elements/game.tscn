@@ -1,21 +1,25 @@
-[gd_scene load_steps=20 format=3 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=24 format=3 uid="uid://8qawkdq3u8c0"]
 
 [ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Elements/Player2.tscn" id="2_opd45"]
 [ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Elements/Player1.tscn" id="3_djjig"]
-[ext_resource type="Script" uid="uid://ccmisscxyofpe" path="res://Scenes/Elements/camera_2d.gd" id="3_eoh32"]
-[ext_resource type="Texture2D" uid="uid://dmj4cshv87nuw" path="res://Assets/Background/VillageBack.png" id="4_opd45"]
+[ext_resource type="Script" path="res://Scenes/Elements/camera_2d.gd" id="3_eoh32"]
+[ext_resource type="Texture2D" uid="uid://bo558yj0hlgrb" path="res://Assets/Background/MiddleMap.png" id="4_5h5jd"]
+[ext_resource type="Texture2D" uid="uid://dogx411xxn5bp" path="res://Assets/Background/RightMap.png" id="5_tpg7m"]
 [ext_resource type="AudioStream" uid="uid://cuopgl2rrmmag" path="res://Assets/Music/LatinB16.mp3" id="5_w5dpc"]
 [ext_resource type="Texture2D" uid="uid://c8n5tpe31u5bb" path="res://Assets/Bars/healthbarUnder.png" id="6_e1abr"]
+[ext_resource type="Texture2D" uid="uid://drsvyltbabifi" path="res://Assets/Background/LeftMap.png" id="6_qrmrd"]
 [ext_resource type="Texture2D" uid="uid://bxkprly7531av" path="res://Assets/Bars/healthbarProgress.png" id="7_5h5jd"]
+[ext_resource type="Texture2D" uid="uid://2jd1byhenkgu" path="res://Assets/Background/BlueVillage.png" id="7_ya50b"]
 [ext_resource type="Script" uid="uid://baa2hox06571n" path="res://GUI/player_1_health_bar.gd" id="8_tpg7m"]
+[ext_resource type="Texture2D" uid="uid://bheniidieb10i" path="res://Assets/Background/RedVillage.png" id="8_ys3wi"]
 [ext_resource type="Texture2D" uid="uid://vtxslrmpryor" path="res://Assets/Bars/staminabarUnder.png" id="9_qrmrd"]
 [ext_resource type="Texture2D" uid="uid://dxjlcugjhfwem" path="res://Assets/Bars/staminabarProgress.png" id="10_ya50b"]
 [ext_resource type="Script" uid="uid://mse0r8hak62n" path="res://GUI/player_1_stamina_bar.gd" id="11_ys3wi"]
 [ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_vnd3f"]
 [ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_aiya3"]
 [ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Elements/Tower.tscn" id="14_k5j0i"]
-[ext_resource type="PackedScene" uid="uid://djx55f4sx7fay" path="res://Scenes/Elements/Barrel.tscn" id="15_djjig"]
-[ext_resource type="PackedScene" uid="uid://7ncegd7kis5m" path="res://Scenes/Elements/Platform.tscn" id="16_2bw0e"]
+[ext_resource type="PackedScene" path="res://Scenes/Elements/Barrel.tscn" id="15_djjig"]
+[ext_resource type="PackedScene" path="res://Scenes/Elements/Platform.tscn" id="16_2bw0e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
 size = Vector2(20, 472)
@@ -29,13 +33,15 @@ size = Vector2(4000, 20)
 [node name="Game" type="Node2D"]
 
 [node name="Player2" parent="." groups=["player"] instance=ExtResource("2_opd45")]
-position = Vector2(300, -30)
+position = Vector2(298, -35)
+scale = Vector2(1.5, 1.5)
 
 [node name="Player1" parent="." groups=["player"] instance=ExtResource("3_djjig")]
-position = Vector2(-300, -30)
+position = Vector2(-300, -35)
+scale = Vector2(1.5, 1.5)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -150)
+position = Vector2(0, -203)
 zoom = Vector2(1.45, 1.45)
 script = ExtResource("3_eoh32")
 
@@ -43,33 +49,33 @@ script = ExtResource("3_eoh32")
 
 [node name="Sprite2D" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
-position = Vector2(0, -150)
-scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_opd45")
+position = Vector2(-1, -204.1922)
+scale = Vector2(0.516784, 0.43321833)
+texture = ExtResource("4_5h5jd")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
-position = Vector2(793, -150)
-scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_opd45")
+position = Vector2(794, -203.1922)
+scale = Vector2(0.516784, 0.43321836)
+texture = ExtResource("5_tpg7m")
 
 [node name="Sprite2D3" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
-position = Vector2(-793, -150)
-scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_opd45")
+position = Vector2(-792, -204.69218)
+scale = Vector2(0.516784, 0.43419495)
+texture = ExtResource("6_qrmrd")
 
 [node name="Sprite2D4" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
-position = Vector2(-1586, -150)
-scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_opd45")
+position = Vector2(-1584, -204.1922)
+scale = Vector2(0.516784, 0.43712455)
+texture = ExtResource("7_ya50b")
 
 [node name="Sprite2D5" type="Sprite2D" parent="Backgrounds"]
 z_index = -4096
-position = Vector2(1586, -150)
-scale = Vector2(0.516784, 0.385968)
-texture = ExtResource("4_opd45")
+position = Vector2(1588, -201.69217)
+scale = Vector2(0.516784, 0.4322418)
+texture = ExtResource("8_ys3wi")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_w5dpc")
@@ -181,10 +187,10 @@ position = Vector2(1190, -93)
 position = Vector2(-59, -15)
 
 [node name="Platform" parent="Objects" instance=ExtResource("16_2bw0e")]
-position = Vector2(90, -72)
+position = Vector2(111, -87)
 
 [node name="Platform2" parent="Objects" instance=ExtResource("16_2bw0e")]
-position = Vector2(-150, -99)
+position = Vector2(-192, -107)
 
 [connection signal="player_entered" from="Towers/Tower Left 2" to="Camera2D" method="_on_tower_entered"]
 [connection signal="player_entered" from="Towers/Tower Left 1" to="Camera2D" method="_on_tower_entered"]
