@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=21 format=3 uid="uid://8qawkdq3u8c0"]
 
 [ext_resource type="Script" uid="uid://cad3dewsoegec" path="res://Scenes/Scripts/game.gd" id="1_eoh32"]
 [ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Elements/Player2.tscn" id="2_opd45"]
@@ -29,6 +29,9 @@ size = Vector2(133, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opd45"]
 size = Vector2(20, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eoh32"]
+size = Vector2(20, 38)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_eoh32")
@@ -191,10 +194,14 @@ position = Vector2(396, -78)
 [node name="Tower Right 2" parent="Towers" instance=ExtResource("14_k5j0i")]
 position = Vector2(1191, -77)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Door" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="Door_R_1" type="CollisionShape2D" parent="Door"]
 position = Vector2(397, -23)
 shape = SubResource("RectangleShape2D_opd45")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_player_entered_tower"]
+[node name="Door_L_1" type="CollisionShape2D" parent="Door"]
+position = Vector2(-394, -21)
+shape = SubResource("RectangleShape2D_eoh32")
+
+[connection signal="body_entered" from="Door" to="." method="_on_player_entered_tower"]
