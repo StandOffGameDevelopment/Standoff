@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cub3lwbt8kllt"]
+[gd_scene load_steps=44 format=3 uid="uid://cub3lwbt8kllt"]
 
 [ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scripts/player_2.gd" id="1_dn4j3"]
 [ext_resource type="Texture2D" uid="uid://b5figu8gnnwej" path="res://Assets/Players/Human Red/Attack2Red.png" id="2_0bobp"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://ch6v8sjw0q47" path="res://Assets/Players/Human Red/IdleRed.png" id="4_7m8ro"]
 [ext_resource type="Texture2D" uid="uid://crljr63oscbkm" path="res://Assets/Players/Human Red/JumpRed.png" id="5_niw6a"]
 [ext_resource type="Texture2D" uid="uid://bi56v70wxtvvd" path="res://Assets/Players/Human Red/RunRed.png" id="6_sqc4o"]
+[ext_resource type="Script" uid="uid://dtk7qvxcueliy" path="res://Scenes/Scripts/Hurtbox2D.gd" id="8_23m6j"]
+[ext_resource type="Script" uid="uid://cj0tcig64410r" path="res://Scenes/Scripts/Health.gd" id="8_cwgl2"]
+[ext_resource type="Script" uid="uid://ddh2hsnlqy7t3" path="res://Scenes/Scripts/Hitbox2D.gd" id="8_q3lmw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nfgwa"]
 atlas = ExtResource("2_0bobp")
@@ -262,12 +265,14 @@ animations = [{
 size = Vector2(19.166666, 38.333332)
 
 [node name="Player2" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_dn4j3")
 
 [node name="P2AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
-animation = &"Idle"
+animation = &"HeavySlash"
 autoplay = "Idle"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -280,6 +285,7 @@ shape = SubResource("RectangleShape2D_0bobp")
 [node name="Idle" type="Area2D" parent="Hurtboxes"]
 collision_layer = 8
 collision_mask = 4
+script = ExtResource("8_23m6j")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtboxes/Idle"]
 visible = false
@@ -288,6 +294,7 @@ polygon = PackedVector2Array(-15, 4, -6, -15, 0, -17, 0, -24, 8, -24, 8, -15, 15
 [node name="Run" type="Area2D" parent="Hurtboxes"]
 collision_layer = 8
 collision_mask = 4
+script = ExtResource("8_23m6j")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtboxes/Run"]
 visible = false
@@ -298,6 +305,7 @@ polygon = PackedVector2Array(-16, 23, -20, 19, 2, -10, -1, -12, -5, -8, -7, -10,
 [node name="Hit Front Slash" type="Area2D" parent="Hitboxes"]
 collision_layer = 4
 collision_mask = 8
+script = ExtResource("8_q3lmw")
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/Hit Front Slash"]
 visible = false
@@ -306,9 +314,13 @@ polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, 
 [node name="Hit Back Slash" type="Area2D" parent="Hitboxes"]
 collision_layer = 4
 collision_mask = 8
+script = ExtResource("8_q3lmw")
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/Hit Back Slash"]
 visible = false
 polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -53, -20, -45, -30, -34, -39, -20, -54, -26, -62, -35, -62, -44, -51, -55, -29, -63, -11, -65, 17, -65, 42, -61, 58, -53, 67, -43, 67, -35, 58, -26)
+
+[node name="Health" type="Node2D" parent="."]
+script = ExtResource("8_cwgl2")
 
 [connection signal="animation_finished" from="P2AnimatedSprite2D" to="." method="_on_animation_finished"]
