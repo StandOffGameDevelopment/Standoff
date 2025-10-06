@@ -13,15 +13,18 @@ var target_y := 0.0
 
 func _ready():
 	target_y = global_position.y + MOVE_DISTANCE
-	timer.wait_time = 5.0
-	timer.one_shot = true
-	timer.start()
-	timer.timeout.connect(_on_timeout)
+	#timer.wait_time = 5.0
+	#timer.one_shot = true
+	#timer.start()
+	#timer.timeout.connect(_on_timeout)
+#func _on_timeout():
+	#opening = true
 
-func _on_timeout():
+func open_gate():
 	opening = true
 
 func _process(delta: float):
+	
 	if opening:
 		# Move gate upward
 		global_position.y = move_toward(global_position.y, target_y, MOVE_SPEED * delta)

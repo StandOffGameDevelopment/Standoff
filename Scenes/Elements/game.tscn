@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Elements/Player2.tscn" id="2_opd45"]
 [ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Elements/Player1.tscn" id="3_djjig"]
-[ext_resource type="Script" path="res://Scenes/Elements/camera_2d.gd" id="3_eoh32"]
+[ext_resource type="Script" uid="uid://ccmisscxyofpe" path="res://Scenes/Elements/camera_2d.gd" id="3_eoh32"]
 [ext_resource type="Texture2D" uid="uid://bo558yj0hlgrb" path="res://Assets/Background/MiddleMap.png" id="4_5h5jd"]
 [ext_resource type="Texture2D" uid="uid://dogx411xxn5bp" path="res://Assets/Background/RightMap.png" id="5_tpg7m"]
 [ext_resource type="AudioStream" uid="uid://cuopgl2rrmmag" path="res://Assets/Music/LatinB16.mp3" id="5_w5dpc"]
@@ -174,14 +174,22 @@ player = NodePath("../../Player2")
 [node name="Tower Left 2" parent="Towers" instance=ExtResource("14_k5j0i")]
 position = Vector2(-1188, -94)
 
+[node name="GateRight" parent="Towers/Tower Left 2" index="3" groups=["RightGate"]]
+
 [node name="Tower Left 1" parent="Towers" instance=ExtResource("14_k5j0i")]
 position = Vector2(-396, -94)
 
-[node name="Tower Right 1" parent="Towers" instance=ExtResource("14_k5j0i")]
+[node name="GateRight" parent="Towers/Tower Left 1" index="3" groups=["RightGate"]]
+
+[node name="Tower Right 1" parent="Towers" groups=["RightTower"] instance=ExtResource("14_k5j0i")]
 position = Vector2(396, -94)
 
-[node name="Tower Right 2" parent="Towers" instance=ExtResource("14_k5j0i")]
+[node name="GateRight" parent="Towers/Tower Right 1" index="3" groups=["RightGate"]]
+
+[node name="Tower Right 2" parent="Towers" groups=["RightTower"] instance=ExtResource("14_k5j0i")]
 position = Vector2(1190, -93)
+
+[node name="GateRight" parent="Towers/Tower Right 2" index="3" groups=["RightGate"]]
 
 [node name="Objects" type="Node2D" parent="."]
 
@@ -198,3 +206,8 @@ position = Vector2(-192, -107)
 [connection signal="player_entered" from="Towers/Tower Left 1" to="Camera2D" method="_on_tower_entered"]
 [connection signal="player_entered" from="Towers/Tower Right 1" to="Camera2D" method="_on_tower_entered"]
 [connection signal="player_entered" from="Towers/Tower Right 2" to="Camera2D" method="_on_tower_entered"]
+
+[editable path="Towers/Tower Left 2"]
+[editable path="Towers/Tower Left 1"]
+[editable path="Towers/Tower Right 1"]
+[editable path="Towers/Tower Right 2"]

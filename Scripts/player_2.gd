@@ -43,7 +43,9 @@ var direction := 0.0
 var is_attacking := false
 var locked_flip_h := false      # remembers direction during attack
 
+signal died
 var is_dead := false
+
 
 
 @onready var animated_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
@@ -299,13 +301,15 @@ func _on_died() -> void:
 	# Play death once
 	if is_instance_valid(animated_sprite):
 		animated_sprite.play("Death")
-	# Stop combat interactions immediately
-	_set_all_hitboxes(false)
-	_enable_hurtbox(hb_idle, false)
-	_enable_hurtbox(hb_run,  false)
-
-	# Stop horizontal motion right now (keep gravity so you can land if airborne)
-	velocity.x = 0
+	get_tree().call_group("RightTower", "open_gate")
+		
+	## Stop combat interactions immediately
+	#_set_all_hitboxes(false)
+	#_enable_hurtbox(hb_idle, false)
+	#_enable_hurtbox(hb_run,  false)
+#
+	## Stop horizontal motion right now (keep gravity so you can land if airborne)
+	#velocity.x = 0
 
 	# Block player control AFTER death (this is the part that stops movement post-death)
 	set_process_input(false)

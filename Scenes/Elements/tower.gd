@@ -10,3 +10,8 @@ func _on_body_entered(body):
 		else: direction = "right"
 		print("Player entered" + direction)
 		player_entered.emit(direction)
+
+func open_gate():
+	for gate in get_children():
+		if gate.has_method("open_gate"):
+			gate.open_gate()
