@@ -1,7 +1,7 @@
 extends Area2D
 class_name Hitbox2D
 
-@export var damage: int = 10
+@export var damage: int = 50
 @export var knockback: Vector2 = Vector2.ZERO
 @export var hitstun_ms: int = 0
 @export var i_frames_on_hit: float = 0.1
@@ -11,6 +11,7 @@ var active: bool = false
 
 func _ready() -> void:
 	# Force layers/masks: Hitbox L=4 (1<<2), M=8 (1<<3)
+	# TODO: IS THIS WORKING ???
 	collision_layer = 1 << 2
 	collision_mask  = 1 << 3
 	monitorable = true

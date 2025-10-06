@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://cub3lwbt8kllt"]
+[gd_scene load_steps=54 format=3 uid="uid://cub3lwbt8kllt"]
 
 [ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scripts/player_2.gd" id="1_dn4j3"]
 [ext_resource type="Texture2D" uid="uid://b5figu8gnnwej" path="res://Assets/Players/Human Red/Attack2Red.png" id="2_0bobp"]
 [ext_resource type="Texture2D" uid="uid://cyhcr0gllmoij" path="res://Assets/Players/Human Red/Attack3Red.png" id="3_01ocy"]
 [ext_resource type="Texture2D" uid="uid://s65h6mse5ts7" path="res://Assets/Players/Human Red/Attack1Red.png" id="3_64kca"]
+[ext_resource type="Texture2D" uid="uid://cqf8qq5ovgkq6" path="res://Assets/Players/Human Red/DeathRed.png" id="3_q1qhb"]
 [ext_resource type="Texture2D" uid="uid://ch6v8sjw0q47" path="res://Assets/Players/Human Red/IdleRed.png" id="4_7m8ro"]
 [ext_resource type="Texture2D" uid="uid://crljr63oscbkm" path="res://Assets/Players/Human Red/JumpRed.png" id="5_niw6a"]
 [ext_resource type="Texture2D" uid="uid://bi56v70wxtvvd" path="res://Assets/Players/Human Red/RunRed.png" id="6_sqc4o"]
@@ -26,6 +27,42 @@ region = Rect2(270, 0, 135, 135)
 [sub_resource type="AtlasTexture" id="AtlasTexture_phhv8"]
 atlas = ExtResource("2_0bobp")
 region = Rect2(405, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbxey"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(0, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki3h6"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(135, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55k23"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(270, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4clf6"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(405, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibkcd"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(540, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33jqa"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(675, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqtp4"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(810, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkcyw"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(945, 0, 135, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6yfy"]
+atlas = ExtResource("3_q1qhb")
+region = Rect2(1080, 0, 135, 135)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cwgl2"]
 atlas = ExtResource("3_64kca")
@@ -156,6 +193,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_bbxey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki3h6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55k23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4clf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibkcd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33jqa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqtp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkcyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6yfy")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_cwgl2")
 }, {
 "duration": 1.0,
@@ -272,7 +341,7 @@ script = ExtResource("1_dn4j3")
 [node name="P2AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
-animation = &"HeavySlash"
+animation = &"Death"
 autoplay = "Idle"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -281,6 +350,7 @@ scale = Vector2(1.2, 1.2)
 shape = SubResource("RectangleShape2D_0bobp")
 
 [node name="Hurtboxes" type="Node2D" parent="."]
+visible = false
 
 [node name="Idle" type="Area2D" parent="Hurtboxes"]
 collision_layer = 8
@@ -301,6 +371,7 @@ polygon = PackedVector2Array(-16, 23, -20, 19, 2, -10, -1, -12, -5, -8, -7, -10,
 [node name="Hitboxes" type="Node2D" parent="."]
 
 [node name="Hit Front Slash" type="Area2D" parent="Hitboxes"]
+visible = false
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("8_q3lmw")
@@ -309,6 +380,7 @@ script = ExtResource("8_q3lmw")
 polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, -51, 67, -42, 67, -33, 58, -23, 38, -15, 31, -16, 22, -25)
 
 [node name="Hit Back Slash" type="Area2D" parent="Hitboxes"]
+visible = false
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("8_q3lmw")

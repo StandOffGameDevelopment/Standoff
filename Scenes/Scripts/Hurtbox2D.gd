@@ -4,6 +4,7 @@ class_name Hurtbox2D
 @export var health_path: NodePath
 signal got_hit(instigator: Node, damage: int, knockback: Vector2, hitstun_ms: int)
 
+# TODO: remove not needed links
 @onready var health: Health = (
 	get_node_or_null(health_path) if String(health_path) != "" else
 	(get_node_or_null("Health") as Health) if has_node("Health") else
@@ -16,6 +17,7 @@ var _already_hit: Dictionary = {}  # Dictionary<Area2D, bool>
 
 func _ready() -> void:
 	# Layers/masks: Hurtbox L=8 (1<<3), M=4 (1<<2)
+	# TODO: is needed???
 	collision_layer = 1 << 3
 	collision_mask  = 1 << 2
 	monitorable = true

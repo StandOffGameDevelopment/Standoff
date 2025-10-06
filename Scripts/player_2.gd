@@ -7,7 +7,7 @@ class_name Player_2
 signal healthChange(current: int, max: int)
 signal staminaChange(current: int, max: int)
 
-@onready var p2_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
+#@onready var p2_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
 @onready var hit_front: Hitbox2D = $"Hitboxes/Hit Front Slash"
 @onready var hit_back:  Hitbox2D = $"Hitboxes/Hit Back Slash"   # ok if this node doesn't exist
 @onready var health: Health = $Health
@@ -38,9 +38,12 @@ var move_right := false
 var direction := 0.0
 
 
+
 # --- If the player is doing a move lock them
 var is_attacking := false
 var locked_flip_h := false      # remembers direction during attack
+
+var is_dead := false
 
 
 @onready var animated_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
@@ -66,24 +69,35 @@ func _ready() -> void:
 		hit_back.set_active(false)
 
 	# Animation-driven toggles
-	if not p2_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
-		p2_sprite.frame_changed.connect(_on_sprite_frame_changed)
-	if not p2_sprite.animation_finished.is_connected(_on_anim_finished):
-		p2_sprite.animation_finished.connect(_on_anim_finished)
+	if not animated_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
+		animated_sprite.frame_changed.connect(_on_sprite_frame_changed)
+	if not animated_sprite.animation_finished.is_connected(_on_anim_finished):
+		animated_sprite.animation_finished.connect(_on_anim_finished)
 
 	# Relay Health → UI
 	if is_instance_valid(health) and not health.health_changed.is_connected(_on_health_changed):
 		health.health_changed.connect(_on_health_changed)
+		
+	# Listen for death (do nothing unless Health emits it)
+	if is_instance_valid(health) and not health.died.is_connected(_on_died):
+		health.died.connect(_on_died)
 
-	# Emit health once AFTER everyone is ready & connected
+	# Emit health once AFTER everyone is ready & connecteddad
 	await get_tree().process_frame
 	_emit_health_now()
-
+	
+	
 
 
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		# let gravity settle (e.g., fall to ground), but no controls
+		update_gravity(delta)
+		move_and_slide()
+		return
+
 	update_gravity(delta)
 	update_direction()
 	update_animation()
@@ -97,7 +111,7 @@ func _enable_hurtbox(hb: Hurtbox2D, on: bool) -> void:
 		hb.monitorable = on
 
 func _update_active_hurtbox() -> void:
-	var anim: StringName = p2_sprite.animation
+	var anim: StringName = animated_sprite.animation
 	var use_run := anim == "Run"
 	_enable_hurtbox(hb_run,  use_run)
 	_enable_hurtbox(hb_idle, not use_run)
@@ -125,8 +139,12 @@ func _on_anim_finished() -> void:
 		_set_all_hitboxes(false)
 
 func _on_sprite_frame_changed() -> void:
-	var anim: StringName = p2_sprite.animation
-	var frame: int = p2_sprite.frame
+	if is_dead:
+		_set_all_hitboxes(false)
+		return
+		
+	var anim: StringName = animated_sprite.animation
+	var frame: int = animated_sprite.frame
 
 	var front_on := false
 	var back_on  := false
@@ -156,7 +174,7 @@ func _set_all_hitboxes(on: bool) -> void:
 		hit_back.set_active(on)
 
 func _attack_ongoing() -> bool:
-	return bool(_attack_anims.get(p2_sprite.animation, false))
+	return bool(_attack_anims.get(animated_sprite.animation, false))
 
 
 func update_direction() -> void:
@@ -174,6 +192,12 @@ func update_direction() -> void:
 
 
 func update_animation() -> void:
+		# If dead, keep Death playing and do nothing else
+	if is_dead:
+		if animated_sprite.animation != "Death":
+			animated_sprite.play("Death")
+		return
+
 	# Locomotion animations (and collider switch) when not attacking
 	if not is_attacking:
 		if is_on_floor():
@@ -208,22 +232,22 @@ func _on_animation_finished() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("P2_MoveLeft"):
 		move_left = true
-		print("Left true")
+
 	
 	if event.is_action_released("P2_MoveLeft"):
 		move_left = false
-		print("Left false")
+
 	
 	if event.is_action_pressed("P2_MoveRight"):
 		move_right = true
-		print("Right true")
+
 	
 	if event.is_action_released("P2_MoveRight"):
 		move_right = false
-		print("Right false")
+
 		
 	if event.is_action_pressed("P2_Jump"):
-		print("Jump pressed")
+
 		if is_on_floor() and not is_attacking:
 			velocity.y = JUMP_VELOCITY
 		
@@ -265,3 +289,23 @@ func regen_stamina() -> void:
 		if currentStamina < maxStamina:
 			currentStamina = min(maxStamina, currentStamina + 1)
 			staminaChange.emit(currentStamina, maxStamina)
+
+
+func _on_died() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	
+	# Play death once
+	if is_instance_valid(animated_sprite):
+		animated_sprite.play("Death")
+	# Stop combat interactions immediately
+	_set_all_hitboxes(false)
+	_enable_hurtbox(hb_idle, false)
+	_enable_hurtbox(hb_run,  false)
+
+	# Stop horizontal motion right now (keep gravity so you can land if airborne)
+	velocity.x = 0
+
+	# Block player control AFTER death (this is the part that stops movement post-death)
+	set_process_input(false)
