@@ -4,13 +4,20 @@ class_name Player_1
 
 # --- Signals ---
 @warning_ignore("unused_signal")
-signal healthChange
+signal healthChange(current: int, max: int)
 signal staminaChange(current: int, max: int)
 
 
 # --- Movement constants ---
 const SPEED := 160.0
 const JUMP_VELOCITY := -400.0
+
+@onready var p1_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hit_front: Hitbox2D = $Area2D
+@onready var hit_back: Hitbox2D = $Area2D2
+@onready var health: Health = $Health
+
+var _attack_anims := { "FrontSlash": true, "BackSlash": true, "HeavySlash": true }
 
 
 # --- Cost of every move that consumes stamina ---
@@ -34,15 +41,34 @@ var locked_flip_h := false      # remembers direction during attack
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-@export var maxHealth := 100
-@onready var currentHealth: int = maxHealth
-
 @export var maxStamina = 100
 @onready var currentStamina: int = maxStamina 
 
 
 func _ready() -> void:
+	print("[DEBUG] p1_sprite name:", p1_sprite.name)
+	print("[DEBUG] frame_changed connected:", p1_sprite.frame_changed.is_connected(_on_sprite_frame_changed))
+	print("[DEBUG] animation_finished connected:", p1_sprite.animation_finished.is_connected(_on_anim_finished))
+
 	regen_stamina()
+	# Set this player as the instigator and start disabled
+	if is_instance_valid(hit_front):
+		hit_front.set_instigator(self)
+		hit_front.set_active(false)
+	if is_instance_valid(hit_back):
+		hit_back.set_instigator(self)
+		hit_back.set_active(false)
+
+	# Toggle by animation frame
+	if not p1_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
+		p1_sprite.frame_changed.connect(_on_sprite_frame_changed)
+	if not p1_sprite.animation_finished.is_connected(_on_anim_finished):
+		p1_sprite.animation_finished.connect(_on_anim_finished)
+
+	# (Optional) If your UI bars listen to Player1's healthChange, relay Health to them later when we add P1's Hurtbox.
+	if is_instance_valid(health) and not health.health_changed.is_connected(_on_health_changed):
+		health.health_changed.connect(_on_health_changed)
+
 
 
 func _physics_process(delta: float) -> void:
@@ -51,6 +77,67 @@ func _physics_process(delta: float) -> void:
 	update_animation()
 	update_movement()
 	move_and_slide()
+
+func get_current_health() -> int:
+	return health.current_health
+
+func get_max_health() -> int:
+	return health.max_health
+
+func _on_health_changed(current: int, max_v: int) -> void:
+	if has_signal("healthChange"):
+		emit_signal("healthChange", current, max_v)
+
+func _on_anim_finished() -> void:
+	if _attack_ongoing():
+		_set_all_hitboxes(false)
+
+func _on_sprite_frame_changed() -> void:
+	var anim: StringName = p1_sprite.animation
+	var frame: int = p1_sprite.frame
+	
+	var front_on := false
+	var back_on  := false
+	
+	match anim:
+		"FrontSlash":
+			front_on = frame == 3
+		"BackSlash":
+			back_on  = frame == 3
+		"HeavySlash":
+			# No heavy hitbox yet → keep off
+			front_on = false
+			back_on  = false
+		_:
+			_set_all_hitboxes(false)
+			return
+	
+	if front_on: print("[P1] FRONT HITBOX ON at frame ", frame)
+	if back_on:  print("[P1] BACK  HITBOX ON at frame ", frame)
+	
+	if is_instance_valid(hit_front) and front_on:
+		print("[P1] TOGGLE front ON; node=", hit_front.name)
+	if is_instance_valid(hit_back) and back_on:
+		print("[P1] TOGGLE back  ON; node=", hit_back.name)
+
+	if is_instance_valid(hit_front):
+		hit_front.set_active(front_on)
+	if is_instance_valid(hit_back):
+		hit_back.set_active(back_on)
+
+	if front_on or back_on:
+		await get_tree().create_timer(0.05).timeout
+		_set_all_hitboxes(false)
+
+
+func _set_all_hitboxes(on: bool) -> void:
+	if is_instance_valid(hit_front):
+		hit_front.set_active(on)
+	if is_instance_valid(hit_back):
+		hit_back.set_active(on)
+
+func _attack_ongoing() -> bool:
+	return bool(_attack_anims.get(p1_sprite.animation, false))
 
 
 func update_gravity(delta: float) -> void:

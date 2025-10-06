@@ -4,8 +4,19 @@ class_name Player_2
 
 # --- Signals ---
 @warning_ignore("unused_signal")
-signal healthChange
+signal healthChange(current: int, max: int)
 signal staminaChange(current: int, max: int)
+
+@onready var p2_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
+@onready var hit_front: Hitbox2D = $"Hitboxes/Hit Front Slash"
+@onready var hit_back:  Hitbox2D = $"Hitboxes/Hit Back Slash"   # ok if this node doesn't exist
+@onready var health: Health = $Health
+
+@onready var hb_idle: Hurtbox2D = $Hurtboxes/Idle
+@onready var hb_run:  Hurtbox2D = $Hurtboxes/Run
+
+
+var _attack_anims := { "FrontSlash": true, "BackSlash": true, "HeavySlash": true }
 
 
 # --- Movement constants ---
@@ -34,15 +45,42 @@ var locked_flip_h := false      # remembers direction during attack
 
 @onready var animated_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
 
-@export var maxHealth := 100
-@onready var currentHealth: int = maxHealth
-
 @export var maxStamina = 100
 @onready var currentStamina: int = maxStamina 
 
 
 func _ready() -> void:
+	# Enable exactly one Hurtbox
+	_enable_hurtbox(hb_idle, true)
+	_enable_hurtbox(hb_run,  false)
+
+	# Stamina regen loop
 	regen_stamina()
+
+	# Prepare hitboxes (disabled until anim frame says ON)
+	if is_instance_valid(hit_front):
+		hit_front.set_instigator(self)
+		hit_front.set_active(false)
+	if is_instance_valid(hit_back):
+		hit_back.set_instigator(self)
+		hit_back.set_active(false)
+
+	# Animation-driven toggles
+	if not p2_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
+		p2_sprite.frame_changed.connect(_on_sprite_frame_changed)
+	if not p2_sprite.animation_finished.is_connected(_on_anim_finished):
+		p2_sprite.animation_finished.connect(_on_anim_finished)
+
+	# Relay Health → UI
+	if is_instance_valid(health) and not health.health_changed.is_connected(_on_health_changed):
+		health.health_changed.connect(_on_health_changed)
+
+	# Emit health once AFTER everyone is ready & connected
+	await get_tree().process_frame
+	_emit_health_now()
+
+
+
 
 
 func _physics_process(delta: float) -> void:
@@ -53,11 +91,72 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+func _enable_hurtbox(hb: Hurtbox2D, on: bool) -> void:
+	if is_instance_valid(hb):
+		hb.monitoring = on
+		hb.monitorable = on
+
+func _update_active_hurtbox() -> void:
+	var anim: StringName = p2_sprite.animation
+	var use_run := anim == "Run"
+	_enable_hurtbox(hb_run,  use_run)
+	_enable_hurtbox(hb_idle, not use_run)
+
+
 func update_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	elif velocity.y > 0:
 		velocity.y = 0
+
+func _on_health_changed(current: int, max_v: int) -> void:
+	if has_signal("healthChange"):
+		emit_signal("healthChange", current, max_v)
+
+func get_current_health() -> int:
+	return health.current_health if is_instance_valid(health) else 0
+
+func get_max_health() -> int:
+	return health.max_health if is_instance_valid(health) else 1
+
+
+func _on_anim_finished() -> void:
+	if _attack_ongoing():
+		_set_all_hitboxes(false)
+
+func _on_sprite_frame_changed() -> void:
+	var anim: StringName = p2_sprite.animation
+	var frame: int = p2_sprite.frame
+
+	var front_on := false
+	var back_on  := false
+
+	match anim:
+		"FrontSlash":
+			front_on = frame == 3
+		"BackSlash":
+			back_on  = frame == 3
+		"HeavySlash":
+			# no heavy hitbox yet
+			front_on = false
+			back_on  = false
+		_:
+			_set_all_hitboxes(false)
+			return
+
+	if is_instance_valid(hit_front):
+		hit_front.set_active(front_on)
+	if is_instance_valid(hit_back):
+		hit_back.set_active(back_on)
+
+func _set_all_hitboxes(on: bool) -> void:
+	if is_instance_valid(hit_front):
+		hit_front.set_active(on)
+	if is_instance_valid(hit_back):
+		hit_back.set_active(on)
+
+func _attack_ongoing() -> bool:
+	return bool(_attack_anims.get(p2_sprite.animation, false))
 
 
 func update_direction() -> void:
@@ -88,6 +187,7 @@ func update_animation() -> void:
 		else:
 			if animated_sprite.animation != "Jump":
 				animated_sprite.play("Jump")
+	_update_active_hurtbox()
 
 
 func update_movement() -> void:
@@ -108,22 +208,22 @@ func _on_animation_finished() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("P2_MoveLeft"):
 		move_left = true
-		# print("Left true")
+		print("Left true")
 	
 	if event.is_action_released("P2_MoveLeft"):
 		move_left = false
-		# print("Left false")
+		print("Left false")
 	
 	if event.is_action_pressed("P2_MoveRight"):
 		move_right = true
-		# print("Right true")
+		print("Right true")
 	
 	if event.is_action_released("P2_MoveRight"):
 		move_right = false
-		# print("Right false")
+		print("Right false")
 		
 	if event.is_action_pressed("P2_Jump"):
-		# print("Jump pressed")
+		print("Jump pressed")
 		if is_on_floor() and not is_attacking:
 			velocity.y = JUMP_VELOCITY
 		
@@ -140,7 +240,7 @@ func _input(event: InputEvent) -> void:
 
 
 func handle_move(move: String) -> void:
-	# print(move + "pressed")
+	print(move + "pressed")
 	if (not is_attacking) and (STAMINA_COST[move] <= currentStamina):
 		spend_stamina(move)
 		is_attacking = true
@@ -152,6 +252,11 @@ func handle_move(move: String) -> void:
 func spend_stamina(move: String) -> void:
 	currentStamina -= STAMINA_COST[move]
 	staminaChange.emit(currentStamina, maxStamina)
+
+# --- at the bottom of Player_2.gd (or anywhere outside other funcs)
+func _emit_health_now() -> void:
+	if is_instance_valid(health) and has_signal("healthChange"):
+		emit_signal("healthChange", health.current_health, health.max_health)
 
 
 func regen_stamina() -> void:
