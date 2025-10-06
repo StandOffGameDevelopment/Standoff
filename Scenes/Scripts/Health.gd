@@ -25,6 +25,7 @@ func apply_damage(amount: int, instigator: Node) -> void:
 	if invulnerable or amount <= 0:
 		return
 	current_health = max(0, current_health - amount)
+	print("[HEALTH] apply_damage:", amount, "→", current_health, "/", max_health)
 	emit_signal("took_hit", amount, instigator)
 	emit_signal("health_changed", current_health, max_health)
 	if current_health == 0:

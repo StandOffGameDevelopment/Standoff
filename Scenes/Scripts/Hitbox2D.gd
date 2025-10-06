@@ -2,69 +2,69 @@ extends Area2D
 class_name Hitbox2D
 
 @export var damage: int = 10
-@export var knockback_local: Vector2 = Vector2(350, -120)
-@export var hitstun_ms: int = 120
-@export var i_frames_on_hit: float = 0.10
+@export var knockback: Vector2 = Vector2.ZERO
+@export var hitstun_ms: int = 0
+@export var i_frames_on_hit: float = 0.1
 
 var instigator: Node = null
 var active: bool = false
-var _already_hit := {}
 
 func _ready() -> void:
-	collision_layer = 1 << 2  # layer 3
-	collision_mask  = 1 << 3  # mask 4
-	active = false
-	monitoring = false
-	monitorable = false
-	area_entered.connect(_on_area_entered)
+	# Force layers/masks: Hitbox L=4 (1<<2), M=8 (1<<3)
+	collision_layer = 1 << 2
+	collision_mask  = 1 << 3
+	monitorable = true
+	monitoring  = false
 
-func set_active(value: bool) -> void:
-	active = value
-	monitoring = value
-	monitorable = value
-	if not value:
-		_already_hit.clear()
-	print("[HITBOX]", name, " active=", active, " monitoring=", monitoring, " monitorable=", monitorable)
+	# Ensure we actually have an enabled shape
+	var cs := get_node_or_null("CollisionShape2D")
+	if cs and cs is CollisionShape2D:
+		if cs.shape == null:
+			push_warning("[HITBOX] %s has NO shape set. Add a CollisionShape2D shape." % [name])
+		cs.set_deferred("disabled", false)
+	else:
+		push_warning("[HITBOX] %s is missing a CollisionShape2D child." % [name])
 
-func is_active() -> bool:
-	return active
+	# Connect signal once
+	if not area_entered.is_connected(_on_area_entered):
+		area_entered.connect(_on_area_entered)
+
+func set_instigator(who: Node) -> void:
+	instigator = who
 
 func is_hitbox() -> bool:
 	return true
 
-func set_instigator(node: Node) -> void:
-	instigator = node
+func is_active() -> bool:
+	return active
 
 func get_payload() -> Dictionary:
 	return {
 		"damage": damage,
-		"knockback": _compute_knockback_global(),
-		"hitstun_ms": hitstun_ms,
 		"instigator": instigator,
+		"knockback": knockback,
+		"hitstun_ms": hitstun_ms,
 		"i_frames_on_hit": i_frames_on_hit,
 	}
 
-func _on_area_entered(area: Area2D) -> void:
-	# Only count hits while active (extra guard)
+func set_active(on: bool) -> void:
+	active = on
+	set_deferred("monitoring", on)
+
+func _on_area_entered(other: Area2D) -> void:
 	if not active:
 		return
-	var owner_node := area.get_owner()
-	if owner_node == null:
+	# Let the Hurtbox drive Health if it implements that flow
+	if other.has_method("got_hit"):
 		return
-	if _already_hit.has(owner_node):
-		return
-	_already_hit[owner_node] = true
-	# Damage is applied by the Hurtbox.
 
-func _compute_knockback_global() -> Vector2:
-	var dir: int = 1
-	if instigator:
-		if instigator.has_node("P2AnimatedSprite2D"):
-			var spr: AnimatedSprite2D = instigator.get_node("P2AnimatedSprite2D")
-			dir = -1 if spr.flip_h else 1
-		elif instigator.has_node("AnimatedSprite2D"):
-			var spr2: AnimatedSprite2D = instigator.get_node("AnimatedSprite2D")
-			dir = -1 if spr2.flip_h else 1
-		else:
-			dir = -1 if instigator.scale.x < 0.0 else 1
-	return Vector2(knockback_local.x * dir, knockback_local.y)
+	# Fallback: if the hurtbox exposes a direct entrypoint, call it
+	if other.has_method("_apply_damage_and_emit"):
+		var p: Dictionary = get_payload()
+		other._apply_damage_and_emit(
+			int(p.get("damage", 0)),
+			p.get("instigator", null),
+			(p.get("knockback", Vector2.ZERO) as Vector2),
+			int(p.get("hitstun_ms", 0)),
+			float(p.get("i_frames_on_hit", 0.0))
+		)

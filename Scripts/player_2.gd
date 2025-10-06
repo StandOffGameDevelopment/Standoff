@@ -50,26 +50,36 @@ var locked_flip_h := false      # remembers direction during attack
 
 
 func _ready() -> void:
-	# make both configured, but only one on
+	# Enable exactly one Hurtbox
 	_enable_hurtbox(hb_idle, true)
 	_enable_hurtbox(hb_run,  false)
+
+	# Stamina regen loop
 	regen_stamina()
-	# Set this player as the instigator and start disabled
+
+	# Prepare hitboxes (disabled until anim frame says ON)
 	if is_instance_valid(hit_front):
 		hit_front.set_instigator(self)
 		hit_front.set_active(false)
 	if is_instance_valid(hit_back):
 		hit_back.set_instigator(self)
 		hit_back.set_active(false)
-# Drive activation by animation frames
+
+	# Animation-driven toggles
 	if not p2_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
 		p2_sprite.frame_changed.connect(_on_sprite_frame_changed)
 	if not p2_sprite.animation_finished.is_connected(_on_anim_finished):
 		p2_sprite.animation_finished.connect(_on_anim_finished)
 
-	# Relay Health component updates to your existing UI signal
+	# Relay Health → UI
 	if is_instance_valid(health) and not health.health_changed.is_connected(_on_health_changed):
 		health.health_changed.connect(_on_health_changed)
+
+	# Emit health once AFTER everyone is ready & connected
+	await get_tree().process_frame
+	_emit_health_now()
+
+
 
 
 
@@ -242,6 +252,11 @@ func handle_move(move: String) -> void:
 func spend_stamina(move: String) -> void:
 	currentStamina -= STAMINA_COST[move]
 	staminaChange.emit(currentStamina, maxStamina)
+
+# --- at the bottom of Player_2.gd (or anywhere outside other funcs)
+func _emit_health_now() -> void:
+	if is_instance_valid(health) and has_signal("healthChange"):
+		emit_signal("healthChange", health.current_health, health.max_health)
 
 
 func regen_stamina() -> void:
