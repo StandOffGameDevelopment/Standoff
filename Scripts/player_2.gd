@@ -15,6 +15,9 @@ signal staminaChange(current: int, max: int)
 @onready var hb_idle: Hurtbox2D = $Hurtboxes/Idle
 @onready var hb_run:  Hurtbox2D = $Hurtboxes/Run
 
+@onready var body_shape: CollisionShape2D = $Player2/Collision # adjust path if different
+
+
 
 var _attack_anims := { "FrontSlash": true, "BackSlash": true, "HeavySlash": true }
 
@@ -55,6 +58,7 @@ var is_dead := false
 
 
 func _ready() -> void:
+	
 	# Enable exactly one Hurtbox
 	_enable_hurtbox(hb_idle, true)
 	_enable_hurtbox(hb_run,  false)
@@ -108,9 +112,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _enable_hurtbox(hb: Hurtbox2D, on: bool) -> void:
-	if is_instance_valid(hb):
-		hb.monitoring = on
-		hb.monitorable = on
+	if not is_instance_valid(hb):
+		return
+	hb.set_deferred("monitoring", on)
+	hb.set_deferred("monitorable", on)
+
+	var cs := hb.get_node_or_null("CollisionShape2D")
+	if cs and cs is CollisionShape2D:
+		cs.set_deferred("disabled", not on)
 
 func _update_active_hurtbox() -> void:
 	var anim: StringName = animated_sprite.animation
@@ -174,6 +183,7 @@ func _set_all_hitboxes(on: bool) -> void:
 		hit_front.set_active(on)
 	if is_instance_valid(hit_back):
 		hit_back.set_active(on)
+
 
 func _attack_ongoing() -> bool:
 	return bool(_attack_anims.get(animated_sprite.animation, false))
@@ -302,14 +312,29 @@ func _on_died() -> void:
 	if is_instance_valid(animated_sprite):
 		animated_sprite.play("Death")
 	get_tree().call_group("RightTower", "open_gate")
+	
 		
 	## Stop combat interactions immediately
-	#_set_all_hitboxes(false)
-	#_enable_hurtbox(hb_idle, false)
-	#_enable_hurtbox(hb_run,  false)
-#
-	## Stop horizontal motion right now (keep gravity so you can land if airborne)
-	#velocity.x = 0
+	_set_all_hitboxes(false)
+	_kill_hurtbox(hb_idle)
+	_kill_hurtbox(hb_run)
+	
+	# Set horizontal movement to 0 and disable physics
+	velocity.x = 0
+	set_physics_process(false)
+	set_deferred("collision_layer", 0)
 
 	# Block player control AFTER death (this is the part that stops movement post-death)
 	set_process_input(false)
+
+
+func _kill_hurtbox(hb: Hurtbox2D) -> void:
+	if not is_instance_valid(hb): return
+	hb.set_deferred("monitoring", false)
+	hb.set_deferred("monitorable", false)
+	hb.set_deferred("collision_layer", 0)
+	hb.set_deferred("collision_mask", 0)
+	var cs := hb.get_node_or_null("CollisionShape2D")
+	if cs and cs is CollisionShape2D:
+		cs.set_deferred("disabled", true)
+		
