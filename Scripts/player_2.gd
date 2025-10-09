@@ -8,14 +8,14 @@ signal healthChange(current: int, max: int)
 signal staminaChange(current: int, max: int)
 
 #@onready var p2_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
-@onready var hit_front: Hitbox2D = $"Hitboxes/Hit Front Slash"
-@onready var hit_back:  Hitbox2D = $"Hitboxes/Hit Back Slash"   # ok if this node doesn't exist
+@onready var hit_front: Hitbox2D = $"Hitboxes/FrontSlash"
+@onready var hit_back:  Hitbox2D = $"Hitboxes/BackSlash"   # ok if this node doesn't exist
 @onready var health: Health = $Health
 
 @onready var hb_idle: Hurtbox2D = $Hurtboxes/Idle
 @onready var hb_run:  Hurtbox2D = $Hurtboxes/Run
 
-@onready var body_shape: CollisionShape2D = $Player2/Collision # adjust path if different
+@onready var body_shape: CollisionShape2D = $Collision # adjust path if different
 
 
 

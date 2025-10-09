@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ciah68p2yvkb2"]
 
-[ext_resource type="Script" uid="uid://cxfq2w60q23d7" path="res://Scenes/Elements/tower.gd" id="1_cvrfc"]
+[ext_resource type="Script" uid="uid://cxfq2w60q23d7" path="res://Scripts/tower.gd" id="1_cvrfc"]
 [ext_resource type="Texture2D" uid="uid://cxowt12e0f4ri" path="res://Assets/Buildings/tower.png" id="1_ry8d0"]
-[ext_resource type="PackedScene" uid="uid://d0gbmixtmroop" path="res://Scenes/Elements/gate.tscn" id="2_4yjk7"]
+[ext_resource type="PackedScene" uid="uid://d0gbmixtmroop" path="res://Scenes/Elements/Gate.tscn" id="2_4yjk7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwwul"]
 size = Vector2(10, 300)

@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://ch6v8sjw0q47" path="res://Assets/Players/Human Red/IdleRed.png" id="4_7m8ro"]
 [ext_resource type="Texture2D" uid="uid://crljr63oscbkm" path="res://Assets/Players/Human Red/JumpRed.png" id="5_niw6a"]
 [ext_resource type="Texture2D" uid="uid://bi56v70wxtvvd" path="res://Assets/Players/Human Red/RunRed.png" id="6_sqc4o"]
-[ext_resource type="Script" uid="uid://dtk7qvxcueliy" path="res://Scenes/Scripts/Hurtbox2D.gd" id="8_23m6j"]
-[ext_resource type="Script" uid="uid://cj0tcig64410r" path="res://Scenes/Scripts/Health.gd" id="8_cwgl2"]
-[ext_resource type="Script" uid="uid://ddh2hsnlqy7t3" path="res://Scenes/Scripts/Hitbox2D.gd" id="8_q3lmw"]
+[ext_resource type="Script" uid="uid://dtk7qvxcueliy" path="res://Scripts/Hurtbox2D.gd" id="8_23m6j"]
+[ext_resource type="Script" uid="uid://cj0tcig64410r" path="res://Scripts/Health.gd" id="8_cwgl2"]
+[ext_resource type="Script" uid="uid://ddh2hsnlqy7t3" path="res://Scripts/Hitbox2D.gd" id="8_q3lmw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nfgwa"]
 atlas = ExtResource("2_0bobp")
@@ -341,10 +341,12 @@ script = ExtResource("1_dn4j3")
 [node name="P2AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_oixfn")
-animation = &"Death"
+animation = &"HeavySlash"
 autoplay = "Idle"
+frame = 3
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(1.4999995, 8.34465e-07)
 scale = Vector2(1.2, 1.2)
 shape = SubResource("RectangleShape2D_0bobp")
@@ -353,40 +355,49 @@ shape = SubResource("RectangleShape2D_0bobp")
 visible = false
 
 [node name="Idle" type="Area2D" parent="Hurtboxes"]
+visible = false
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("8_23m6j")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtboxes/Idle"]
+[node name="Shape" type="CollisionPolygon2D" parent="Hurtboxes/Idle"]
 polygon = PackedVector2Array(-15, 4, -6, -15, 0, -17, 0, -24, 8, -24, 8, -15, 15, 0, 7, -7, 7, -2, 12, 9, 13, 23, 7, 23, 6, 15, -4, 14, -7, 22, -11, 22, -9, 7)
 
 [node name="Run" type="Area2D" parent="Hurtboxes"]
+visible = false
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("8_23m6j")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtboxes/Run"]
+[node name="Shape" type="CollisionPolygon2D" parent="Hurtboxes/Run"]
 polygon = PackedVector2Array(-16, 23, -20, 19, 2, -10, -1, -12, -5, -8, -7, -10, 0, -18, 10, -13, 10, -21, 17, -21, 18, -13, 23, -13, 23, -10, 10, -3, 6, 4, 12, 10, 1, 21)
 
 [node name="Hitboxes" type="Node2D" parent="."]
 
-[node name="Hit Front Slash" type="Area2D" parent="Hitboxes"]
+[node name="FrontSlash" type="Area2D" parent="Hitboxes"]
 visible = false
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("8_q3lmw")
 
-[node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/Hit Front Slash"]
+[node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/FrontSlash"]
+position = Vector2(0, 27)
 polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, -51, 67, -42, 67, -33, 58, -23, 38, -15, 31, -16, 22, -25)
 
-[node name="Hit Back Slash" type="Area2D" parent="Hitboxes"]
+[node name="BackSlash" type="Area2D" parent="Hitboxes"]
 visible = false
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("8_q3lmw")
 
-[node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/Hit Back Slash"]
+[node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/BackSlash"]
+position = Vector2(0, 27)
 polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -53, -20, -45, -30, -34, -39, -20, -54, -26, -62, -35, -62, -44, -51, -55, -29, -63, -11, -65, 17, -65, 42, -61, 58, -53, 67, -43, 67, -35, 58, -26)
+
+[node name="HeavySlash" type="Area2D" parent="Hitboxes"]
+
+[node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/HeavySlash"]
+polygon = PackedVector2Array(-45, -27, -34, -35, -21, -40, -1, -41, 20, -34, 34, -17, 34, 0, 28, 9, 28, 15, 46, 23, 53, 21, 70, 8, 79, -11, 78, -29, 66, -46, 43, -60, 19, -64, -3, -62, -26, -52, -39, -39)
 
 [node name="Health" type="Node2D" parent="."]
 script = ExtResource("8_cwgl2")

@@ -71,17 +71,6 @@ func _on_area_entered(area: Area2D) -> void:
 
 	_apply_damage_and_emit(dmg, instigator, kb, stun_ms, i_frames)
 
-	# Fallbacks if a non-standard hitbox touches us
-	# (Uncomment if you have legacy hitboxes without get_payload/is_hitbox)
-	# var inst_fallback: Node = null
-	# if area.has_method("get"): inst_fallback = area.get("instigator") as Node
-	# var dmg_fallback: int = 0
-	# if area.has_method("get"):
-	#     var v = area.get("damage")
-	#     if typeof(v) in [TYPE_INT, TYPE_FLOAT]: dmg_fallback = int(v)
-	# if dmg_fallback > 0 and instigator == null:
-	#     _apply_damage_and_emit(dmg_fallback, inst_fallback, Vector2.ZERO, 0, 0.0)
-
 func _apply_damage_and_emit(dmg: int, instigator: Node, kb: Vector2, stun_ms: int, i_frames: float) -> void:
 	if dmg <= 0 or not health:
 		return

@@ -13,8 +13,8 @@ const SPEED := 160.0
 const JUMP_VELOCITY := -400.0
 
 @onready var p1_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hit_front: Hitbox2D = $Area2D
-@onready var hit_back: Hitbox2D = $Area2D2
+@onready var hit_front: Hitbox2D = $Hitbox/FrontSlash
+@onready var hit_back: Hitbox2D = $Hitbox/BackSlash
 @onready var health: Health = $Health
 
 var _attack_anims := { "FrontSlash": true, "BackSlash": true, "HeavySlash": true }

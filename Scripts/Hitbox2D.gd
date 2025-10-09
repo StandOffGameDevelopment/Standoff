@@ -18,8 +18,8 @@ func _ready() -> void:
 	monitoring  = false
 
 	# Ensure we actually have an enabled shape
-	var cs := get_node_or_null("CollisionShape2D")
-	if cs and cs is CollisionShape2D:
+	var cs := get_node_or_null("Shape")
+	if cs is CollisionShape2D:
 		if cs.shape == null:
 			push_warning("[HITBOX] %s has NO shape set. Add a CollisionShape2D shape." % [name])
 		cs.set_deferred("disabled", false)
