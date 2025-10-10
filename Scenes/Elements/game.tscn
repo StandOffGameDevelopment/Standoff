@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=29 format=4 uid="uid://8qawkdq3u8c0"]
 
 [ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Elements/Player2.tscn" id="2_opd45"]
 [ext_resource type="PackedScene" uid="uid://bgkbc1eu3v66" path="res://Scenes/Elements/Player1.tscn" id="3_djjig"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_vnd3f"]
 [ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_aiya3"]
 [ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Elements/Tower.tscn" id="14_k5j0i"]
+[ext_resource type="Texture2D" uid="uid://tlu8fa6a1y1y" path="res://Assets/Buildings/Towers and Castles/1/Asset 24.png" id="19_tpg7m"]
 [ext_resource type="Texture2D" uid="uid://cut7o1ri7bn1a" path="res://Assets/Buildings/TX Village Props.png" id="20_5h5jd"]
 [ext_resource type="Texture2D" uid="uid://bs71ebrtfxhgy" path="res://Assets/Buildings/TX Tileset Ground.png" id="21_tpg7m"]
 
@@ -848,6 +849,11 @@ position = Vector2(-396, -94)
 
 [node name="Tower Right 1" parent="Towers" groups=["RightTower"] instance=ExtResource("14_k5j0i")]
 position = Vector2(396, -94)
+
+[node name="Sprite2D" parent="Towers/Tower Right 1" index="0"]
+position = Vector2(5.9999924, 8.999985)
+scale = Vector2(0.37358493, 0.37358496)
+texture = ExtResource("19_tpg7m")
 
 [node name="GateRight" parent="Towers/Tower Right 1" index="3" groups=["RightGate"]]
 
