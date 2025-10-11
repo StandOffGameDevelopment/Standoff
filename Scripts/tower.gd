@@ -1,17 +1,58 @@
 extends Node2D
 
-signal player_entered(direction: String)
+signal move_camera_left()
+signal move_camera_right()
 
-func _on_body_entered(body):
+func _ready():
+	$Detector1.monitoring = false
+	$Detector2.monitoring = false
+	$Detector3.monitoring = false
+	$Detector4.monitoring = false
+
+
+func _on_passage_left_right():
+	print("Passage left right")
+	$GateLeft.open()
+	$GateRight.open()
+	$Detector3.monitoring = true
+	$Detector4.monitoring = true
+
+
+func _on_passage_right_left():
+	print("Passage right left")
+	$GateLeft.open()
+	$GateRight.open()
+	$Detector1.monitoring = true
+	$Detector2.monitoring = true
+
+
+func _on_detector1_entered(body):
 	if body.is_in_group("player"):
-		var direction
-		if body.position.x < global_position.x: 
-			direction = "left" 
-		else: direction = "right"
-		print("Player entered" + direction)
-		player_entered.emit(direction)
+		print("Detector 1 entered")
+		$Detector1.set_deferred("monitoring", false)
+		$GateLeft.close()
+		#respawn dead player
 
-func open_gate():
-	for gate in get_children():
-		if gate.has_method("open_gate"):
-			gate.open_gate()
+
+func _on_detector2_entered(body):
+	if body.is_in_group("player"):
+		print("Detector 2 entered")
+		$Detector2.set_deferred("monitoring", false)
+		$GateRight.close()
+		emit_signal("move_camera_left")
+
+
+func _on_detector3_entered(body):
+	if body.is_in_group("player"):
+		print("Detector 3 entered")
+		$Detector3.set_deferred("monitoring", false)
+		$GateLeft.close()
+		emit_signal("move_camera_right")
+
+
+func _on_detector4_entered(body):
+	if body.is_in_group("player"):
+		print("Detector 4 entered")
+		$Detector4.set_deferred("monitoring", false)
+		$GateRight.close()
+		#respawn dead player

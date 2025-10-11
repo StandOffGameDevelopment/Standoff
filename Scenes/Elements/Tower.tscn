@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cxfq2w60q23d7" path="res://Scripts/tower.gd" id="1_cvrfc"]
 [ext_resource type="Texture2D" uid="uid://cxowt12e0f4ri" path="res://Assets/Buildings/tower.png" id="1_ry8d0"]
-[ext_resource type="PackedScene" uid="uid://d0gbmixtmroop" path="res://Scenes/Elements/Gate.tscn" id="2_4yjk7"]
+[ext_resource type="PackedScene" uid="uid://d0gbmixtmroop" path="res://Scenes/Elements/gate.tscn" id="2_4yjk7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwwul"]
-size = Vector2(10, 300)
+size = Vector2(10, 60)
 
 [node name="Tower" type="Node2D"]
+scale = Vector2(3, 3)
 script = ExtResource("1_cvrfc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -28,10 +29,38 @@ position = Vector2(-30, 72)
 [node name="GateRight" parent="." instance=ExtResource("2_4yjk7")]
 position = Vector2(30, 72)
 
-[node name="TransitionDetector" type="Area2D" parent="."]
+[node name="Detector1" type="Area2D" parent="."]
+monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="TransitionDetector"]
-position = Vector2(0, -80)
+[node name="Shape" type="CollisionShape2D" parent="Detector1"]
+position = Vector2(-70, 65)
 shape = SubResource("RectangleShape2D_jwwul")
 
-[connection signal="body_entered" from="TransitionDetector" to="." method="_on_body_entered"]
+[node name="Detector2" type="Area2D" parent="."]
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Detector2"]
+z_index = 3
+position = Vector2(-10, 65)
+shape = SubResource("RectangleShape2D_jwwul")
+
+[node name="Detector3" type="Area2D" parent="."]
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Detector3"]
+z_index = 3
+position = Vector2(10, 65)
+shape = SubResource("RectangleShape2D_jwwul")
+
+[node name="Detector4" type="Area2D" parent="."]
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Detector4"]
+z_index = 3
+position = Vector2(70, 65)
+shape = SubResource("RectangleShape2D_jwwul")
+
+[connection signal="body_entered" from="Detector1" to="." method="_on_detector1_entered"]
+[connection signal="body_entered" from="Detector2" to="." method="_on_detector2_entered"]
+[connection signal="body_entered" from="Detector3" to="." method="_on_detector3_entered"]
+[connection signal="body_entered" from="Detector4" to="." method="_on_detector4_entered"]

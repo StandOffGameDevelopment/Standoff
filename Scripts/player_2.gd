@@ -23,8 +23,8 @@ var _attack_anims := { "FrontSlash": true, "BackSlash": true, "HeavySlash": true
 
 
 # --- Movement constants ---
-const SPEED := 160.0
-const JUMP_VELOCITY := -400.0
+const SPEED := 400.0
+const JUMP_VELOCITY := -700.0
 
 
 # --- Cost of every move that consumes stamina ---
@@ -307,12 +307,13 @@ func _on_died() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	emit_signal("died")
+	
 	
 	# Play death once
 	if is_instance_valid(animated_sprite):
 		animated_sprite.play("Death")
-	get_tree().call_group("RightTower", "open_gate")
-	
+		
 		
 	## Stop combat interactions immediately
 	_set_all_hitboxes(false)

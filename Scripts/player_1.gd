@@ -9,8 +9,8 @@ signal staminaChange(current: int, max: int)
 
 
 # --- Movement constants ---
-const SPEED := 160.0
-const JUMP_VELOCITY := -400.0
+const SPEED := 400.0
+const JUMP_VELOCITY := -700.0
 
 @onready var p1_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hit_front: Hitbox2D = $Hitbox/FrontSlash
