@@ -1,4 +1,4 @@
-extends Node2D
+extends Marker2D
 
 @export var player_scene: PackedScene = preload("res://Scenes/Elements/Player2.tscn")
 @onready var player := $"../Player2"
@@ -10,9 +10,12 @@ func _ready() -> void:
 	print("[RESPAWNER] _ready at", get_path(), "  current_scene=", get_tree().current_scene)
 	_find_and_connect_player()
 	get_tree().node_added.connect(_on_node_added)
-		
-		
-		
+	
+	var game = get_parent()
+	if game and game.has_signal("spawn"):
+		game.connect("spawn", Callable(self, "_on_spawn_received"))
+
+
 func _find_and_connect_player() -> void:
 	var players := get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
@@ -36,21 +39,22 @@ func _connect_to_player(p) -> void:
 	if not p.died.is_connected(_on_player_died):
 		p.died.connect(_on_player_died)
 		print("Respawner: connected to player.died")
-		
+
 func _on_player_died() -> void:
 	print("respawner detected player died")
-	await get_tree().create_timer(1.0).timeout  # Wait for 2 seconds
 
-	respawn_player()
+func _on_spawn_received(spawn_location: Vector2) -> void:
+	print("[Spawner] Received spawn signal! Location:", spawn_location)
+	respawn_player(spawn_location)
+	pass
 	
-func respawn_player() -> void:
+func respawn_player(spawn: Vector2) -> void:
 	if player_scene == null:
 		push_error("Player scene null")
 		return
 		
-		
 	var new_player = player_scene.instantiate() as Player_2
-	new_player.global_position = global_position
+	new_player.global_position = spawn
 	get_tree().current_scene.add_child(new_player)
 	print("Player 2 Respawned!")
 	

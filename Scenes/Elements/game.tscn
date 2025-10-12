@@ -857,7 +857,9 @@ tile_set = SubResource("TileSet_qrmrd")
 [node name="PlayerSpawner" parent="." instance=ExtResource("22_qrmrd")]
 position = Vector2(660, -123)
 
+[connection signal="spawn2" from="." to="PlayerSpawner" method="_on_spawn_received"]
 [connection signal="died" from="Player2" to="." method="_on_player_2_died"]
+[connection signal="died" from="Player1" to="." method="_on_player_1_died"]
 [connection signal="move_camera_left" from="Towers/Tower Left 2" to="Camera2D" method="_move_left"]
 [connection signal="move_camera_right" from="Towers/Tower Left 2" to="Camera2D" method="_move_right"]
 [connection signal="move_camera_left" from="Towers/Tower Left 1" to="Camera2D" method="_move_left"]

@@ -6,16 +6,23 @@ class_name Player_1
 @warning_ignore("unused_signal")
 signal healthChange(current: int, max: int)
 signal staminaChange(current: int, max: int)
-
-
-# --- Movement constants ---
-const SPEED := 400.0
-const JUMP_VELOCITY := -700.0
+signal died
 
 @onready var p1_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hit_front: Hitbox2D = $Hitbox/FrontSlash
 @onready var hit_back: Hitbox2D = $Hitbox/BackSlash
 @onready var health: Health = $Health
+
+@onready var hb_idle: Hurtbox2D = $Hurtboxes/Idle
+@onready var hb_run:  Hurtbox2D = $Hurtboxes/Run
+
+@onready var body_shape: CollisionShape2D = $Collision # adjust path if different
+
+# --- Movement constants ---
+const SPEED := 400.0
+const JUMP_VELOCITY := -700.0
+
+
 
 var _attack_anims := { "FrontSlash": true, "BackSlash": true, "HeavySlash": true }
 
@@ -43,6 +50,7 @@ var locked_flip_h := false      # remembers direction during attack
 
 @export var maxStamina = 100
 @onready var currentStamina: int = maxStamina 
+var is_dead := false
 
 
 func _ready() -> void:
@@ -68,15 +76,42 @@ func _ready() -> void:
 	# (Optional) If your UI bars listen to Player1's healthChange, relay Health to them later when we add P1's Hurtbox.
 	if is_instance_valid(health) and not health.health_changed.is_connected(_on_health_changed):
 		health.health_changed.connect(_on_health_changed)
+		
+	if is_instance_valid(health) and not health.died.is_connected(_on_died):
+		health.died.connect(_on_died)
+	
+	await get_tree().process_frame
+	_emit_health_now()
 
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		# let gravity settle (e.g., fall to ground), but no controls
+		update_gravity(delta)
+		move_and_slide()
+		return
+	
 	update_gravity(delta)
 	update_direction()
 	update_animation()
 	update_movement()
 	move_and_slide()
+
+func _enable_hurtbox(hb: Hurtbox2D, on: bool) -> void:
+	if not is_instance_valid(hb):
+		return
+	hb.set_deferred("monitoring", on)
+	hb.set_deferred("monitorable", on)
+	var cs := hb.get_node_or_null("CollisionShape2D")
+	if cs and cs is CollisionShape2D:
+		cs.set_deferred("disabled", not on)
+
+func _update_active_hurtbox() -> void:
+	var anim: StringName = animated_sprite.animation
+	var use_run := anim == "Run"
+	_enable_hurtbox(hb_run,  use_run)
+	_enable_hurtbox(hb_idle, not use_run)
 
 func get_current_health() -> int:
 	return health.current_health
@@ -93,6 +128,10 @@ func _on_anim_finished() -> void:
 		_set_all_hitboxes(false)
 
 func _on_sprite_frame_changed() -> void:
+	if is_dead:
+		_set_all_hitboxes(false)
+		return
+
 	var anim: StringName = p1_sprite.animation
 	var frame: int = p1_sprite.frame
 	
@@ -163,6 +202,11 @@ func update_direction() -> void:
 
 func update_animation() -> void:
 	# Locomotion animations (and collider switch) when not attacking
+	if is_dead:
+		if animated_sprite.animation != "Death":
+			animated_sprite.play("Death")
+		return
+
 	if not is_attacking:
 		if is_on_floor():
 			if direction == 0:
@@ -239,6 +283,10 @@ func handle_move(move: String) -> void:
 func spend_stamina(move: String) -> void:
 	currentStamina -= STAMINA_COST[move]
 	staminaChange.emit(currentStamina, maxStamina)
+	
+func _emit_health_now() -> void:
+	if is_instance_valid(health) and has_signal("healthChange"):
+		emit_signal("healthChange", health.current_health, health.max_health)
 
 func regen_stamina() -> void:
 	while is_inside_tree():
@@ -246,3 +294,38 @@ func regen_stamina() -> void:
 		if currentStamina < maxStamina:
 			currentStamina = min(maxStamina, currentStamina + 1)
 			staminaChange.emit(currentStamina, maxStamina)
+
+func _on_died() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	emit_signal("died")
+	
+	# Play death once
+	if is_instance_valid(animated_sprite):
+		animated_sprite.play("Death")
+		
+		
+	## Stop combat interactions immediately
+	_set_all_hitboxes(false)
+	_kill_hurtbox(hb_idle)
+	_kill_hurtbox(hb_run)
+	
+	# Set horizontal movement to 0 and disable physics
+	velocity.x = 0
+	set_physics_process(false)
+	set_deferred("collision_layer", 0)
+
+	# Block player control AFTER death (this is the part that stops movement post-death)
+	set_process_input(false)
+
+
+func _kill_hurtbox(hb: Hurtbox2D) -> void:
+	if not is_instance_valid(hb): return
+	hb.set_deferred("monitoring", false)
+	hb.set_deferred("monitorable", false)
+	hb.set_deferred("collision_layer", 0)
+	hb.set_deferred("collision_mask", 0)
+	var cs := hb.get_node_or_null("CollisionShape2D")
+	if cs and cs is CollisionShape2D:
+		cs.set_deferred("disabled", true)
