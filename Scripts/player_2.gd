@@ -58,7 +58,8 @@ var is_dead := false
 
 
 func _ready() -> void:
-	
+	add_to_group("player")
+	print("[PLAYER] added to group 'player' at", get_path())
 	# Enable exactly one Hurtbox
 	_enable_hurtbox(hb_idle, true)
 	_enable_hurtbox(hb_run,  false)
