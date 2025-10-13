@@ -58,8 +58,10 @@ func _on_player_1_died() -> void:
 	var spawn_tower: Node2D = null
 	var spawn_location: Vector2
 	
-	find_closest_tower_left(player2)
+	closest_tower_P2 = find_closest_tower_left(player2)
 	closest_tower_P2._on_passage_right_left()
+	print("[DEBUG]", closest_tower_P2.name)
+	print("[DEBUG]", closest_tower_P2.global_position)
 	spawn_tower = find_closest_tower_left(closest_tower_P2)
 	spawn_location = findspawn_location_P1(spawn_tower)
 	

@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://ccmisscxyofpe" path="res://Scripts/camera_2d.gd" id="3_eoh32"]
 [ext_resource type="Texture2D" uid="uid://bo558yj0hlgrb" path="res://Assets/Background/MiddleMap.png" id="4_5h5jd"]
 [ext_resource type="Texture2D" uid="uid://dogx411xxn5bp" path="res://Assets/Background/RightMap.png" id="5_tpg7m"]
-[ext_resource type="AudioStream" uid="uid://cuopgl2rrmmag" path="res://Assets/Music/LatinB16.mp3" id="5_w5dpc"]
 [ext_resource type="Texture2D" uid="uid://c8n5tpe31u5bb" path="res://Assets/Bars/healthbarUnder.png" id="6_e1abr"]
 [ext_resource type="Texture2D" uid="uid://drsvyltbabifi" path="res://Assets/Background/LeftMap.png" id="6_qrmrd"]
 [ext_resource type="Texture2D" uid="uid://bxkprly7531av" path="res://Assets/Bars/healthbarProgress.png" id="7_5h5jd"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" uid="uid://baa2hox06571n" path="res://GUI/player_1_health_bar.gd" id="8_tpg7m"]
 [ext_resource type="Texture2D" uid="uid://bheniidieb10i" path="res://Assets/Background/RedVillage.png" id="8_ys3wi"]
 [ext_resource type="Texture2D" uid="uid://vtxslrmpryor" path="res://Assets/Bars/staminabarUnder.png" id="9_qrmrd"]
+[ext_resource type="AudioStream" uid="uid://b64dtptkwxwky" path="res://Assets/Music/GameMusic.mp3" id="10_qrmrd"]
 [ext_resource type="Texture2D" uid="uid://dxjlcugjhfwem" path="res://Assets/Bars/staminabarProgress.png" id="10_ya50b"]
 [ext_resource type="Script" uid="uid://mse0r8hak62n" path="res://GUI/player_1_stamina_bar.gd" id="11_ys3wi"]
 [ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_vnd3f"]
@@ -742,7 +742,7 @@ scale = Vector2(1.25, 1.044)
 texture = ExtResource("8_ys3wi")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_w5dpc")
+stream = ExtResource("10_qrmrd")
 volume_db = -20.0
 autoplay = true
 parameters/looping = true
