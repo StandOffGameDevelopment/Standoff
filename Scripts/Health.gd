@@ -6,7 +6,7 @@ signal took_hit(amount: int, instigator: Node)
 signal died
 
 @export var max_health: int = 100
-var current_health: int = 0
+var current_health: int = 100
 var invulnerable: bool = false
 
 var _iframes_timer: Timer

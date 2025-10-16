@@ -36,12 +36,6 @@ func _connect_to_player(p) -> void:
 		print("Respawner: player node invalid at connect")
 		return
 	# avoid duplicate connections
-	if not p.died.is_connected(_on_player_died):
-		p.died.connect(_on_player_died)
-		print("Respawner: connected to player.died")
-
-func _on_player_died() -> void:
-	print("respawner detected player died")
 
 func _on_spawn_received(spawn_location: Vector2) -> void:
 	print("[Spawner] Received spawn signal! Location:", spawn_location)

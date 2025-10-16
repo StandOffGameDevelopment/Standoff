@@ -308,6 +308,7 @@ func _on_died() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	print("Player2 died")
 	emit_signal("died")
 	
 	
