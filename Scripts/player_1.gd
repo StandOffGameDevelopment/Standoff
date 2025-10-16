@@ -299,6 +299,7 @@ func _on_died() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	print("Player 1 died")
 	emit_signal("died")
 	
 	# Play death once

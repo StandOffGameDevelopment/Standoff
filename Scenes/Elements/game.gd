@@ -1,12 +1,11 @@
 extends Node2D
-@onready var player1 = $Player1
-@onready var player2 = $Player2
 signal spawn2(loc: Vector2)
 
 func _ready():
 	pass
 
 func _on_player_2_died() -> void:
+	var player1 = $Player1
 	var closest_tower_P1: Node2D = null
 	var spawn_tower: Node2D = null
 	var spawn_location: Vector2
@@ -54,6 +53,7 @@ func findspawn_location_P2(body) -> Vector2:
 	return Vector2.ZERO
 
 func _on_player_1_died() -> void:
+	var player2 = $Player2
 	var closest_tower_P2: Node2D = null
 	var spawn_tower: Node2D = null
 	var spawn_location: Vector2

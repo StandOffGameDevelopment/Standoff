@@ -35,7 +35,9 @@ func _connect_to_player(p) -> void:
 	if not is_instance_valid(p):
 		print("Respawner: player node invalid at connect")
 		return
-	# avoid duplicate connections
+	var game = get_parent()  # adjust if your GameManager node path differs
+	if game and not p.died.is_connected(game._on_player_2_died):
+		p.died.connect(game._on_player_2_died)
 
 func _on_spawn_received(spawn_location: Vector2) -> void:
 	print("[Spawner] Received spawn signal! Location:", spawn_location)
