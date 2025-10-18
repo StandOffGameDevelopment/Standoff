@@ -2,6 +2,8 @@ extends Node2D
 
 signal move_camera_left()
 signal move_camera_right()
+signal can_respawn1()
+signal can_respawn2()
 
 func _ready():
 	$Detector1.monitoring = false
@@ -31,7 +33,7 @@ func _on_detector1_entered(body):
 		print("Detector 1 entered")
 		$Detector1.set_deferred("monitoring", false)
 		$GateLeft.close()
-		#respawn dead player
+		emit_signal("can_respawn1")
 
 
 func _on_detector2_entered(body):
@@ -56,3 +58,5 @@ func _on_detector4_entered(body):
 		$Detector4.set_deferred("monitoring", false)
 		$GateRight.close()
 		#respawn dead player
+		emit_signal("can_respawn2")
+		
