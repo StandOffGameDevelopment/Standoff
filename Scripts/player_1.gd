@@ -54,12 +54,16 @@ var is_dead := false
 
 
 func _ready() -> void:
-	print("[DEBUG] p1_sprite name:", p1_sprite.name)
-	print("[DEBUG] frame_changed connected:", p1_sprite.frame_changed.is_connected(_on_sprite_frame_changed))
-	print("[DEBUG] animation_finished connected:", p1_sprite.animation_finished.is_connected(_on_anim_finished))
+	add_to_group("player")
+	print("[PLAYER] added to group 'player' at", get_path())
+	# Enable exactly one Hurtbox
+	_enable_hurtbox(hb_idle, true)
+	_enable_hurtbox(hb_run,  false)
 
+	# Stamina regen loop
 	regen_stamina()
-	# Set this player as the instigator and start disabled
+
+	# Prepare hitboxes (disabled until anim frame says ON)
 	if is_instance_valid(hit_front):
 		hit_front.set_instigator(self)
 		hit_front.set_active(false)
@@ -67,21 +71,24 @@ func _ready() -> void:
 		hit_back.set_instigator(self)
 		hit_back.set_active(false)
 
-	# Toggle by animation frame
-	if not p1_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
-		p1_sprite.frame_changed.connect(_on_sprite_frame_changed)
-	if not p1_sprite.animation_finished.is_connected(_on_anim_finished):
-		p1_sprite.animation_finished.connect(_on_anim_finished)
+	# Animation-driven toggles
+	if not animated_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
+		animated_sprite.frame_changed.connect(_on_sprite_frame_changed)
+	if not animated_sprite.animation_finished.is_connected(_on_anim_finished):
+		animated_sprite.animation_finished.connect(_on_anim_finished)
 
-	# (Optional) If your UI bars listen to Player1's healthChange, relay Health to them later when we add P1's Hurtbox.
+	# Relay Health → UI
 	if is_instance_valid(health) and not health.health_changed.is_connected(_on_health_changed):
 		health.health_changed.connect(_on_health_changed)
 		
+	# Listen for death (do nothing unless Health emits it)
 	if is_instance_valid(health) and not health.died.is_connected(_on_died):
 		health.died.connect(_on_died)
-	
+
+	# Emit health once AFTER everyone is ready & connecteddad
 	await get_tree().process_frame
 	_emit_health_now()
+	
 
 
 

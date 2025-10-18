@@ -1,11 +1,25 @@
 extends Node2D
+signal spawn1(loc: Vector2)
 signal spawn2(loc: Vector2)
+
+@onready var player2: Player_2 = $Player2
+@onready var player1: Player_1 = $Player1
 
 func _ready():
 	pass
 
+func _on_player_2_respawned(new_player: Player_2) -> void:
+	print("[DEBUG] Player2 reference updated to:", new_player.name)
+	player2 = new_player
+	
+
+func _on_player_1_respawned(new_player: Player_1) -> void:
+	print("[DEBUG] Player1 reference updated to:", new_player.name)
+	player1 = new_player
+
+
 func _on_player_2_died() -> void:
-	var player1 = $Player1
+
 	var closest_tower_P1: Node2D = null
 	var spawn_tower: Node2D = null
 	var spawn_location: Vector2
@@ -53,7 +67,7 @@ func findspawn_location_P2(body) -> Vector2:
 	return Vector2.ZERO
 
 func _on_player_1_died() -> void:
-	var player2 = $Player2
+
 	var closest_tower_P2: Node2D = null
 	var spawn_tower: Node2D = null
 	var spawn_location: Vector2
@@ -64,6 +78,7 @@ func _on_player_1_died() -> void:
 	print("[DEBUG]", closest_tower_P2.global_position)
 	spawn_tower = find_closest_tower_left(closest_tower_P2)
 	spawn_location = findspawn_location_P1(spawn_tower)
+	emit_signal("spawn1", spawn_location)
 	
 func find_closest_tower_left(body) -> Node2D:
 	var player2_x = body.global_position.x

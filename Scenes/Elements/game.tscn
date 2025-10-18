@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=34 format=4 uid="uid://8qawkdq3u8c0"]
 
 [ext_resource type="Script" uid="uid://ciloatweifo4t" path="res://Scenes/Elements/game.gd" id="1_tpg7m"]
 [ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Elements/Player2.tscn" id="2_opd45"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cut7o1ri7bn1a" path="res://Assets/Buildings/TX Village Props.png" id="20_5h5jd"]
 [ext_resource type="Texture2D" uid="uid://bs71ebrtfxhgy" path="res://Assets/Buildings/TX Tileset Ground.png" id="21_tpg7m"]
 [ext_resource type="PackedScene" uid="uid://cm4sp7h876oem" path="res://Scenes/Elements/player2_spawner.tscn" id="22_qrmrd"]
+[ext_resource type="Script" uid="uid://b8gj8r2qo2xlv" path="res://Scripts/Player_1_Spawn.gd" id="23_ya50b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
 size = Vector2(100, 1080)
@@ -1798,7 +1799,7 @@ polygon = PackedVector2Array(3295, -53, 3188, 0, 3160, 0, 3369, -107, 3786, -106
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Player1HealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="Player1HealthBar" type="TextureProgressBar" parent="CanvasLayer"]
 offset_left = 30.0
 offset_top = 29.0
 offset_right = 280.0
@@ -1811,7 +1812,8 @@ stretch_margin_bottom = 4
 texture_under = ExtResource("6_e1abr")
 texture_progress = ExtResource("7_5h5jd")
 script = ExtResource("8_tpg7m")
-player = NodePath("../../Player1")
+player_path = NodePath("../../Player1")
+health_path = NodePath("../../Player1/Health")
 
 [node name="Player1StaminaBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
 offset_left = 30.0
@@ -1901,10 +1903,15 @@ tile_set = SubResource("TileSet_ys3wi")
 tile_map_data = PackedByteArray("AAD6//f/AAArAB0AAAD6//3/AAArACMAAAD6//7/AAAMAAEAAAD6////AAArACUAAAD7//f/AAAsAB0AAAD7//7/AAAsACQAAAD7////AAAsACUAAAD8//f/AAAtAB0AAAD8////AAAtACUAAAD///7/AAAwACQAAAD/////AAAwACUAAAAAAPf/AAAxAB0AAAAAAP3/AAAxACMAAAAAAP7/AAAxACQAAAAAAP//AAAxACUAAAABAPf/AAAyAB0AAAABAP3/AAAyACMAAAABAP7/AAAyACQAAAABAP//AAAyACUAAADv//b/AAArAB4AAADv//z/AAArACQAAADv//3/AAArACUAAADv//7/AAArACQAAADw//z/AAAsACQAAADw//3/AAAsACUAAADw//7/AAAsACQAAADx//z/AAA6AC0AAADx//3/AAA6AC0AAADx//7/AAA6AC0AAAD0//z/AAAwACQAAAD0//3/AAAwACUAAAD0//7/AAAwACQAAAD1//z/AAAxACQAAAD1//3/AAAxACUAAAD1//7/AAAxACQAAAD2//v/AAAyACMAAAD2//3/AAAyACUAAAD2//7/AAAyACQAAADv////AAArACUAAADw////AAAsACUAAADx////AAA6AC0AAAD0////AAAwACUAAAD1////AAAxACUAAAD2////AAAyACUAAADv//X/AAArAB0AAADw//X/AAAsAB0AAADx//X/AAAtAB0AAAD0//X/AAAwAB0AAAD1//X/AAAxAB0AAAD2//X/AAAyAB0AAAAJAPr/AAA0ABwAAAALAPz/AAA5ACsAAAALAP3/AAA6AC0AAAALAP7/AAA6AC0AAAALAP//AAA6AC0AAAAIAPz/AAAzAC0AAAAFAPz/AAA5ACsAAAAFAP3/AAA6AC0AAAAFAP7/AAA6AC0AAAAFAP//AAA6AC0AAAD6//n/AAAzAC0AAAD9//n/AAA5ACsAAAD3//n/AAA5ACsAAAD0//n/AAAzAC0AAADx//n/AAA5ACsAAADx//r/AAA6AC0AAADx//v/AAA6AC0AAAD3//r/AAA6AC0AAAD3//v/AAA6AC0AAAD3//z/AAA6AC0AAAD3//3/AAA6AC0AAAD3//7/AAA6AC0AAAD3////AAA6AC0AAAD9//r/AAA6AC0AAAD9//v/AAA6AC0AAAD9//z/AAA6AC0AAAD9//3/AAA6AC0AAAD9//7/AAA6AC0AAAD9////AAA6AC0AAAD4//7/AAAMAAEAAADF//7/AAAKABUAAADR//7/AAAKABUAABBSAP7/AAAqACsAAABZAP7/AAAgACcAAABgAP7/AAAqACsAABA=")
 tile_set = SubResource("TileSet_qrmrd")
 
-[node name="PlayerSpawner" parent="." instance=ExtResource("22_qrmrd")]
+[node name="PlayerSpawner2" parent="." instance=ExtResource("22_qrmrd")]
 position = Vector2(660, -123)
 
-[connection signal="spawn2" from="." to="PlayerSpawner" method="_on_spawn_received"]
+[node name="PlayerSpawner1" type="Node2D" parent="."]
+position = Vector2(-667, -127)
+script = ExtResource("23_ya50b")
+
+[connection signal="spawn1" from="." to="PlayerSpawner1" method="_on_spawn_received2"]
+[connection signal="spawn2" from="." to="PlayerSpawner2" method="_on_spawn_received"]
 [connection signal="died" from="Player2" to="." method="_on_player_2_died"]
 [connection signal="died" from="Player1" to="." method="_on_player_1_died"]
 [connection signal="move_camera_left" from="Towers/Tower Left 2" to="Camera2D" method="_move_left"]
@@ -1915,3 +1922,5 @@ position = Vector2(660, -123)
 [connection signal="move_camera_right" from="Towers/Tower Right 1" to="Camera2D" method="_move_right"]
 [connection signal="move_camera_left" from="Towers/Tower Right 2" to="Camera2D" method="_move_left"]
 [connection signal="move_camera_right" from="Towers/Tower Right 2" to="Camera2D" method="_move_right"]
+[connection signal="player2_respawned" from="PlayerSpawner2" to="." method="_on_player_2_respawned"]
+[connection signal="player1_respawned" from="PlayerSpawner1" to="." method="_on_player_1_respawned"]

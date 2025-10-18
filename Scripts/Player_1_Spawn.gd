@@ -1,8 +1,8 @@
 extends Node2D
 
-@export var player_scene: PackedScene = preload("res://Scenes/Elements/Player2.tscn")
-@onready var player := $"../Player2"
-signal player2_respawned(new_player: Player_2)
+@export var player_scene: PackedScene = preload("res://Scenes/Elements/Player1.tscn")
+@onready var player := $"../Player1"
+signal player1_respawned(new_player: Player_1)
 
 func _enter_tree() -> void:
 	print("[RESPAWNER] enter tree at path ", get_path())
@@ -20,7 +20,7 @@ func _ready() -> void:
 func _find_and_connect_player() -> void:
 	var players := get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
-		player = players[0] as Player_2
+		player = players[0] as Player_1
 		_connect_to_player(player)
 		print("Connected to player")
 	else:
@@ -29,7 +29,7 @@ func _find_and_connect_player() -> void:
 func _on_node_added(n: Node) -> void:
 	if n.is_in_group("player"):
 		print("Respawner: new player entered tree:", n.name)
-		player = n as Player_2
+		player = n as Player_1
 		_connect_to_player(player)
 	
 func _connect_to_player(p) -> void:
@@ -37,10 +37,10 @@ func _connect_to_player(p) -> void:
 		print("Respawner: player node invalid at connect")
 		return
 	var game = get_parent()  # adjust if your GameManager node path differs
-	if game and not p.died.is_connected(game._on_player_2_died):
-		p.died.connect(game._on_player_2_died)
+	if game and not p.died.is_connected(game._on_player_1_died):
+		p.died.connect(game._on_player_1_died)
 
-func _on_spawn_received(spawn_location: Vector2) -> void:
+func _on_spawn_received2(spawn_location: Vector2) -> void:
 	print("[Spawner] Received spawn signal! Location:", spawn_location)
 	respawn_player(spawn_location)
 	pass
@@ -51,10 +51,10 @@ func respawn_player(spawn: Vector2) -> void:
 		return
 		
 		
-	var new_player = player_scene.instantiate() as Player_2
+	var new_player = player_scene.instantiate() as Player_1
 	new_player.global_position = spawn
 	get_tree().current_scene.add_child(new_player)
-	print("Player 2 Respawned!")
+	print("Player 1 Respawned!")
 	
 	player = new_player
 	_connect_to_player(player)
@@ -64,4 +64,4 @@ func respawn_player(spawn: Vector2) -> void:
 		if bar.has_method("bind_to_player"):
 			bar.bind_to_player(player)
 			
-	emit_signal("player2_respawned", new_player)
+	emit_signal("player1_respawned", new_player)
