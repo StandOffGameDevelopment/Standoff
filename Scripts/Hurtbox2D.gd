@@ -3,6 +3,10 @@ class_name Hurtbox2D
 
 @export var health_path: NodePath
 signal got_hit(instigator: Node, damage: int, knockback: Vector2, hitstun_ms: int)
+signal parried(instigator: Node)
+@export var parry_counter_knockback: Vector2 = Vector2(350, -50)
+@export var parry_counter_stun_ms: int = 250
+
 
 # TODO: remove not needed links
 @onready var health: Health = (
@@ -63,7 +67,31 @@ func _on_area_entered(area: Area2D) -> void:
 		self_entity = health.get_parent()
 	if instigator == self_entity:
 		return
+		
+	# --- PARRY CHECK: if entity is parrying, cancel this hit and counter ---
+	var entity := (health.get_parent() if health else get_parent())
+	if entity and entity.has_method("is_parrying_now") and entity.is_parrying_now():
+		if area.has_method("set_active"):
+			area.set_active(false)
 
+		if instigator:
+			# knock back AWAY from defender
+			var dir: float = sign(instigator.global_position.x - entity.global_position.x)
+			var counter_kb_vec: Vector2 = Vector2(dir * abs(parry_counter_knockback.x), parry_counter_knockback.y)
+
+			if instigator.has_method("apply_parry_stun"):
+				instigator.apply_parry_stun(counter_kb_vec, parry_counter_stun_ms, entity)
+			elif instigator is CharacterBody2D:
+				var cb := instigator as CharacterBody2D
+				cb.velocity.x = counter_kb_vec.x
+				cb.velocity.y = counter_kb_vec.y
+				if cb.has_method("move_and_slide"):
+					cb.move_and_slide()
+
+		emit_signal("parried", instigator)
+		return
+
+		
 	var dmg: int = int(payload.get("damage", 0))
 	var kb: Vector2 = (payload.get("knockback", Vector2.ZERO) as Vector2)
 	var stun_ms: int = int(payload.get("hitstun_ms", 0))
