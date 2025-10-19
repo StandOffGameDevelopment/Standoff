@@ -10,27 +10,25 @@ var instigator: Node = null
 var active: bool = false
 
 func _ready() -> void:
-	set_deferred("monitorable", true)
-	set_deferred("monitoring",  false)
+	# Force layers/masks: Hitbox L=4 (1<<2), M=8 (1<<3)
+	# TODO: IS THIS WORKING ???
+	collision_layer = 1 << 2
+	collision_mask  = 1 << 3
+	monitorable = true
+	monitoring  = false
 
-	var poly := _find_collision_polygon()
-	if poly:
-		if poly.polygon.is_empty():
-			push_warning("[HITBOX] %s has an empty CollisionPolygon2D." % name)
-		poly.set_deferred("disabled", false)
+	# Ensure we actually have an enabled shape
+	var cs := get_node_or_null("Shape")
+	if cs is CollisionShape2D:
+		if cs.shape == null:
+			push_warning("[HITBOX] %s has NO shape set. Add a CollisionShape2D shape." % [name])
+		cs.set_deferred("disabled", false)
 	else:
-		push_warning("[HITBOX] %s is missing a CollisionPolygon2D child." % name)
+		push_warning("[HITBOX] %s is missing a CollisionShape2D child." % [name])
 
+	# Connect signal once
 	if not area_entered.is_connected(_on_area_entered):
 		area_entered.connect(_on_area_entered)
-
-
-func _find_collision_polygon() -> CollisionPolygon2D:
-	for c in get_children():
-		if c is CollisionPolygon2D:
-			return c
-	return null
-
 
 func set_instigator(who: Node) -> void:
 	instigator = who
@@ -54,22 +52,20 @@ func set_active(on: bool) -> void:
 	active = on
 	set_deferred("monitoring", on)
 
-func _on_area_entered(area: Area2D) -> void:
-	if not (area.has_method("is_hitbox") and area.is_hitbox()):
+func _on_area_entered(other: Area2D) -> void:
+	if not active:
 		return
-	if area.has_method("is_active") and not area.is_active():
+	# Let the Hurtbox drive Health if it implements that flow
+	if other.has_method("got_hit"):
 		return
 
-	# --- DEBUG: who hit whom, and are layers overlapping?
-	var inst: Node = null
-	if area.has_method("get_payload"):
-		inst = area.get_payload().get("instigator", null) as Node
-
-	var hb_layer: int = collision_layer
-	var hb_mask: int = collision_mask
-	var hits_us: bool = bool(area.collision_mask & hb_layer)
-
-	prints("[HIT]", name, "<-", (inst and inst.name),
-	   	"| A.mask & HB.layer? ", hits_us,
-	   	"| HB L/M=", hb_layer, hb_mask,
-	   	"| A L/M=", area.collision_layer, area.collision_mask)
+	# Fallback: if the hurtbox exposes a direct entrypoint, call it
+	if other.has_method("_apply_damage_and_emit"):
+		var p: Dictionary = get_payload()
+		other._apply_damage_and_emit(
+			int(p.get("damage", 0)),
+			p.get("instigator", null),
+			(p.get("knockback", Vector2.ZERO) as Vector2),
+			int(p.get("hitstun_ms", 0)),
+			float(p.get("i_frames_on_hit", 0.0))
+		)

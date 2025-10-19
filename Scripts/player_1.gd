@@ -18,17 +18,14 @@ signal died
 
 @onready var body_shape: CollisionShape2D = $Collision # adjust path if different
 
-const PARRY_START_FRAME := 1
-const PARRY_END_FRAME   := 3
-
-# Variable to check wheter the parry is active so that the damage will not get applied
-var _parry_active: bool = false
-
 # --- Movement constants ---
 const SPEED := 400.0
 const JUMP_VELOCITY := -700.0
 
+
+
 var _attack_anims := { "FrontSlash": true, "BackSlash": true, "HeavySlash": true }
+
 
 # --- Cost of every move that consumes stamina ---
 const STAMINA_COST := {
@@ -94,9 +91,6 @@ func _ready() -> void:
 	
 
 
-func is_parrying_now() -> bool:
-	return _parry_active and not is_dead
-
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -141,7 +135,6 @@ func _on_anim_finished() -> void:
 		_set_all_hitboxes(false)
 
 func _on_sprite_frame_changed() -> void:
-	_parry_active = false
 	if is_dead:
 		_set_all_hitboxes(false)
 		return
@@ -156,9 +149,7 @@ func _on_sprite_frame_changed() -> void:
 		"FrontSlash":
 			front_on = frame == 3
 		"BackSlash":
-			_parry_active = (frame >= PARRY_START_FRAME and frame <= PARRY_END_FRAME)
-			if is_instance_valid(hit_front): hit_front.set_active(false)
-			if is_instance_valid(hit_back):  hit_back.set_active(false)
+			back_on  = frame == 3
 		"HeavySlash":
 			# No heavy hitbox yet → keep off
 			front_on = false
@@ -278,22 +269,12 @@ func _input(event: InputEvent) -> void:
 		handle_move("FrontSlash")
 		
 	if event.is_action_pressed("P1_AttackBack"):
-		_start_parry()
+		handle_move("BackSlash")
 		
 	if event.is_action_pressed("P1_AttackHeavy"):
 		handle_move("HeavySlash")
 		
 	#TODO: add sounds
-
-
-func _start_parry() -> void:
-	if is_attacking: return
-	if STAMINA_COST["BackSlash"] > currentStamina: return
-	spend_stamina("BackSlash")
-	is_attacking = true
-	locked_flip_h = animated_sprite.flip_h
-	animated_sprite.play("BackSlash")
-	velocity.x = 0
 
 
 func handle_move(move: String) -> void:
@@ -356,10 +337,3 @@ func _kill_hurtbox(hb: Hurtbox2D) -> void:
 	var cs := hb.get_node_or_null("CollisionShape2D")
 	if cs and cs is CollisionShape2D:
 		cs.set_deferred("disabled", true)
-
-
-func apply_parry_knockback(counter_kb: Vector2, _stun_ms: int, _by: Node) -> void:
-	# Knockback ONLY (no input/attack lock)
-	velocity.x = counter_kb.x
-	velocity.y = counter_kb.y
-	move_and_slide()

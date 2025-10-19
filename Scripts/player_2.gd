@@ -9,7 +9,7 @@ signal staminaChange(current: int, max: int)
 
 #@onready var p2_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
 @onready var hit_front: Hitbox2D = $"Hitboxes/FrontSlash"
-@onready var hit_back:  Hitbox2D = $"Hitboxes/BackSlash" 
+@onready var hit_back:  Hitbox2D = $"Hitboxes/BackSlash"   # ok if this node doesn't exist
 @onready var health: Health = $Health
 
 @onready var hb_idle: Hurtbox2D = $Hurtboxes/Idle
@@ -61,7 +61,6 @@ var is_dead := false
 
 
 func _ready() -> void:
-	prints("[P2] Front L/M at _ready:", hit_front.collision_layer, hit_front.collision_mask)
 	add_to_group("player")
 	print("[PLAYER] added to group 'player' at", get_path())
 	# Enable exactly one Hurtbox
@@ -169,14 +168,11 @@ func _on_sprite_frame_changed() -> void:
 	match anim:
 		"FrontSlash":
 			front_on = frame == 3
-			if front_on and is_instance_valid(hit_front):
-				prints("[P2] FRONT ON @ frame", frame,
-		   		"| monitoring=", hit_front.monitoring,
-		   		"| L/M=", hit_front.collision_layer, "/", hit_front.collision_mask)
 		"BackSlash":
 			_parry_active = (frame >= PARRY_START_FRAME and frame <= PARRY_END_FRAME)
 			if is_instance_valid(hit_front): hit_front.set_active(false)
 			if is_instance_valid(hit_back):  hit_back.set_active(false)
+
 		"HeavySlash":
 			# no heavy hitbox yet
 			front_on = false
@@ -361,10 +357,4 @@ func _kill_hurtbox(hb: Hurtbox2D) -> void:
 	var cs := hb.get_node_or_null("CollisionShape2D")
 	if cs and cs is CollisionShape2D:
 		cs.set_deferred("disabled", true)
-
-
-func apply_parry_knockback(counter_kb: Vector2, _stun_ms: int, _by: Node) -> void:
-	# Knockback ONLY (no input/attack lock)
-	velocity.x = counter_kb.x
-	velocity.y = counter_kb.y
-	move_and_slide()
+		

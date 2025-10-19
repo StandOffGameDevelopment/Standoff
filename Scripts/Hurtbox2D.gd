@@ -20,8 +20,12 @@ signal parried(instigator: Node)
 var _already_hit: Dictionary = {}  # Dictionary<Area2D, bool>
 
 func _ready() -> void:
-	set_deferred("monitorable", true)
-	set_deferred("monitoring",  true)
+	# Layers/masks: Hurtbox L=8 (1<<3), M=4 (1<<2)
+	# TODO: is needed???
+	collision_layer = 1 << 3
+	collision_mask  = 1 << 2
+	monitorable = true
+	monitoring  = true
 
 	var cs := get_node_or_null("CollisionShape2D")
 	if cs and cs is CollisionShape2D:
