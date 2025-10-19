@@ -4,9 +4,11 @@ signal spawn2(loc: Vector2)
 
 @onready var player2: Player_2 = $Player2
 @onready var player1: Player_1 = $Player1
+var can_respawn_allowed : bool
 
 func _ready():
 	pass
+			
 
 func _on_player_2_respawned(new_player: Player_2) -> void:
 	print("[DEBUG] Player2 reference updated to:", new_player.name)
@@ -19,7 +21,6 @@ func _on_player_1_respawned(new_player: Player_1) -> void:
 
 
 func _on_player_2_died() -> void:
-
 	var closest_tower_P1: Node2D = null
 	var spawn_tower: Node2D = null
 	var spawn_location: Vector2

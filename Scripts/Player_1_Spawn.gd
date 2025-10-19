@@ -3,6 +3,7 @@ extends Node2D
 @export var player_scene: PackedScene = preload("res://Scenes/Elements/Player1.tscn")
 @onready var player := $"../Player1"
 signal player1_respawned(new_player: Player_1)
+var spawn : Vector2
 
 func _enter_tree() -> void:
 	print("[RESPAWNER] enter tree at path ", get_path())
@@ -11,6 +12,10 @@ func _ready() -> void:
 	print("[RESPAWNER] _ready at", get_path(), "  current_scene=", get_tree().current_scene)
 	_find_and_connect_player()
 	get_tree().node_added.connect(_on_node_added)
+	# Connect every tower’s signal to Game
+	for tower in get_tree().get_nodes_in_group("Tower"):
+		if not tower.can_respawn1.is_connected(_on_tower_can_respawn):
+			tower.can_respawn1.connect(_on_tower_can_respawn)
 	
 	var game = get_parent()
 	if game and game.has_signal("spawn"):
@@ -42,9 +47,13 @@ func _connect_to_player(p) -> void:
 
 func _on_spawn_received2(spawn_location: Vector2) -> void:
 	print("[Spawner] Received spawn signal! Location:", spawn_location)
-	respawn_player(spawn_location)
+	spawn = spawn_location
 	pass
 	
+func _on_tower_can_respawn() -> void:
+	print("[DEBUG] Tower allows respawn!")
+	respawn_player(spawn)
+
 func respawn_player(spawn: Vector2) -> void:
 	if player_scene == null:
 		push_error("Player scene null")
