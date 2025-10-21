@@ -8,8 +8,8 @@ signal healthChange(current: int, max: int)
 signal staminaChange(current: int, max: int)
 
 #@onready var p2_sprite: AnimatedSprite2D = $P2AnimatedSprite2D
-@onready var hit_front: Hitbox2D = $"Hitboxes/FrontSlash"
-@onready var hit_back:  Hitbox2D = $"Hitboxes/BackSlash"   # ok if this node doesn't exist
+@onready var hit_front: Hitbox2D = $Hitboxes/FrontSlash
+@onready var hit_back:  Hitbox2D = $Hitboxes/BackSlash   # ok if this node doesn't exist
 @onready var health: Health = $Health
 
 @onready var hb_idle: Hurtbox2D = $Hurtboxes/Idle
@@ -358,3 +358,8 @@ func _kill_hurtbox(hb: Hurtbox2D) -> void:
 	if cs and cs is CollisionShape2D:
 		cs.set_deferred("disabled", true)
 		
+
+func apply_parry_knockback(counter_kb: Vector2, _stun_ms: int, _by: Node) -> void:
+	velocity.x = counter_kb.x
+	velocity.y = counter_kb.y
+	move_and_slide()
