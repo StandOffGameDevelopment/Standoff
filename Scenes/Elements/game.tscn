@@ -1815,7 +1815,7 @@ script = ExtResource("8_tpg7m")
 player_path = NodePath("../../Player1")
 health_path = NodePath("../../Player1/Health")
 
-[node name="Player1StaminaBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="Player1StaminaBar" type="TextureProgressBar" parent="CanvasLayer"]
 offset_left = 30.0
 offset_top = 60.0
 offset_right = 180.0
@@ -1828,7 +1828,8 @@ stretch_margin_bottom = 4
 texture_under = ExtResource("9_qrmrd")
 texture_progress = ExtResource("10_ya50b")
 script = ExtResource("11_ys3wi")
-player = NodePath("../../Player1")
+player_path = NodePath("../../Player1")
+stamina_path = NodePath("../../Player1/Stamina")
 
 [node name="Player2HealthBar" type="TextureProgressBar" parent="CanvasLayer"]
 anchors_preset = 1
@@ -1850,7 +1851,7 @@ script = ExtResource("12_vnd3f")
 player_path = NodePath("../../Player2")
 health_path = NodePath("../../Player2/Health")
 
-[node name="Player2StaminaBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="Player2StaminaBar" type="TextureProgressBar" parent="CanvasLayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1867,7 +1868,8 @@ stretch_margin_bottom = 4
 texture_under = ExtResource("9_qrmrd")
 texture_progress = ExtResource("10_ya50b")
 script = ExtResource("13_aiya3")
-player = NodePath("../../Player2")
+player_path = NodePath("../../Player2")
+stamina_path = NodePath("../../Player2/Stamina")
 
 [node name="Towers" type="Node2D" parent="."]
 

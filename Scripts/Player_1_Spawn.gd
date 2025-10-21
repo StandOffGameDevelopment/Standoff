@@ -70,7 +70,7 @@ func respawn_player(spawn: Vector2) -> void:
 	
 	# rebind all health bars to this new player
 	for bar in get_tree().get_nodes_in_group("hud_health"):
-		if bar.has_method("bind_to_player"):
-			bar.bind_to_player(player)
+		if bar.has_method("bind_to_player1"):
+			bar.bind_to_player1(player)
 			
 	emit_signal("player1_respawned", new_player)

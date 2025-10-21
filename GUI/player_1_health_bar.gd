@@ -26,7 +26,7 @@ func _ready() -> void:
 		call_deferred("_initial_fill")
 
 
-func bind_to_player(new_player: Node) -> void:
+func bind_to_player1(new_player: Node) -> void:
 	# derive Health from the player if present
 	var new_health: Node = null
 	if new_player and new_player.has_node("Health"):

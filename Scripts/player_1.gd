@@ -5,13 +5,14 @@ class_name Player_1
 # --- Signals ---
 @warning_ignore("unused_signal")
 signal healthChange(current: int, max: int)
-signal staminaChange(current: int, max: int)
+signal staminaChange(current: int, max_st: int)
 signal died
 
 @onready var p1_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hit_front: Hitbox2D = $Hitbox/FrontSlash
 @onready var hit_back: Hitbox2D = $Hitbox/BackSlash
 @onready var health: Health = $Health
+@onready var stamina: Stamina = $Stamina
 
 @onready var hb_idle: Hurtbox2D = $Hurtboxes/Idle
 @onready var hb_run:  Hurtbox2D = $Hurtboxes/Run
@@ -80,6 +81,9 @@ func _ready() -> void:
 	# Relay Health → UI
 	if is_instance_valid(health) and not health.health_changed.is_connected(_on_health_changed):
 		health.health_changed.connect(_on_health_changed)
+		
+	if is_instance_valid(stamina) and not stamina.stamina_changed.is_connected(_on_stamina_changed):
+		stamina.stamina_changed.connect(_on_stamina_changed)
 		
 	# Listen for death (do nothing unless Health emits it)
 	if is_instance_valid(health) and not health.died.is_connected(_on_died):
@@ -291,9 +295,20 @@ func spend_stamina(move: String) -> void:
 	currentStamina -= STAMINA_COST[move]
 	staminaChange.emit(currentStamina, maxStamina)
 	
+func get_current_stamina() -> int:
+	return currentStamina
+
+func get_max_stamina() -> int:
+	return maxStamina
+
+func _on_stamina_changed(current: int, max_st: int) -> void:
+	if has_signal("staminaChange"):
+		emit_signal("staminaChange", current, max_st)
+	
 func _emit_health_now() -> void:
 	if is_instance_valid(health) and has_signal("healthChange"):
 		emit_signal("healthChange", health.current_health, health.max_health)
+
 
 func regen_stamina() -> void:
 	while is_inside_tree():

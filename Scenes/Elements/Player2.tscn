@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cub3lwbt8kllt"]
+[gd_scene load_steps=55 format=3 uid="uid://cub3lwbt8kllt"]
 
 [ext_resource type="Script" uid="uid://cdco00b2bhade" path="res://Scripts/player_2.gd" id="1_dn4j3"]
 [ext_resource type="Texture2D" uid="uid://b5figu8gnnwej" path="res://Assets/Players/Human Red/Attack2Red.png" id="2_0bobp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dtk7qvxcueliy" path="res://Scripts/Hurtbox2D.gd" id="8_23m6j"]
 [ext_resource type="Script" uid="uid://cj0tcig64410r" path="res://Scripts/Health.gd" id="8_cwgl2"]
 [ext_resource type="Script" uid="uid://ddh2hsnlqy7t3" path="res://Scripts/Hitbox2D.gd" id="8_q3lmw"]
+[ext_resource type="Script" uid="uid://bev763a1tubga" path="res://Scripts/Stamina.gd" id="12_bbxey"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nfgwa"]
 atlas = ExtResource("2_0bobp")
@@ -408,5 +409,8 @@ polygon = PackedVector2Array(-45, -27, -34, -35, -21, -40, -1, -41, 20, -34, 34,
 
 [node name="Health" type="Node2D" parent="."]
 script = ExtResource("8_cwgl2")
+
+[node name="Stamina" type="Node2D" parent="."]
+script = ExtResource("12_bbxey")
 
 [connection signal="animation_finished" from="P2AnimatedSprite2D" to="." method="_on_animation_finished"]
