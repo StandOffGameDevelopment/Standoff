@@ -9,22 +9,29 @@ class_name Hitbox2D
 var instigator: Node = null
 var active: bool = false
 
-func _ready() -> void:
-	# Force layers/masks: Hitbox L=4 (1<<2), M=8 (1<<3)
-	# TODO: IS THIS WORKING ???
-	collision_layer = 1 << 2
-	collision_mask  = 1 << 3
-	monitorable = true
-	monitoring  = false
 
-	# Ensure we actually have an enabled shape
-	var cs := get_node_or_null("Shape")
-	if cs is CollisionShape2D:
-		if cs.shape == null:
-			push_warning("[HITBOX] %s has NO shape set. Add a CollisionShape2D shape." % [name])
-		cs.set_deferred("disabled", false)
+func _find_2d_collider(node: Node) -> Node:
+	# Look by common names first
+	var n = node.get_node_or_null("Shape")
+	if n == null: n = node.get_node_or_null("CollisionShape2D")
+	if n == null: n = node.get_node_or_null("CollisionPolygon2D")
+	# If still not found, scan direct children
+	if n == null:
+		for c in node.get_children():
+			if c is CollisionShape2D or c is CollisionPolygon2D:
+				return c
+	return n
+
+
+func _ready() -> void:
+	set_deferred("monitorable", true)
+	set_deferred("monitoring",  false)
+
+	var col := _find_2d_collider(self)
+	if col == null:
+		push_warning("[HITBOX] %s needs a CollisionShape2D/CollisionPolygon2D child." % [name])
 	else:
-		push_warning("[HITBOX] %s is missing a CollisionShape2D child." % [name])
+		col.set_deferred("disabled", false)  # works for both shape & polygon
 
 	# Connect signal once
 	if not area_entered.is_connected(_on_area_entered):
@@ -40,6 +47,8 @@ func is_active() -> bool:
 	return active
 
 func get_payload() -> Dictionary:
+	if instigator == null:
+		return {}  # no valid hit
 	return {
 		"damage": damage,
 		"instigator": instigator,
@@ -55,6 +64,10 @@ func set_active(on: bool) -> void:
 func _on_area_entered(other: Area2D) -> void:
 	if not active:
 		return
+		
+	var m := get_payload()
+	if m.is_empty():  # no instigator / invalid
+		return
 	# Let the Hurtbox drive Health if it implements that flow
 	if other.has_method("got_hit"):
 		return
@@ -68,4 +81,4 @@ func _on_area_entered(other: Area2D) -> void:
 			(p.get("knockback", Vector2.ZERO) as Vector2),
 			int(p.get("hitstun_ms", 0)),
 			float(p.get("i_frames_on_hit", 0.0))
-		)
+			)

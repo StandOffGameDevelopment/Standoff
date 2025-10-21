@@ -18,9 +18,10 @@ func _ready() -> void:
 			tower.can_respawn1.connect(_on_tower_can_respawn)
 	
 	var game = get_parent()
-	if game and game.has_signal("spawn"):
-		game.connect("spawn", Callable(self, "_on_spawn_received"))
-
+	if game and game.has_signal("spawn1"):
+		var cb := Callable(self, "_on_spawn_received2")
+		if not game.is_connected("spawn1", cb):
+			game.connect("spawn1", cb)
 
 func _find_and_connect_player() -> void:
 	var players := get_tree().get_nodes_in_group("player")
@@ -52,16 +53,17 @@ func _on_spawn_received2(spawn_location: Vector2) -> void:
 	
 func _on_tower_can_respawn() -> void:
 	print("[DEBUG] Tower allows respawn!")
-	respawn_player(spawn)
+	call_deferred("respawn_player", spawn)
+	
 
-func respawn_player(spawn: Vector2) -> void:
+func respawn_player(spawn_pos: Vector2) -> void:
 	if player_scene == null:
 		push_error("Player scene null")
 		return
 		
 		
 	var new_player = player_scene.instantiate() as Player_1
-	new_player.global_position = spawn
+	new_player.global_position = spawn_pos
 	get_tree().current_scene.add_child(new_player)
 	print("Player 1 Respawned!")
 	

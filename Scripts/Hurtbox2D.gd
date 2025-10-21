@@ -19,17 +19,26 @@ signal parried(instigator: Node)
 # Optional one-hit-per-physics-frame guard (per-hitbox)
 var _already_hit: Dictionary = {}  # Dictionary<Area2D, bool>
 
-func _ready() -> void:
-	# Layers/masks: Hurtbox L=8 (1<<3), M=4 (1<<2)
-	# TODO: is needed???
-	collision_layer = 1 << 3
-	collision_mask  = 1 << 2
-	monitorable = true
-	monitoring  = true
+func _find_2d_collider(node: Node) -> Node:
+	var n = node.get_node_or_null("CollisionShape2D")
+	if n == null: n = node.get_node_or_null("CollisionPolygon2D")
+	if n == null: n = node.get_node_or_null("Shape")
+	if n == null:
+		for c in node.get_children():
+			if c is CollisionShape2D or c is CollisionPolygon2D:
+				return c
+	return n
 
-	var cs := get_node_or_null("CollisionShape2D")
-	if cs and cs is CollisionShape2D:
+
+func _ready() -> void:
+	set_deferred("monitorable", true)
+	set_deferred("monitoring",  true)
+
+	var cs := _find_2d_collider(self)
+	if cs:
 		cs.set_deferred("disabled", false)
+	else:
+		push_warning("[HURTBOX] %s needs a CollisionShape2D/CollisionPolygon2D child." % [name])
 
 	if not area_entered.is_connected(_on_area_entered):
 		area_entered.connect(_on_area_entered)
@@ -60,6 +69,10 @@ func _on_area_entered(area: Area2D) -> void:
 		payload = area.get_payload() as Dictionary
 
 	var instigator: Node = payload.get("instigator", null) as Node
+
+	# Early-outs to prevent self hits / invalid hits
+	if instigator == null:
+		return
 
 	# Better self-hit check: compare to the Health's parent (your character node)
 	var self_entity: Node = null
