@@ -343,14 +343,17 @@ script = ExtResource("1_n5fpy")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_hgfcu")
-animation = &"Death"
+animation = &"FrontSlash"
 autoplay = "Idle"
+frame = 3
+frame_progress = 1.0
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 0)
 shape = SubResource("RectangleShape2D_i047d")
 
 [node name="Hurtboxes" type="Node2D" parent="."]
+visible = false
 
 [node name="Idle" type="Area2D" parent="Hurtboxes"]
 visible = false
@@ -373,14 +376,13 @@ polygon = PackedVector2Array(-16, 23, -20, 19, 2, -10, -1, -12, -5, -8, -7, -10,
 [node name="Hitbox" type="Node2D" parent="."]
 
 [node name="FrontSlash" type="Area2D" parent="Hitbox"]
-visible = false
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("9_4qbo6")
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitbox/FrontSlash"]
 position = Vector2(1, 27)
-polygon = PackedVector2Array(-51, -50, -33, -60, -6, -64, 20, -64, 44, -59, 60, -51, 67, -42, 67, -33, 58, -23, 38, -15, 31, -16, 22, -25)
+polygon = PackedVector2Array(-25.999998, -57.399994, -33, -60, -6, -64, 20, -64, 44, -59, 60, -51, 67, -42, 67, -33, 58, -23, 38, -15, 31, -16, 22.8, -22.599998, 23.199999, -28.999998, 33.6, -30.999998, 40.8, -36.199997, 40.8, -44.6, 18.4, -54.6, -15.599999, -56.6)
 
 [node name="BackSlash" type="Area2D" parent="Hitbox"]
 visible = false
@@ -393,6 +395,8 @@ position = Vector2(0, 27)
 polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -53, -20, -45, -30, -34, -39, -20, -54, -26, -62, -35, -62, -44, -51, -55, -29, -63, -11, -65, 17, -65, 42, -61, 58, -53, 67, -43, 67, -35, 58, -26)
 
 [node name="HeavySlash" type="Area2D" parent="Hitbox"]
+visible = false
+script = ExtResource("9_4qbo6")
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitbox/HeavySlash"]
 polygon = PackedVector2Array(-45, -27, -34, -35, -21, -40, -1, -41, 20, -34, 34, -17, 34, 0, 28, 9, 28, 15, 46, 23, 53, 21, 70, 8, 79, -11, 78, -29, 66, -46, 43, -60, 19, -64, -3, -62, -26, -52, -39, -39)
