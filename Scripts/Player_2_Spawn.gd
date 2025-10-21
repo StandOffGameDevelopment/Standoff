@@ -14,8 +14,8 @@ func _ready() -> void:
 	get_tree().node_added.connect(_on_node_added)
 	# Connect every tower’s signal to Game
 	for tower in get_tree().get_nodes_in_group("Tower"):
-		if not tower.can_respawn1.is_connected(_on_tower_can_respawn):
-			tower.can_respawn1.connect(_on_tower_can_respawn)
+		if not tower.can_respawn2.is_connected(_on_tower_can_respawn):
+			tower.can_respawn2.connect(_on_tower_can_respawn)
 	
 	var game = get_parent()
 	if game and game.has_signal("spawn2"):
@@ -46,7 +46,7 @@ func _connect_to_player(p) -> void:
 	if game and not p.died.is_connected(game._on_player_2_died):
 		p.died.connect(game._on_player_2_died)
 
-func _on_spawn_received(spawn_location: Vector2) -> void:
+func _on_spawn_received2(spawn_location: Vector2) -> void:
 	print("[Spawner] Received spawn signal! Location:", spawn_location)
 	spawn = spawn_location
 	pass

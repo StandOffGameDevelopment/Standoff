@@ -46,7 +46,7 @@ func _connect_to_player(p) -> void:
 	if game and not p.died.is_connected(game._on_player_1_died):
 		p.died.connect(game._on_player_1_died)
 
-func _on_spawn_received2(spawn_location: Vector2) -> void:
+func _on_spawn_received1(spawn_location: Vector2) -> void:
 	print("[Spawner] Received spawn signal! Location:", spawn_location)
 	spawn = spawn_location
 	pass

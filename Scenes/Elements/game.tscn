@@ -1912,8 +1912,8 @@ position = Vector2(660, -123)
 position = Vector2(-667, -127)
 script = ExtResource("23_ya50b")
 
-[connection signal="spawn1" from="." to="PlayerSpawner1" method="_on_spawn_received2"]
-[connection signal="spawn2" from="." to="PlayerSpawner2" method="_on_spawn_received"]
+[connection signal="spawn1" from="." to="PlayerSpawner1" method="_on_spawn_received1"]
+[connection signal="spawn2" from="." to="PlayerSpawner2" method="_on_spawn_received2"]
 [connection signal="died" from="Player2" to="." method="_on_player_2_died"]
 [connection signal="died" from="Player1" to="." method="_on_player_1_died"]
 [connection signal="move_camera_left" from="Towers/Tower Left 2" to="Camera2D" method="_move_left"]
