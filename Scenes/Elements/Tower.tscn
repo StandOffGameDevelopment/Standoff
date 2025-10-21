@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ciah68p2yvkb2"]
 
 [ext_resource type="Script" uid="uid://cxfq2w60q23d7" path="res://Scripts/tower.gd" id="1_cvrfc"]
-[ext_resource type="Texture2D" uid="uid://cxowt12e0f4ri" path="res://Assets/Buildings/tower.png" id="1_ry8d0"]
+[ext_resource type="Texture2D" uid="uid://bxf8xdi33rj0f" path="res://Assets/Buildings/tower.png" id="1_ry8d0"]
 [ext_resource type="PackedScene" uid="uid://d0gbmixtmroop" path="res://Scenes/Elements/gate.tscn" id="2_4yjk7"]
 [ext_resource type="Script" uid="uid://bg27tw1ucjs1s" path="res://Scripts/spawn.gd" id="4_mmhrt"]
 
@@ -31,6 +31,8 @@ position = Vector2(-30, 72)
 position = Vector2(30, 72)
 
 [node name="Detector1" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="Detector1"]
@@ -38,6 +40,8 @@ position = Vector2(-70, 65)
 shape = SubResource("RectangleShape2D_jwwul")
 
 [node name="Detector2" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="Detector2"]
@@ -46,6 +50,8 @@ position = Vector2(-10, 65)
 shape = SubResource("RectangleShape2D_jwwul")
 
 [node name="Detector3" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="Detector3"]
@@ -54,6 +60,8 @@ position = Vector2(10, 65)
 shape = SubResource("RectangleShape2D_jwwul")
 
 [node name="Detector4" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="Detector4"]

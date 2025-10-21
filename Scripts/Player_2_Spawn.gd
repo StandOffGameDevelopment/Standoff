@@ -56,15 +56,34 @@ func _on_tower_can_respawn() -> void:
 	call_deferred("respawn_player", spawn)
 
 func respawn_player(spawn_pos: Vector2) -> void:
+	var new_player = player_scene.instantiate() as Player_2
+	var cs = new_player.body_shape
+	
 	if player_scene == null:
 		push_error("Player scene null")
 		return
-		
-		
-	var new_player = player_scene.instantiate() as Player_2
+	
 	new_player.global_position = spawn_pos
 	get_tree().current_scene.add_child(new_player)
 	print("Player 2 Respawned!")
+	
+	#if cs:
+		#cs.disabled = false
+	#
+	#print("[RESPAWN DEBUG] Old collision_layer:", new_player.collision_layer)
+	#print("[RESPAWN DEBUG] Old collision_mask:", new_player.collision_mask)
+	## Make sure collision layer/mask are correct
+	#new_player.collision_layer = 1       # match the layer expected by detectors
+	#new_player.collision_mask = 1        # must include detector layer
+	#print("[RESPAWN DEBUG] New collision_layer:", new_player.collision_layer)
+	#print("[RESPAWN DEBUG] New collision_mask:", new_player.collision_mask)	
+#
+	#for hb in [new_player.hb_idle, new_player.hb_run]:
+		#if hb:
+			#hb.monitoring = true
+			#hb.monitorable = true
+			#hb.collision_layer = new_player.collision_layer
+			#hb.collision_mask = new_player.collision_mask	
 	
 	player = new_player
 	_connect_to_player(player)

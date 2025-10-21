@@ -29,6 +29,7 @@ func _on_passage_right_left():
 
 
 func _on_detector1_entered(body):
+	print("Detector1 triggered by: ", body, " type: ", typeof(body))
 	if body.is_in_group("player"):
 		print("Detector 1 entered")
 		$Detector1.set_deferred("monitoring", false)
@@ -37,6 +38,8 @@ func _on_detector1_entered(body):
 
 
 func _on_detector2_entered(body):
+	print("Detector1 triggered by: ", body, " type: ", typeof(body))
+	
 	if body.is_in_group("player"):
 		print("Detector 2 entered")
 		$Detector2.set_deferred("monitoring", false)
@@ -45,6 +48,8 @@ func _on_detector2_entered(body):
 
 
 func _on_detector3_entered(body):
+	print("Detector1 triggered by: ", body, " type: ", typeof(body))
+	
 	if body.is_in_group("player"):
 		print("Detector 3 entered")
 		$Detector3.set_deferred("monitoring", false)
@@ -53,6 +58,8 @@ func _on_detector3_entered(body):
 
 
 func _on_detector4_entered(body):
+	print("Detector1 triggered by: ", body, " type: ", typeof(body))
+	
 	if body.is_in_group("player"):
 		print("Detector 4 entered")
 		$Detector4.set_deferred("monitoring", false)
