@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://8qawkdq3u8c0"]
+[gd_scene load_steps=35 format=4 uid="uid://8qawkdq3u8c0"]
 
 [ext_resource type="Script" uid="uid://ciloatweifo4t" path="res://Scripts/game.gd" id="1_tpg7m"]
 [ext_resource type="PackedScene" uid="uid://cub3lwbt8kllt" path="res://Scenes/Elements/Player2.tscn" id="2_opd45"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://5v3frsdimtp1" path="res://GUI/player_2_health_bar.gd" id="12_vnd3f"]
 [ext_resource type="Script" uid="uid://dvdwxctm4ugdy" path="res://GUI/player_2_stamina_bar.gd" id="13_aiya3"]
 [ext_resource type="PackedScene" uid="uid://ciah68p2yvkb2" path="res://Scenes/Elements/Tower.tscn" id="14_k5j0i"]
+[ext_resource type="Script" uid="uid://dx8ihylv87qax" path="res://Scripts/map_indicator.gd" id="19_ys3wi"]
 [ext_resource type="Texture2D" uid="uid://cut7o1ri7bn1a" path="res://Assets/Buildings/TX Village Props.png" id="20_5h5jd"]
 [ext_resource type="Texture2D" uid="uid://bs71ebrtfxhgy" path="res://Assets/Buildings/TX Tileset Ground.png" id="21_tpg7m"]
 [ext_resource type="PackedScene" uid="uid://cm4sp7h876oem" path="res://Scenes/Elements/player2_spawner.tscn" id="22_qrmrd"]
@@ -1795,7 +1796,7 @@ shape = SubResource("RectangleShape2D_ya50b")
 polygon = PackedVector2Array(3295, -53, 3188, 0, 3160, 0, 3369, -107, 3786, -106, 3999, -1, 3967, 0, 3789, -93, 3371, -93)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Borders"]
-polygon = PackedVector2Array(3295, -53, 3188, 0, 3160, 0, 3369, -107, 3786, -106, 3999, -1, 3967, 0, 3789, -93, 3607.728, -93, 3541.821, -93, 3371, -93)
+polygon = PackedVector2Array(3295, -53, 3188, 0, 3160, 0, 3369, -107, 3794, -107, 3999, 0, 3967, 0, 3789, -93, 3607.728, -93, 3541.821, -93, 3371, -93)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -1870,6 +1871,25 @@ texture_progress = ExtResource("10_ya50b")
 script = ExtResource("13_aiya3")
 player_path = NodePath("../../Player2")
 stamina_path = NodePath("../../Player2/Stamina")
+
+[node name="MapIndicator" type="Control" parent="CanvasLayer"]
+z_index = 10
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 12.0
+offset_right = 140.0
+offset_bottom = 36.0
+grow_horizontal = 2
+pivot_offset = Vector2(80, 0)
+script = ExtResource("19_ys3wi")
+
+[node name="Dots" type="HBoxContainer" parent="CanvasLayer/MapIndicator"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Towers" type="Node2D" parent="."]
 
