@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://ciah68p2yvkb2"]
 
 [ext_resource type="Script" uid="uid://cxfq2w60q23d7" path="res://Scripts/tower.gd" id="1_cvrfc"]
-[ext_resource type="Texture2D" uid="uid://bxf8xdi33rj0f" path="res://Assets/Buildings/tower.png" id="1_ry8d0"]
 [ext_resource type="PackedScene" uid="uid://d0gbmixtmroop" path="res://Scenes/Elements/gate.tscn" id="2_4yjk7"]
+[ext_resource type="Texture2D" uid="uid://c7vafvyjgaort" path="res://Assets/Buildings/Tower.png" id="2_mmhrt"]
 [ext_resource type="Script" uid="uid://bg27tw1ucjs1s" path="res://Scripts/spawn.gd" id="4_mmhrt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwwul"]
@@ -14,21 +14,22 @@ script = ExtResource("1_cvrfc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("1_ry8d0")
+position = Vector2(-5, 0)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_mmhrt")
 
 [node name="Collision" type="StaticBody2D" parent="."]
 
 [node name="Shape" type="CollisionPolygon2D" parent="Collision"]
 z_index = 2
 position = Vector2(0, -70)
-polygon = PackedVector2Array(-33, -16, 34, -16, 34, 2, 26, 10, 25, 115, -26, 115, -26, 10, -33, 3)
+polygon = PackedVector2Array(-40.666668, -16.666672, 40.666668, -16, 40.666668, 1, 32, 8.333332, 32, 115.66667, -31.333334, 115.66667, -31.666668, 8, -40.333336, 1)
 
 [node name="GateLeft" parent="." instance=ExtResource("2_4yjk7")]
-position = Vector2(-30, 72)
+position = Vector2(-37, 72.33333)
 
 [node name="GateRight" parent="." instance=ExtResource("2_4yjk7")]
-position = Vector2(30, 72)
+position = Vector2(37, 72.666664)
 
 [node name="Detector1" type="Area2D" parent="."]
 collision_layer = 7
