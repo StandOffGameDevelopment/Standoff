@@ -12,7 +12,8 @@ signal died
 # Hit / Hurt
 @onready var hit_front: Hitbox2D = $Hitboxes/FrontSlash
 @onready var hit_back:  Hitbox2D = $Hitboxes/BackSlash
-@onready var hb_idle:   Hurtbox2D = $Hurtboxes/Idle
+@onready var hit_heavy: Hitbox2D = $Hitboxes/HeavySlash
+@onready var hb_idle:   Hurtbox2D = $Hurtboxes/Idl
 @onready var hb_run:    Hurtbox2D = $Hurtboxes/Run
 
 # Containers we mirror for left/right
@@ -80,9 +81,13 @@ func _ready() -> void:
 	if is_instance_valid(hit_back):
 		hit_back.set_instigator(self)
 		hit_back.set_active(false)
+	if is_instance_valid(hit_heavy):
+		hit_heavy.set_instigator(self)
+		hit_heavy.set_active(false)
+
 
 	# Ensure consistent initial orientation (start facing right; set true to start left)
-	_apply_facing(false)
+	_apply_facing(true)
 
 	# Animation-driven toggles
 	if not animated_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
@@ -217,6 +222,8 @@ func _set_all_hitboxes(on: bool) -> void:
 		hit_front.set_active(on)
 	if is_instance_valid(hit_back):
 		hit_back.set_active(on)
+	if is_instance_valid(hit_heavy):
+		hit_heavy.set_active(on)
 
 func _attack_ongoing() -> bool:
 	return bool(_attack_anims.get(animated_sprite.animation, false))
@@ -250,8 +257,13 @@ func _on_sprite_frame_changed() -> void:
 			if is_instance_valid(hit_front): hit_front.set_active(false)
 			if is_instance_valid(hit_back):  hit_back.set_active(false)
 		"HeavySlash":
+			var heavy_on := (frame >= 3 and frame <= 4)
+			if is_instance_valid(hit_heavy):
+				hit_heavy.set_active(heavy_on)
+			# Make sure other hitboxes are off if you want heavy to be exclusive
 			front_on = false
 			back_on  = false
+
 		_:
 			_set_all_hitboxes(false)
 			return
