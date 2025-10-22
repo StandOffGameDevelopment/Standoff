@@ -13,7 +13,7 @@ signal died
 @onready var hit_front: Hitbox2D = $Hitboxes/FrontSlash
 @onready var hit_back:  Hitbox2D = $Hitboxes/BackSlash
 @onready var hit_heavy: Hitbox2D = $Hitboxes/HeavySlash
-@onready var hb_idle:   Hurtbox2D = $Hurtboxes/Idl
+@onready var hb_idle:   Hurtbox2D = $Hurtboxes/Idle
 @onready var hb_run:    Hurtbox2D = $Hurtboxes/Run
 
 # Containers we mirror for left/right

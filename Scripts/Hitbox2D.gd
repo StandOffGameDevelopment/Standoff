@@ -8,47 +8,47 @@ class_name Hitbox2D
 
 var instigator: Node = null
 var active: bool = false
-
+var _parried_this_swing := false
 
 func _find_2d_collider(node: Node) -> Node:
-	# Look by common names first
 	var n = node.get_node_or_null("Shape")
 	if n == null: n = node.get_node_or_null("CollisionShape2D")
 	if n == null: n = node.get_node_or_null("CollisionPolygon2D")
-	# If still not found, scan direct children
 	if n == null:
 		for c in node.get_children():
 			if c is CollisionShape2D or c is CollisionPolygon2D:
 				return c
 	return n
 
-
 func _ready() -> void:
+	# --- FORCE LAYERS/MASKS (L7 ↔ L8) ---
+	for i in range(1, 33):
+		set_collision_layer_value(i, false)
+		set_collision_mask_value(i, false)
+	set_collision_layer_value(7, true)  # hitbox lives on layer 7
+	set_collision_mask_value(8, true)   # and only collides with layer 8 (hurtbox)
+
 	set_deferred("monitorable", true)
 	set_deferred("monitoring",  false)
 
 	var col := _find_2d_collider(self)
 	if col == null:
-		push_warning("[HITBOX] %s needs a CollisionShape2D/CollisionPolygon2D child." % [name])
+		push_warning("[HITBOX] %s needs a CollisionShape2D/Polygon child." % [name])
 	else:
-		col.set_deferred("disabled", false)  # works for both shape & polygon
+		col.set_deferred("disabled", false)
 
-	# Connect signal once
+	# Do NOT apply damage here; Hurtbox is the authority.
 	if not area_entered.is_connected(_on_area_entered):
 		area_entered.connect(_on_area_entered)
 
 func set_instigator(who: Node) -> void:
 	instigator = who
 
-func is_hitbox() -> bool:
-	return true
-
-func is_active() -> bool:
-	return active
+func is_hitbox() -> bool: return true
+func is_active() -> bool: return active
 
 func get_payload() -> Dictionary:
-	if instigator == null:
-		return {}  # no valid hit
+	if instigator == null: return {}
 	return {
 		"damage": damage,
 		"instigator": instigator,
@@ -59,26 +59,14 @@ func get_payload() -> Dictionary:
 
 func set_active(on: bool) -> void:
 	active = on
+	_parried_this_swing = false
 	set_deferred("monitoring", on)
 
-func _on_area_entered(other: Area2D) -> void:
-	if not active:
-		return
-		
-	var m := get_payload()
-	if m.is_empty():  # no instigator / invalid
-		return
-	# Let the Hurtbox drive Health if it implements that flow
-	if other.has_method("got_hit"):
-		return
+func mark_parried() -> void:
+	_parried_this_swing = true
+	active = false
+	set_deferred("monitoring", false)
 
-	# Fallback: if the hurtbox exposes a direct entrypoint, call it
-	if other.has_method("_apply_damage_and_emit"):
-		var p: Dictionary = get_payload()
-		other._apply_damage_and_emit(
-			int(p.get("damage", 0)),
-			p.get("instigator", null),
-			(p.get("knockback", Vector2.ZERO) as Vector2),
-			int(p.get("hitstun_ms", 0)),
-			float(p.get("i_frames_on_hit", 0.0))
-			)
+func _on_area_entered(_other: Area2D) -> void:
+	# Intentionally empty. Hurtbox decides parry/damage.
+	pass
