@@ -27,6 +27,7 @@ window/stretch/scale_mode="integer"
 
 player=""
 Tower=""
+LastTower=""
 
 [input]
 

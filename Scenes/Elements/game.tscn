@@ -1905,8 +1905,11 @@ position = Vector2(960, -280)
 [node name="Tower Right 2" parent="Towers" groups=["Tower"] instance=ExtResource("14_k5j0i")]
 position = Vector2(2880, -280)
 
-[node name="Tower Right 3" parent="Towers" groups=["Tower"] instance=ExtResource("14_k5j0i")]
-position = Vector2(4417, -284)
+[node name="Tower Right 3" parent="Towers" groups=["LastTower", "Tower"] instance=ExtResource("14_k5j0i")]
+position = Vector2(4785, -284)
+
+[node name="Tower Left 3" parent="Towers" groups=["LastTower", "Tower"] instance=ExtResource("14_k5j0i")]
+position = Vector2(-4769, -279)
 
 [node name="TileMap Layers" type="Node2D" parent="."]
 scale = Vector2(2.5, 2.5)

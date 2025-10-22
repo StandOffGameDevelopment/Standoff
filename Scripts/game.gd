@@ -4,6 +4,9 @@ signal spawn2(loc: Vector2)
 
 @onready var player2: Player_2 = $Player2
 @onready var player1: Player_1 = $Player1
+@export var winner_screen_p_1: PackedScene = preload("res://GUI/winner_screen_p_1.tscn")
+@export var winner_screen_p_2: PackedScene = preload("res://GUI/winner_screen_p_2.tscn")
+
 var can_respawn_allowed : bool
 
 func _ready():
@@ -31,8 +34,6 @@ func _on_player_2_died() -> void:
 	print("[DEBUG]", closest_tower_P1.name)
 	print("[DEBUG]", closest_tower_P1.global_position)
 	spawn_location = findspawn_location_P2(spawn_tower)
-	print("[DEBUG]", spawn_tower.name)
-	print("[DEBUG]", spawn_tower.global_position)
 	emit_signal("spawn2", spawn_location)
 
 
@@ -40,6 +41,7 @@ func find_closest_tower_right(body) -> Node2D:
 	var player1_x = body.global_position.x
 	var smallest_distance = INF  # start with infinity
 	var closest_tower: Node2D = null
+	var winner_screen = winner_screen_p_1.instantiate()
 
 	# Get all towers in a group called "Towers"
 	for tower in get_tree().get_nodes_in_group("Tower"):
@@ -56,7 +58,12 @@ func find_closest_tower_right(body) -> Node2D:
 			if distance < smallest_distance:
 				smallest_distance = distance
 				closest_tower = tower
-
+	
+	#Always check for null before calling is_in_group
+	if closest_tower == null:
+		add_child(winner_screen)
+		get_tree().paused = true
+		return null  # No need to move further, game won!
 	return closest_tower
 
 func findspawn_location_P2(body) -> Vector2:
@@ -85,6 +92,8 @@ func find_closest_tower_left(body) -> Node2D:
 	var player2_x = body.global_position.x
 	var smallest_distance = INF  # start with infinity
 	var closest_tower: Node2D = null
+	var winner_screen = winner_screen_p_2.instantiate()
+	
 	
 	# Get all towers in a group called "Towers"
 	for tower in get_tree().get_nodes_in_group("Tower"):
@@ -101,6 +110,11 @@ func find_closest_tower_left(body) -> Node2D:
 			if distance < smallest_distance:
 				smallest_distance = distance
 				closest_tower = tower
+		#Always check for null before calling is_in_group
+	if closest_tower == null:
+		add_child(winner_screen)
+		get_tree().paused = true
+		return null  # No need to move further, game won!
 
 	return closest_tower
 	
