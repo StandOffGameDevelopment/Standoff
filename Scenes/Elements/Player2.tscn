@@ -385,6 +385,7 @@ visibility_layer = 8
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("8_q3lmw")
+damage = 12
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/FrontSlash"]
 position = Vector2(0, 27)
@@ -395,6 +396,7 @@ visible = false
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("8_q3lmw")
+damage = 0
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/BackSlash"]
 position = Vector2(0, 27)
@@ -404,7 +406,10 @@ polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -5
 visible = false
 light_mask = 4
 visibility_layer = 8
+collision_layer = 4
+collision_mask = 8
 script = ExtResource("8_q3lmw")
+damage = 35
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitboxes/HeavySlash"]
 polygon = PackedVector2Array(-45, -27, -34, -35, -21, -40, -1, -41, 20, -34, 34, -17, 34, 0, 28, 9, 28, 15, 46, 23, 53, 21, 70, 8, 79, -11, 78, -29, 66, -46, 43, -60, 19, -64, -3, -62, -26, -52, -39, -39)

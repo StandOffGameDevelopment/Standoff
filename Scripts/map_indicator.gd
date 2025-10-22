@@ -2,7 +2,7 @@ extends Control
 class_name MapIndicator
 
 @export var total_maps: int = 5
-@export var dot_size: int = 12
+@export var dot_size: int = 16
 @export var inactive_color: Color = Color8(140, 140, 140)
 @export var active_color: Color = Color8(255, 255, 255)
 @export var blink_min_alpha: float = 0.35

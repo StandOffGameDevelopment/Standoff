@@ -379,6 +379,7 @@ polygon = PackedVector2Array(-16, 23, -20, 19, 2, -10, -1, -12, -5, -8, -7, -10,
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("9_4qbo6")
+damage = 12
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitbox/FrontSlash"]
 position = Vector2(1, 27)
@@ -389,6 +390,7 @@ visible = false
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("9_4qbo6")
+damage = 0
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitbox/BackSlash"]
 position = Vector2(0, 27)
@@ -396,7 +398,10 @@ polygon = PackedVector2Array(42, -19, 57, -29, 62, -37, 58, -47, 45, -53, -5, -5
 
 [node name="HeavySlash" type="Area2D" parent="Hitbox"]
 visible = false
+collision_layer = 4
+collision_mask = 8
 script = ExtResource("9_4qbo6")
+damage = 35
 
 [node name="Shape" type="CollisionPolygon2D" parent="Hitbox/HeavySlash"]
 polygon = PackedVector2Array(-45, -27, -34, -35, -21, -40, -1, -41, 20, -34, 34, -17, 34, 0, 28, 9, 28, 15, 46, 23, 53, 21, 70, 8, 79, -11, 78, -29, 66, -46, 43, -60, 19, -64, -3, -62, -26, -52, -39, -39)

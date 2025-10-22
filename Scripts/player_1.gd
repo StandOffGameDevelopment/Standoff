@@ -17,6 +17,13 @@ signal died
 @onready var hb_idle: Hurtbox2D = $Hurtboxes/Idle
 @onready var hb_run:  Hurtbox2D = $Hurtboxes/Run
 
+@onready var hit_container: Node2D = $Hitbox
+@onready var hurt_container: Node2D = $Hurtboxes
+
+var facing_left: bool = false  # our authoritative facing flag
+var locked_facing_left: bool = false   # facing locked during attacks
+
+
 @onready var body_shape: CollisionShape2D = $Collision # adjust path if different
 
 # --- Movement constants ---
@@ -35,7 +42,7 @@ var _attack_anims := { "FrontSlash": true, "BackSlash": true, "HeavySlash": true
 # --- Cost of every move that consumes stamina ---
 const STAMINA_COST := {
 	"FrontSlash" : 10,
-	"BackSlash" : 10,
+	"BackSlash" : 8,
 	"HeavySlash" : 25,
 }
 
@@ -48,7 +55,7 @@ var direction := 0.0
 
 # --- Variables relates to x-axis movement
 var is_attacking := false
-var locked_flip_h := false      # remembers direction during attack
+
 
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -75,6 +82,9 @@ func _ready() -> void:
 	if is_instance_valid(hit_back):
 		hit_back.set_instigator(self)
 		hit_back.set_active(false)
+	
+	# Ensure consistent initial orientation
+	_apply_facing(false)  # or true if you want to start facing left
 
 	# Animation-driven toggles
 	if not animated_sprite.frame_changed.is_connected(_on_sprite_frame_changed):
@@ -102,6 +112,15 @@ func _ready() -> void:
 func is_parrying_now() -> bool:
 	return _parry_active and not is_dead
 
+# -- Flip hurtboxes
+
+func _apply_facing(new_left: bool) -> void:
+	# visuals
+	animated_sprite.flip_h = new_left
+	# mirror hit/hurt containers
+	if $Hitbox:     $Hitbox.scale.x     = ( -1.0 if new_left else 1.0 )
+	if $Hurtboxes:  $Hurtboxes.scale.x  = ( -1.0 if new_left else 1.0 )
+	facing_left = new_left
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -207,17 +226,27 @@ func update_gravity(delta: float) -> void:
 
 
 func update_direction() -> void:
-	# Update direction every frame
+	# Compute movement intent
 	direction = 0.0
 	if not is_attacking:
-		if move_left: direction -= 1
-		if move_right: direction += 1
-		
-	# Flip sprite based on direction (freeze during attack)
+		if move_left:  direction -= 1.0
+		if move_right: direction += 1.0
+
+	# Decide desired facing:
+	# - If attacking: use the facing we locked at attack start
+	# - Else if moving: face based on movement
+	# - Else (idle): keep current facing (do NOT snap right)
+	var desired_left := facing_left
 	if is_attacking:
-		animated_sprite.flip_h = locked_flip_h
-	elif direction != 0:
-		animated_sprite.flip_h = direction < 0
+		desired_left = locked_facing_left
+	elif direction != 0.0:
+		desired_left = (direction < 0.0)
+
+	# Only apply when it actually changes
+	if desired_left != facing_left:
+		_apply_facing(desired_left)
+
+
 
 
 func update_animation() -> void:
@@ -295,7 +324,7 @@ func _start_parry() -> void:
 	if STAMINA_COST["BackSlash"] > currentStamina: return
 	spend_stamina("BackSlash")
 	is_attacking = true
-	locked_flip_h = animated_sprite.flip_h
+	locked_facing_left = facing_left      # was: animated_sprite.flip_h
 	animated_sprite.play("BackSlash")
 	velocity.x = 0
 
@@ -304,7 +333,7 @@ func handle_move(move: String) -> void:
 	if (not is_attacking) and (STAMINA_COST[move] <= currentStamina):
 		spend_stamina(move)
 		is_attacking = true
-		locked_flip_h = animated_sprite.flip_h   # store facing at attack start
+		locked_facing_left = facing_left      # was: animated_sprite.flip_h
 		animated_sprite.play(move)
 		velocity.x = 0
 
