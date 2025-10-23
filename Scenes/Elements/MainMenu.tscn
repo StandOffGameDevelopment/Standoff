@@ -1,0 +1,124 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5dy81lwb4lm1"]
+
+[ext_resource type="Script" uid="uid://c755pgtt12hcu" path="res://Scripts/main_menu.gd" id="1_853f1"]
+[ext_resource type="Texture2D" uid="uid://bo558yj0hlgrb" path="res://Assets/Background/MiddleMap.png" id="2_8saeu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ghw46"]
+texture = ExtResource("2_8saeu")
+modulate_color = Color(0.5409905, 0.5409905, 0.5409905, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnhvo"]
+bg_color = Color(0.3894028, 0.6267328, 0.34587327, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.20392157)
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_df05h"]
+bg_color = Color(0.120227985, 0.2202316, 0.10220636, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.20392157)
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8um5k"]
+bg_color = Color(0.20626721, 0.35428876, 0.17959067, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.20392157)
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xim88"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_853f1")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ghw46")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -61.0
+offset_right = 360.0
+offset_bottom = 186.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_df05h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8um5k")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xim88")
+text = "Start Game"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_df05h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8um5k")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xim88")
+text = "Exit Game"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.25
+offset_top = -295.0
+offset_right = 65.25
+offset_bottom = -245.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/paragraph_spacing = 30
+theme_override_font_sizes/font_size = 100
+text = "Standoff"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_exit_pressed"]
