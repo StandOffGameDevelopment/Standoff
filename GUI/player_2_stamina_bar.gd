@@ -7,7 +7,7 @@ var player: Node = null
 var stamina: Node = null
 
 func _ready() -> void:
-	add_to_group("hud_stamina")
+	add_to_group("hud_health")
 
 	min_value = 0
 	max_value = 100

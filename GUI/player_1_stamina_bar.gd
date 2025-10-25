@@ -8,7 +8,7 @@ var stamina: Node = null
 
 func _ready() -> void:
 	# So the Respawner can easily find & rebind this bar
-	add_to_group("hud_stamina")
+	add_to_group("hud_health")
 
 	# ProgressBar setup (percent-based like your health bar)
 	min_value = 0
