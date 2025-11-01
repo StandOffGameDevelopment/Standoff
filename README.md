@@ -29,11 +29,6 @@ Each duel emphasizes **timing**, **prediction**, and **strategy** rather than co
 ---
 
 ## 👥 Development Team  
-|------|------|
-| **Ersoy Baki** |
-| **Arda Bizel** |
-| **Isik Ali Akpinar** |
-|  **Tudor Suteu** |
-|  **Mihnea Buzoiu** |
+**Ersoy Baki**, **Arda Bizel**, **Isik Ali Akpinar**, **Tudor Suteu**, **Mihnea Buzoiu** 
 
 ---
